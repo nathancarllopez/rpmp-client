@@ -262,8 +262,8 @@ type ToCamelCase<T, E extends Record<string, any> = {}> = {
 // export type InsertProfileRow =
 //   Database["public"]["Tables"]["profiles"]["Insert"];
 
-// export type ProfileRow = ToCamelCase<SupaProfileRow>;
-// export type RoleInfoRow = ToCamelCase<SupaRoleInfoRow>;
+export type ProfileRow = ToCamelCase<SupaProfileRow>;
+export type RoleInfoRow = ToCamelCase<SupaRoleInfoRow>;
 
 // export interface NewUserInfo {
 //   email: string;
@@ -406,17 +406,17 @@ type ToCamelCase<T, E extends Record<string, any> = {}> = {
  * *****************************
  */
 //#region
-// interface NavbarLinkInfo {
-//   id: string;
-//   label: string;
-//   href?: string;
-// }
+interface NavbarLinkInfo {
+  id: string;
+  label: string;
+  href?: string;
+}
 
-// export interface NavbarInfo extends NavbarLinkInfo {
-//   hasPermission: string[];
-//   icon: ReactNode;
-//   sublinks?: NavbarLinkInfo[];
-// }
+export interface NavbarInfo extends NavbarLinkInfo {
+  hasPermission: string[];
+  icon: ReactNode;
+  sublinks?: NavbarLinkInfo[];
+}
 //#endregion
 
 
