@@ -12,8 +12,8 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import { routeTree } from './routeTree.gen'
 
-import { TanStackQueryProvider } from "./tanstack-query/QueryClientProvider.tsx";
-import { queryClient } from "./tanstack-query/QueryClientProvider.tsx";
+import { TanStackQueryProvider } from "@/tanstack-query/QueryClientProvider.tsx";
+import { queryClient } from "@/tanstack-query/QueryClientProvider.tsx";
 
 const router = createRouter({ routeTree, context: {
   userId: null,
