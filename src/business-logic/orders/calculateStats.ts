@@ -53,11 +53,7 @@ export default function calculateStats(
   );
 
   // Calculate ingredient amounts of proteins for stats
-  console.log('proteinInfo', proteinInfo);
-
   const allProteins = Object.keys(proteinInfo);
-  console.log('allProteins', allProteins);
-
   for (const protein of allProteins) {
     // On stats sheet, beefBison is split into beef and bison, so we skip that one
     if (protein === "beefBison") continue;
@@ -73,8 +69,6 @@ export default function calculateStats(
       ingredientType: "proteins"
     }
   }
-
-  console.log('stats.proteins', stats.proteins);
 
   // Add two pounds to sirloin to account for trimmed fat
   stats.proteins["sirloin"].amount += 2;
