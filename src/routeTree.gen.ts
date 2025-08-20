@@ -15,6 +15,8 @@ import { Route as DashboardHomeRouteImport } from './routes/dashboard/home'
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
 import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
 import { Route as authChangePasswordRouteImport } from './routes/(auth)/changePassword'
+import { Route as DashboardOrdersProcessOrderRouteImport } from './routes/dashboard/_orders/process-order'
+import { Route as DashboardOrdersOrderHistoryRouteImport } from './routes/dashboard/_orders/order-history'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -46,6 +48,18 @@ const authChangePasswordRoute = authChangePasswordRouteImport.update({
   path: '/changePassword',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardOrdersProcessOrderRoute =
+  DashboardOrdersProcessOrderRouteImport.update({
+    id: '/_orders/process-order',
+    path: '/process-order',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardOrdersOrderHistoryRoute =
+  DashboardOrdersOrderHistoryRouteImport.update({
+    id: '/_orders/order-history',
+    path: '/order-history',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByFullPath {
   '/loggedOut': typeof authLoggedOutRoute
   '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +78,8 @@ export interface FileRoutesByTo {
   '/loggedOut': typeof authLoggedOutRoute
   '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +89,8 @@ export interface FileRoutesById {
   '/(auth)/loggedOut': typeof authLoggedOutRoute
   '/(auth)/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/_orders/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/_orders/process-order': typeof DashboardOrdersProcessOrderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +101,8 @@ export interface FileRouteTypes {
     | '/loggedOut'
     | '/resetPassword'
     | '/dashboard/home'
+    | '/dashboard/order-history'
+    | '/dashboard/process-order'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +111,8 @@ export interface FileRouteTypes {
     | '/loggedOut'
     | '/resetPassword'
     | '/dashboard/home'
+    | '/dashboard/order-history'
+    | '/dashboard/process-order'
   id:
     | '__root__'
     | '/'
@@ -97,6 +121,8 @@ export interface FileRouteTypes {
     | '/(auth)/loggedOut'
     | '/(auth)/resetPassword'
     | '/dashboard/home'
+    | '/dashboard/_orders/order-history'
+    | '/dashboard/_orders/process-order'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -151,15 +177,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authChangePasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/_orders/process-order': {
+      id: '/dashboard/_orders/process-order'
+      path: '/process-order'
+      fullPath: '/dashboard/process-order'
+      preLoaderRoute: typeof DashboardOrdersProcessOrderRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/_orders/order-history': {
+      id: '/dashboard/_orders/order-history'
+      path: '/order-history'
+      fullPath: '/dashboard/order-history'
+      preLoaderRoute: typeof DashboardOrdersOrderHistoryRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
 interface DashboardRouteRouteChildren {
   DashboardHomeRoute: typeof DashboardHomeRoute
+  DashboardOrdersOrderHistoryRoute: typeof DashboardOrdersOrderHistoryRoute
+  DashboardOrdersProcessOrderRoute: typeof DashboardOrdersProcessOrderRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardHomeRoute: DashboardHomeRoute,
+  DashboardOrdersOrderHistoryRoute: DashboardOrdersOrderHistoryRoute,
+  DashboardOrdersProcessOrderRoute: DashboardOrdersProcessOrderRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
