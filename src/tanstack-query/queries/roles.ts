@@ -1,7 +1,7 @@
 import { supabase } from "@/supabase/client";
 import type { RoleInfoRow } from "@/types/rpmp-types";
-import { snakeToCamel } from "@/util/key-converters";
 import { queryOptions } from "@tanstack/react-query";
+import { snakeToCamel } from "../key-converters";
 
 export function rolesOptions() {
   return queryOptions({

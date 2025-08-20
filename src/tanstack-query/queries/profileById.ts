@@ -1,7 +1,7 @@
 import { supabase } from "@/supabase/client";
 import type { ProfileRow } from "@/types/rpmp-types";
-import { snakeToCamel } from "@/util/key-converters";
 import { queryOptions } from "@tanstack/react-query";
+import { snakeToCamel } from "../key-converters";
 
 export function profileByIdOptions(userId: string) {
   return queryOptions({
