@@ -12,7 +12,13 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import { routeTree } from './routeTree.gen'
 
-const router = createRouter({ routeTree })
+import { TanStackQueryProvider } from "./tanstack-query/QueryClientProvider.tsx";
+import { queryClient } from "./tanstack-query/QueryClientProvider.tsx";
+
+const router = createRouter({ routeTree, context: {
+  userId: null,
+  queryClient
+}, defaultPreload: "intent", scrollRestoration: true })
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -27,7 +33,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <MantineProvider theme={theme}>
         <Notifications/>
-        <RouterProvider router={router} />
+        <TanStackQueryProvider>
+          <RouterProvider router={router} />
+        </TanStackQueryProvider>
       </MantineProvider>
     </StrictMode>,
   )
