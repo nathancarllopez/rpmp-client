@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardHomeRouteImport } from './routes/dashboard/home'
+import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
+import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
 import { Route as authChangePasswordRouteImport } from './routes/(auth)/changePassword'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -29,6 +31,16 @@ const DashboardHomeRoute = DashboardHomeRouteImport.update({
   path: '/home',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const authResetPasswordRoute = authResetPasswordRouteImport.update({
+  id: '/(auth)/resetPassword',
+  path: '/resetPassword',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authLoggedOutRoute = authLoggedOutRouteImport.update({
+  id: '/(auth)/loggedOut',
+  path: '/loggedOut',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const authChangePasswordRoute = authChangePasswordRouteImport.update({
   id: '/(auth)/changePassword',
   path: '/changePassword',
@@ -39,12 +51,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/changePassword': typeof authChangePasswordRoute
+  '/loggedOut': typeof authLoggedOutRoute
+  '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/changePassword': typeof authChangePasswordRoute
+  '/loggedOut': typeof authLoggedOutRoute
+  '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
 }
 export interface FileRoutesById {
@@ -52,18 +68,34 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/(auth)/changePassword': typeof authChangePasswordRoute
+  '/(auth)/loggedOut': typeof authLoggedOutRoute
+  '/(auth)/resetPassword': typeof authResetPasswordRoute
   '/dashboard/home': typeof DashboardHomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/changePassword' | '/dashboard/home'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/changePassword'
+    | '/loggedOut'
+    | '/resetPassword'
+    | '/dashboard/home'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/changePassword' | '/dashboard/home'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/changePassword'
+    | '/loggedOut'
+    | '/resetPassword'
+    | '/dashboard/home'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/(auth)/changePassword'
+    | '/(auth)/loggedOut'
+    | '/(auth)/resetPassword'
     | '/dashboard/home'
   fileRoutesById: FileRoutesById
 }
@@ -71,6 +103,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   authChangePasswordRoute: typeof authChangePasswordRoute
+  authLoggedOutRoute: typeof authLoggedOutRoute
+  authResetPasswordRoute: typeof authResetPasswordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -95,6 +129,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/home'
       preLoaderRoute: typeof DashboardHomeRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/(auth)/resetPassword': {
+      id: '/(auth)/resetPassword'
+      path: '/resetPassword'
+      fullPath: '/resetPassword'
+      preLoaderRoute: typeof authResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/loggedOut': {
+      id: '/(auth)/loggedOut'
+      path: '/loggedOut'
+      fullPath: '/loggedOut'
+      preLoaderRoute: typeof authLoggedOutRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(auth)/changePassword': {
       id: '/(auth)/changePassword'
@@ -122,6 +170,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   authChangePasswordRoute: authChangePasswordRoute,
+  authLoggedOutRoute: authLoggedOutRoute,
+  authResetPasswordRoute: authResetPasswordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
