@@ -1,3 +1,11 @@
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import "@mantine/dropzone/styles.css";
+import '@mantine/dates/styles.css';
+import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
+import { theme } from "./theme";
+
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
@@ -17,7 +25,10 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <MantineProvider theme={theme}>
+        <Notifications/>
+        <RouterProvider router={router} />
+      </MantineProvider>
     </StrictMode>,
   )
 }
