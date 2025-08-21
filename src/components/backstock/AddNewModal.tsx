@@ -85,7 +85,7 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
   const ModalHeader = () => (
     <Group>
       <Title>Add New Backstock</Title>
-      <ActionIcon onClick={handleResetFields}>
+      <ActionIcon onClick={handleResetFields} variant="default" size={"lg"}>
         <IconRestore />
       </ActionIcon>
       <CloseButton size={"lg"} ms="auto" onClick={handleClose} />
