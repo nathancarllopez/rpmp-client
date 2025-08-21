@@ -1,24 +1,27 @@
 import { Alert, Button, Group, Modal, Text, Title } from "@mantine/core";
 
 interface NavigationBlockAlertProps {
-  opened: boolean;
-  proceed: (() => void) | undefined;
-  reset: (() => void) | undefined;
-  text: {
+  blockerProps: {
+    status: "blocked" | "idle";
+    proceed: (() => void) | undefined;
+    reset: (() => void) | undefined;
+  }
+  alertText: {
     title: string;
     message: string;
   };
 }
 
 export default function NavigationBlockAlert({
-  opened,
-  proceed,
-  reset,
-  text,
+  blockerProps,
+  alertText,
 }: NavigationBlockAlertProps) {
+  const { status, proceed, reset } = blockerProps;
+  const { title, message } = alertText;
+
   return (
     <Modal.Root
-      opened={opened}
+      opened={status === "blocked"}
       onClose={() => {}}
       closeOnClickOutside={false}
       closeOnEscape={false}
@@ -28,11 +31,11 @@ export default function NavigationBlockAlert({
       <Modal.Content p={0}>
         <Modal.Body p={0}>
           <Alert
-            title={<Title order={2}>{text.title}</Title>}
+            title={<Title order={2}>{title}</Title>}
             withCloseButton
             onClose={reset}
           >
-            <Text mb={'md'}>{text.message}</Text>
+            <Text mb={'md'}>{message}</Text>
             <Group justify="center">
               <Button variant="outline" onClick={reset}>Go Back</Button>
               <Button onClick={proceed}>Proceed</Button>
