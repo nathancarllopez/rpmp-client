@@ -16,6 +16,7 @@ import { Route as DashboardBackstockRouteImport } from './routes/dashboard/backs
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
 import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
 import { Route as authChangePasswordRouteImport } from './routes/(auth)/changePassword'
+import { Route as DashboardTimecardsTimecardHistoryRouteImport } from './routes/dashboard/_timecards/timecard-history'
 import { Route as DashboardTimecardsCreateTimecardsRouteImport } from './routes/dashboard/_timecards/create-timecards'
 import { Route as DashboardOrdersProcessOrderRouteImport } from './routes/dashboard/_orders/process-order'
 import { Route as DashboardOrdersOrderHistoryRouteImport } from './routes/dashboard/_orders/order-history'
@@ -55,6 +56,12 @@ const authChangePasswordRoute = authChangePasswordRouteImport.update({
   path: '/changePassword',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardTimecardsTimecardHistoryRoute =
+  DashboardTimecardsTimecardHistoryRouteImport.update({
+    id: '/_timecards/timecard-history',
+    path: '/timecard-history',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const DashboardTimecardsCreateTimecardsRoute =
   DashboardTimecardsCreateTimecardsRouteImport.update({
     id: '/_timecards/create-timecards',
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
   '/dashboard/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -97,6 +105,7 @@ export interface FileRoutesByTo {
   '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
   '/dashboard/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,6 +119,7 @@ export interface FileRoutesById {
   '/dashboard/_orders/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/_orders/process-order': typeof DashboardOrdersProcessOrderRoute
   '/dashboard/_timecards/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/_timecards/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/dashboard/order-history'
     | '/dashboard/process-order'
     | '/dashboard/create-timecards'
+    | '/dashboard/timecard-history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/dashboard/order-history'
     | '/dashboard/process-order'
     | '/dashboard/create-timecards'
+    | '/dashboard/timecard-history'
   id:
     | '__root__'
     | '/'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
     | '/dashboard/_orders/order-history'
     | '/dashboard/_orders/process-order'
     | '/dashboard/_timecards/create-timecards'
+    | '/dashboard/_timecards/timecard-history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -209,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authChangePasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/_timecards/timecard-history': {
+      id: '/dashboard/_timecards/timecard-history'
+      path: '/timecard-history'
+      fullPath: '/dashboard/timecard-history'
+      preLoaderRoute: typeof DashboardTimecardsTimecardHistoryRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/_timecards/create-timecards': {
       id: '/dashboard/_timecards/create-timecards'
       path: '/create-timecards'
@@ -239,6 +259,7 @@ interface DashboardRouteRouteChildren {
   DashboardOrdersOrderHistoryRoute: typeof DashboardOrdersOrderHistoryRoute
   DashboardOrdersProcessOrderRoute: typeof DashboardOrdersProcessOrderRoute
   DashboardTimecardsCreateTimecardsRoute: typeof DashboardTimecardsCreateTimecardsRoute
+  DashboardTimecardsTimecardHistoryRoute: typeof DashboardTimecardsTimecardHistoryRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -248,6 +269,8 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardOrdersProcessOrderRoute: DashboardOrdersProcessOrderRoute,
   DashboardTimecardsCreateTimecardsRoute:
     DashboardTimecardsCreateTimecardsRoute,
+  DashboardTimecardsTimecardHistoryRoute:
+    DashboardTimecardsTimecardHistoryRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
