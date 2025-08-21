@@ -1,10 +1,7 @@
 import type { NavbarInfo } from "@/types/rpmp-types";
 import {
-  // IconBooks,
-  // IconMeat,
   IconReceiptDollar,
   IconSnowflake,
-  // IconTemplate,
   IconToolsKitchen3,
   IconUsers,
 } from "@tabler/icons-react";
@@ -53,37 +50,6 @@ export const navbarInfo: NavbarInfo[] = [
       },
     ],
   },
-  // {
-  //   id: "finances",
-  //   label: "Finances",
-  //   icon: <IconBooks />,
-  //   hasPermission: ["admin", 'owner'],
-  //   sublinks: [
-  //     {
-  //       id: "calculate-statement",
-  //       label: "Calculate Statement",
-  //       href: "/dashboard/calculate-statement"
-  //     },
-  //     {
-  //       id: "statement-history",
-  //       label: "Statement History",
-  //       href: "/dashboard/statement-history"
-  //     },
-  //   ],
-  // },
-  // {
-  //   id: "menu",
-  //   label: "Menu",
-  //   icon: <IconMeat />,
-  //   hasPermission: ["admin", 'owner'],
-  //   sublinks: [
-  //     {
-  //       id: 'proteins',
-  //       label: "Proteins",
-  //       href: "/dashboard/proteins"
-  //     }
-  //   ]
-  // },
   {
     id: "employees",
     label: "Employees",
@@ -91,17 +57,4 @@ export const navbarInfo: NavbarInfo[] = [
     href: "/dashboard/employees",
     hasPermission: ["admin", 'owner'],
   },
-  // {
-  //   id: "templates",
-  //   label: "Templates",
-  //   icon: <IconTemplate />,
-  //   hasPermission: ["admin", "owner", "manager"],
-  //   sublinks: [
-  //     {
-  //       id: "pull-list",
-  //       label: "Pull List",
-  //       href: "/dashboard/pull-list",
-  //     },
-  //   ],
-  // },
 ];
