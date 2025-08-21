@@ -266,30 +266,29 @@ export type OrderHistoryRow = ToCamelCase<
  * *****************************
  */
 //#region
-// export type InsertProfileRow =
-//   Database["public"]["Tables"]["profiles"]["Insert"];
+export type InsertProfileRow =
+  Database["public"]["Tables"]["profiles"]["Insert"];
 
 export type ProfileRow = ToCamelCase<SupaProfileRow>;
 export type RoleInfoRow = ToCamelCase<SupaRoleInfoRow>;
 
-// export interface NewUserInfo {
-//   email: string;
-//   profileData: {
-//     firstName: string;
-//     lastName: string;
-//     role: string;
-//     email: string;
-//     kitchenRate: number | null;
-//     drivingRate: number | null;
-//     displayColor: string | null;
-//   };
-// }
+export interface NewUserInfo {
+  email: string;
+  profileData: {
+    firstName: string;
+    lastName: string;
+    role: string;
+    email: string;
+    kitchenRate: number | null;
+    drivingRate: number | null;
+    displayColor: string | null;
+  };
+}
 
-// export interface CreatedUserInfo {
-//   profile: ProfileRow;
-//   profilePicUrl: string;
-//   settings: SettingsRow;
-// }
+export interface CreatedUserInfo {
+  profile: ProfileRow;
+  profilePicUrl: string;
+}
 //#endregion
 
 /**
