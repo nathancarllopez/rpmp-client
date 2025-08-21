@@ -298,101 +298,101 @@ export type RoleInfoRow = ToCamelCase<SupaRoleInfoRow>;
  * *****************************
  */
 //#region
-// export type InsertTimecardHistoryRow =
-//   Database["public"]["Tables"]["timecards_history"]["Insert"];
+export interface TimecardValues extends ProfileRow {
+  hasChanged: boolean;
+  renderKey: number;
 
-// export interface TimecardValues extends ProfileRow {
-//   hasChanged: boolean;
-//   renderKey: number;
+  profilePicUrl: string;
 
-//   profilePicUrl: string;
+  drivingRate: number;
+  kitchenRate: number;
 
-//   drivingRate: number;
-//   kitchenRate: number;
+  sundayStart: string;
+  sundayEnd: string;
+  sundayTotalHours: number;
+  sundayOvertimeHours: number;
+  sundayOvertimePay: number;
+  sundayRegularPay: number;
+  sundayTotalPay: number;
 
-//   sundayStart: string;
-//   sundayEnd: string;
-//   sundayTotalHours: number;
-//   sundayOvertimeHours: number;
-//   sundayOvertimePay: number;
-//   sundayRegularPay: number;
-//   sundayTotalPay: number;
+  mondayStart: string;
+  mondayEnd: string;
+  mondayTotalHours: number;
+  mondayOvertimeHours: number;
+  mondayOvertimePay: number;
+  mondayRegularPay: number;
+  mondayTotalPay: number;
 
-//   mondayStart: string;
-//   mondayEnd: string;
-//   mondayTotalHours: number;
-//   mondayOvertimeHours: number;
-//   mondayOvertimePay: number;
-//   mondayRegularPay: number;
-//   mondayTotalPay: number;
+  drivingStart: string;
+  drivingEnd: string;
+  drivingTotalHours: number;
+  drivingOvertimeHours: number;
+  drivingOvertimePay: number;
+  drivingRegularPay: number;
+  drivingTotalPay: number;
+  costPerStop: number;
+  drivingTotalCost: number;
+  route1: number | "";
+  route2: number | "";
+  stops: number;
 
-//   drivingStart: string;
-//   drivingEnd: string;
-//   drivingTotalHours: number;
-//   drivingOvertimeHours: number;
-//   drivingOvertimePay: number;
-//   drivingRegularPay: number;
-//   drivingTotalPay: number;
-//   costPerStop: number;
-//   drivingTotalCost: number;
-//   route1: number | "";
-//   route2: number | "";
-//   stops: number;
+  miscDescription: string;
+  miscAmount: number | "";
+  miscPayCode: string;
 
-//   miscDescription: string;
-//   miscAmount: number | "";
-//   miscPayCode: string;
+  grandTotal: number;
+}
 
-//   grandTotal: number;
-// }
+export interface TimecardDisplayValues {
+  fullName: string;
 
-// export interface TimecardDisplayValues {
-//   fullName: string;
+  kitchenRate: string;
+  drivingRate: string;
 
-//   kitchenRate: string;
-//   drivingRate: string;
+  sundayStart: string;
+  sundayEnd: string;
+  sundayTotalHours: string;
+  sundayOvertimeHours: string;
+  sundayRegularPay: string;
+  sundayOvertimePay: string;
+  sundayTotalPay: string;
 
-//   sundayStart: string;
-//   sundayEnd: string;
-//   sundayTotalHours: string;
-//   sundayOvertimeHours: string;
-//   sundayRegularPay: string;
-//   sundayOvertimePay: string;
-//   sundayTotalPay: string;
+  mondayStart: string;
+  mondayEnd: string;
+  mondayTotalHours: string;
+  mondayOvertimeHours: string;
+  mondayRegularPay: string;
+  mondayOvertimePay: string;
+  mondayTotalPay: string;
 
-//   mondayStart: string;
-//   mondayEnd: string;
-//   mondayTotalHours: string;
-//   mondayOvertimeHours: string;
-//   mondayRegularPay: string;
-//   mondayOvertimePay: string;
-//   mondayTotalPay: string;
+  drivingStart: string;
+  drivingEnd: string;
+  drivingTotalHours: string;
+  drivingOvertimeHours: string;
+  drivingRegularPay: string;
+  drivingOvertimePay: string;
+  drivingTotalPay: string;
+  route1: string;
+  route2: string;
 
-//   drivingStart: string;
-//   drivingEnd: string;
-//   drivingTotalHours: string;
-//   drivingOvertimeHours: string;
-//   drivingRegularPay: string;
-//   drivingOvertimePay: string;
-//   drivingTotalPay: string;
-//   route1: string;
-//   route2: string;
+  stops: string;
+  costPerStop: string;
+  drivingTotalCost: string;
 
-//   stops: string;
-//   costPerStop: string;
-//   drivingTotalCost: string;
+  miscAmount: string;
+  miscDescription: string;
+  miscPayCode: string;
 
-//   miscAmount: string;
-//   miscDescription: string;
-//   miscPayCode: string;
+  grandTotal: string;
+}
 
-//   grandTotal: string;
-// }
+export type TimecardHistoryRow = ToCamelCase<
+  SupaTimecardHistoryRow,
+  { data: TimecardValues[] }
+>;
 
-// export type TimecardHistoryRow = ToCamelCase<
-//   SupaTimecardHistoryRow,
-//   { data: TimecardValues[] }
-// >;
+export type InsertTimecardHistoryRow =
+  Database["public"]["Tables"]["timecards_history"]["Insert"];
 //#endregion
 
 /**
