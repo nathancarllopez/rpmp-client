@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardHomeRouteImport } from './routes/dashboard/home'
+import { Route as DashboardEmployeesRouteImport } from './routes/dashboard/employees'
 import { Route as DashboardBackstockRouteImport } from './routes/dashboard/backstock'
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
 import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
@@ -34,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardHomeRoute = DashboardHomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardEmployeesRoute = DashboardEmployeesRouteImport.update({
+  id: '/employees',
+  path: '/employees',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardBackstockRoute = DashboardBackstockRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/loggedOut': typeof authLoggedOutRoute
   '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
   '/dashboard/home': typeof DashboardHomeRoute
   '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/loggedOut': typeof authLoggedOutRoute
   '/resetPassword': typeof authResetPasswordRoute
   '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
   '/dashboard/home': typeof DashboardHomeRoute
   '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/(auth)/loggedOut': typeof authLoggedOutRoute
   '/(auth)/resetPassword': typeof authResetPasswordRoute
   '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
   '/dashboard/home': typeof DashboardHomeRoute
   '/dashboard/_orders/order-history': typeof DashboardOrdersOrderHistoryRoute
   '/dashboard/_orders/process-order': typeof DashboardOrdersProcessOrderRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/loggedOut'
     | '/resetPassword'
     | '/dashboard/backstock'
+    | '/dashboard/employees'
     | '/dashboard/home'
     | '/dashboard/order-history'
     | '/dashboard/process-order'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/loggedOut'
     | '/resetPassword'
     | '/dashboard/backstock'
+    | '/dashboard/employees'
     | '/dashboard/home'
     | '/dashboard/order-history'
     | '/dashboard/process-order'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/(auth)/loggedOut'
     | '/(auth)/resetPassword'
     | '/dashboard/backstock'
+    | '/dashboard/employees'
     | '/dashboard/home'
     | '/dashboard/_orders/order-history'
     | '/dashboard/_orders/process-order'
@@ -192,6 +204,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/dashboard/home'
       preLoaderRoute: typeof DashboardHomeRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/employees': {
+      id: '/dashboard/employees'
+      path: '/employees'
+      fullPath: '/dashboard/employees'
+      preLoaderRoute: typeof DashboardEmployeesRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/backstock': {
@@ -255,6 +274,7 @@ declare module '@tanstack/react-router' {
 
 interface DashboardRouteRouteChildren {
   DashboardBackstockRoute: typeof DashboardBackstockRoute
+  DashboardEmployeesRoute: typeof DashboardEmployeesRoute
   DashboardHomeRoute: typeof DashboardHomeRoute
   DashboardOrdersOrderHistoryRoute: typeof DashboardOrdersOrderHistoryRoute
   DashboardOrdersProcessOrderRoute: typeof DashboardOrdersProcessOrderRoute
@@ -264,6 +284,7 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardBackstockRoute: DashboardBackstockRoute,
+  DashboardEmployeesRoute: DashboardEmployeesRoute,
   DashboardHomeRoute: DashboardHomeRoute,
   DashboardOrdersOrderHistoryRoute: DashboardOrdersOrderHistoryRoute,
   DashboardOrdersProcessOrderRoute: DashboardOrdersProcessOrderRoute,
