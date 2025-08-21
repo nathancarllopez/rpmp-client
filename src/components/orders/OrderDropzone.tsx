@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
-import { Box, Container, Group, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Container, Group, Paper, Stack, Text, Title } from "@mantine/core";
 import { Dropzone, MIME_TYPES, type FileWithPath } from "@mantine/dropzone";
 import { IconFileDescription, IconUpload, IconX } from "@tabler/icons-react";
-import Papa from "papaparse";
+import Papa, { parse } from "papaparse";
 import type { AllBackstockRow, OrderReportInfo, VeggieCarbInfoRow } from "@/types/rpmp-types";
 import { orderHeadersOptions } from "@/tanstack-query/queries/orderHeaders";
 import { flavorsOptions } from "@/tanstack-query/queries/flavors";
@@ -17,6 +17,7 @@ import { calculateMealRows } from "@/business-logic/orders/calculateMealRows";
 import { updateProteinWeights } from "@/business-logic/orders/updateProteinWeights";
 import calculateStats from "@/business-logic/orders/calculateStats";
 import fetchOrderReviewUrl from "@/api/fetchOrderReviewUrl";
+import classes from "./OrderDropzone.module.css";
 
 export interface OrderDropzoneProps {
   orderReportInfo: OrderReportInfo;
@@ -93,7 +94,7 @@ export function OrderDropzone({
     notifications.show({
       withCloseButton: true,
       color: "red",
-      title: "Upload Failed",
+      title: "Incorrect File Format",
       message: "Please upload a csv",
     });
   };
@@ -106,6 +107,7 @@ export function OrderDropzone({
         accept={[MIME_TYPES.csv]}
         loading={isParsing}
         disabled={!!parseError}
+        className={!!parseError ? classes.disabled : undefined}
       >
         <Group justify="center" mih={100} style={{ pointerEvents: "none" }}>
           <Dropzone.Idle>
@@ -132,10 +134,10 @@ export function OrderDropzone({
       </Dropzone>
 
       {parseError && (
-        <>
-          <Text>Issue parsing order:</Text>
-          <Text>{parseError}</Text>
-        </>
+        <Paper>
+          <Title order={3} mb={"md"}>Issue uploading order: {parseError}</Title>
+          <Button fullWidth onClick={() => setParseError(null)}>Reset</Button>
+        </Paper>
       )}
     </Stack>
   );
@@ -238,8 +240,10 @@ async function handleParseComplete(
 
     if (error instanceof Error) {
       console.warn(error.message);
+      setParseError(error.message);
     } else {
       console.warn(JSON.stringify(error));
+      setParseError(JSON.stringify(error))
     }
   } finally {
     setIsParsing(false);
