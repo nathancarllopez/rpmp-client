@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
-import { createFileRoute, useBlocker } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useDisclosure, useToggle } from "@mantine/hooks";
 import {
   Button,
@@ -21,7 +21,6 @@ import type {
   UpdateBackstockInfo,
 } from "@/types/rpmp-types";
 import { useUpdateBackstockMutation } from "@/tanstack-query/mutations/updateBackstock";
-import NavigationBlockAlert from "@/components/misc/NavigationBlockAlert";
 import AddNewModal from "@/components/backstock/AddNewModal";
 import EditSelectedModal from "@/components/backstock/EditSelectedModal";
 import BackstockTable from "@/components/backstock/BackstockTable";
@@ -43,11 +42,6 @@ function Backstock() {
   const [addOpened, { open: openAdd, close: closeAdd }] = useDisclosure(false);
   const [removeOpened, { open: openEdit, close: closeEdit }] =
     useDisclosure(false);
-
-  const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => !!undoData,
-    withResolver: true,
-  });
 
   const { data: allBackstock, error } = useSuspenseQuery({
     ...backstockOptions(),
@@ -113,17 +107,6 @@ function Backstock() {
 
   return (
     <Stack>
-      <NavigationBlockAlert
-        opened={status === "blocked"}
-        proceed={proceed}
-        reset={reset}
-        text={{
-          // To do: make these more specific
-          title: "Wait stop!",
-          message: "If you leave now all will be lost!",
-        }}
-      />
-
       <AddNewModal opened={addOpened} handleClose={closeAdd} />
 
       {/* This modal should only be conditionally rendered so that the form inside is reinitialized with any changes to the selected variable */}
