@@ -49,10 +49,14 @@ function OrderProcessor() {
   const [reviewOrderUrl, setReviewOrderUrl] = useState<string | undefined>(undefined);
   const [reportUrl, setReportUrl] = useState<string | undefined>(undefined);
 
-  const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => active === 2,
+  const blockerProps = useBlocker({
+    shouldBlockFn: () => active === 2 || active === 3,
     withResolver: true,
   });
+  const alertText = {
+    title: "Leave Without Saving?",
+    message: active === 2 ? "Any changes you've made to the shop sheet will not be saved if you leave this page." : "The final report has not been downloaded and the backstock has not been updated. Leave anyway?"
+  };
 
   const errors = [proteinError].filter((error) => !!error);
   if (errors.length > 0) {
@@ -97,13 +101,8 @@ function OrderProcessor() {
   return (
     <Stack>
       <NavigationBlockAlert
-        opened={status === "blocked"}
-        proceed={proceed}
-        reset={reset}
-        text={{
-          title: "Wait stop!",
-          message: "If you leave now all will be lost!",
-        }}
+        blockerProps={blockerProps}
+        alertText={alertText}
       />
 
       <Title>Process Order</Title>
