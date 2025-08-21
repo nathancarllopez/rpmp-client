@@ -6,7 +6,6 @@ import {
 import { notifications } from "@mantine/notifications";
 import {
   IconLogout2,
-  IconSettings,
 } from "@tabler/icons-react";
 import { getRouteApi, Link, useRouter } from "@tanstack/react-router";
 import NavLinkLabel from "./NavLinkLabel.tsx";
@@ -70,13 +69,6 @@ export default function Navbar({
       <Divider my="md" />
 
       <AppShell.Section mb={"md"}>
-        <NavLink
-          label={<NavLinkLabel label="Settings" />}
-          leftSection={<IconSettings />}
-          component={Link}
-          to="/dashboard/settings"
-          onClick={closeOnMobile}
-        />
         <NavLink
           label={<NavLinkLabel label="Log out" />}
           leftSection={<IconLogout2 />}
