@@ -36,13 +36,22 @@ type ToCamelCase<T, E extends Record<string, any> = {}> = {
 
 /**
  * *****************************
+ *           BACKSTOCK
+ * *****************************
+ */
+//#region
+export type AllBackstockRow = ToCamelCase<SupaAllBackstockRow>;
+
+export type InsertBackstockRow =
+  Database["public"]["Tables"]["backstock_proteins"]["Insert"];
+//#endregion
+
+/**
+ * *****************************
  *           ORDERS
  * *****************************
  */
 //#region
-// export type InsertBackstockRow =
-//   Database["public"]["Tables"]["backstock_proteins"]["Insert"];
-
 export type InsertOrderHistoryRow =
   Database["public"]["Tables"]["order_history"]["Insert"];
 
@@ -50,7 +59,6 @@ export type InsertOrderHistoryRow =
 
 export type ContainerSize = Database["public"]["Enums"]["container_size"];
 
-export type AllBackstockRow = ToCamelCase<SupaAllBackstockRow>;
 export type FlavorRow = ToCamelCase<SupaFlavorRow>;
 export type OrderHeaderRow = ToCamelCase<SupaOrderHeaderRow>;
 // export type ProteinWithFlavorsRow = ToCamelCase<SupaProteinWithFlavorsRow>;
@@ -100,18 +108,18 @@ export interface ProteinRowWithCalcs extends ProteinRow {
 
 export type AllProteinInfo = Record<string, ProteinRowWithCalcs>
 
-// export interface SelectedBackstockRow extends AllBackstockRow {
-//   action: "edit" | "delete";
-// }
+export interface SelectedBackstockRow extends AllBackstockRow {
+  action: "edit" | "delete";
+}
 
-// export interface UpdateBackstockInfo {
-//   [id: string]: {
-//     weight: number;
-//     created_at: string; // timestampz in supabase, new Date().toISOString() here
-//     deleted_on?: string | null; // Including this property performs a soft delete, i.e., it changes the column in the backstock table, and excluding it ignores that column. The string is a timestampz and null undoes the soft delete
-//     claimed: boolean;
-//   };
-// }
+export interface UpdateBackstockInfo {
+  [id: string]: {
+    weight: number;
+    created_at: string; // timestampz in supabase, new Date().toISOString() here
+    deleted_on?: string | null; // Including this property performs a soft delete, i.e., it changes the column in the backstock table, and excluding it ignores that column. The string is a timestampz and null undoes the soft delete
+    claimed: boolean;
+  };
+}
 
 // export interface OrderStatistics {
 //   orders: number;
