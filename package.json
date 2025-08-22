@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "pretty": "npx prettier --write .",
     "lint": "eslint .",
     "preview": "vite preview",
     "types": "dotenv -e .env -- bash -c 'npx supabase gen types typescript --project-id $SUPABASE_PROJECT_REF --schema public > src/types/database.types.ts'"
