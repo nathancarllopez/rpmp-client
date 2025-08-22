@@ -1,3 +1,4 @@
+import { getBlankTimecardsData } from "@/business-logic/timecards/getBlankTimecardsData";
 import LoadingScreen from "@/components/misc/LoadingScreen";
 import TimecardsDisplay from "@/components/timecards/TimecardsDisplay";
 import TimecardsForm from "@/components/timecards/TimecardsForm";
@@ -8,7 +9,7 @@ import type { TimecardValues } from "@/types/rpmp-types";
 import { Center, Paper, Stack, Stepper, Text, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute(
   "/dashboard/_timecards/create-timecards"
@@ -35,59 +36,11 @@ function CreateTimecards() {
     allProfilePicsOptions()
   );
 
+  const initialTimecardsData = getBlankTimecardsData(employeeInfo, employeePics);
+
   const [active, setActive] = useState(0);
-  const [timecardsData, setTimecardsData] = useState<TimecardValues[]>(() =>
-    employeeInfo.map((employee) => {
-      if (!Object.hasOwn(employeePics, employee.userId)) {
-        console.warn("Could not find profile picture for this employee:");
-        console.warn(employee);
-        throw new Error("Missing profile picture");
-      }
-
-      const profilePicUrl = employeePics[employee.userId];
-      return {
-        ...employee,
-        hasChanged: false,
-        renderKey: 0,
-        profilePicUrl,
-        drivingRate: employee.drivingRate || 0,
-        kitchenRate: employee.kitchenRate || 0,
-        sundayStart: "",
-        sundayEnd: "",
-        sundayTotalHours: 0,
-        sundayOvertimeHours: 0,
-        sundayOvertimePay: 0,
-        sundayRegularPay: 0,
-        sundayTotalPay: 0,
-        mondayStart: "",
-        mondayEnd: "",
-        mondayTotalHours: 0,
-        mondayOvertimeHours: 0,
-        mondayOvertimePay: 0,
-        mondayRegularPay: 0,
-        mondayTotalPay: 0,
-        drivingStart: "",
-        drivingEnd: "",
-        drivingTotalHours: 0,
-        drivingOvertimeHours: 0,
-        drivingOvertimePay: 0,
-        drivingRegularPay: 0,
-        drivingTotalPay: 0,
-        costPerStop: 0,
-        drivingTotalCost: 0,
-        route1: "",
-        route2: "",
-        stops: 1,
-        miscDescription: "",
-        miscAmount: "",
-        miscPayCode: "",
-        grandTotal: 0,
-      };
-    })
-  );
+  const [timecardsData, setTimecardsData] = useState<TimecardValues[]>(initialTimecardsData);
   const [timecardsUrl, setTimecardsUrl] = useState<string | null>(null);
-
-  const initialTimecardsData = useMemo(() => timecardsData, []);
 
   const errors = [employeeError, picsError].filter((error) => !!error);
   if (errors.length > 0) {
