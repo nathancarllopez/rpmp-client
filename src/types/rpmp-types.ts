@@ -1,21 +1,19 @@
 import type { ReactNode } from "react";
-import { Constants, type Json } from "./database.types";
 import type {
   Database,
-  SupaProfileRow,
   SupaAllBackstockRow,
+  SupaCookSheetSectionsRow,
   SupaFlavorRow,
   SupaOrderHeaderRow,
   SupaOrderHistoryRow,
+  SupaProfileRow,
   SupaProteinRow,
-  SupaProteinWithFlavorsRow,
   SupaPullListRow,
   SupaRoleInfoRow,
-  SupaTimecardHistoryRow,
-  SupaVeggieCarbInfoRow,
   SupaStoreInfoRow,
   SupaShopTemplateRow,
-  SupaCookSheetSectionsRow
+  SupaTimecardHistoryRow,
+  SupaVeggieCarbInfoRow,
 } from "./supa-types";
 
 type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
@@ -24,14 +22,13 @@ type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
 
 // E is a map of exceptions
 type ToCamelCase<T, E extends Record<string, any> = {}> = {
-  [K in keyof T as CamelCase<K & string>]:
-    CamelCase<K & string> extends keyof E
-      ? E[CamelCase<K & string>]
-      : T[K] extends Array<infer U>
-        ? Array<ToCamelCase<U, E>>
-        : T[K] extends object
-          ? ToCamelCase<T[K], E>
-          : T[K];
+  [K in keyof T as CamelCase<K & string>]: CamelCase<K & string> extends keyof E
+    ? E[CamelCase<K & string>]
+    : T[K] extends Array<infer U>
+      ? Array<ToCamelCase<U, E>>
+      : T[K] extends object
+        ? ToCamelCase<T[K], E>
+        : T[K];
 };
 
 /**
@@ -55,31 +52,25 @@ export type InsertBackstockRow =
 export type InsertOrderHistoryRow =
   Database["public"]["Tables"]["order_history"]["Insert"];
 
-// export const containerSizes = Constants["public"]["Enums"]["container_size"];
-
 export type ContainerSize = Database["public"]["Enums"]["container_size"];
 
 export type FlavorRow = ToCamelCase<SupaFlavorRow>;
 export type OrderHeaderRow = ToCamelCase<SupaOrderHeaderRow>;
-// export type ProteinWithFlavorsRow = ToCamelCase<SupaProteinWithFlavorsRow>;
 export type PullListRow = ToCamelCase<SupaPullListRow>;
 export type StoreInfoRow = ToCamelCase<SupaStoreInfoRow>;
 export type ShopTemplateRow = ToCamelCase<SupaShopTemplateRow>;
 export type VeggieCarbInfoRow = ToCamelCase<
   SupaVeggieCarbInfoRow,
-  { amounts: { [mealCount: number]: number} }
->
-export type ProteinRow = ToCamelCase<
-  SupaProteinRow,
-  { flavors: FlavorInfo[] }
+  { amounts: { [mealCount: number]: number } }
 >;
+export type ProteinRow = ToCamelCase<SupaProteinRow, { flavors: FlavorInfo[] }>;
 export type CookSheetSectionRow = ToCamelCase<
   SupaCookSheetSectionsRow,
   {
-    columns: { property: string, label: string }[],
-    footers: { name: string, label: string }[]
+    columns: { property: string; label: string }[];
+    footers: { name: string; label: string }[];
   }
->
+>;
 
 export interface FlavorInfo {
   protein: string;
@@ -87,7 +78,6 @@ export interface FlavorInfo {
   label: string;
   baseName: string;
   rawLabel: string;
-  // cookColumn: string; // Delete
   cookRow: number;
   cookLabel: string | null;
   sauceMultiplier: number | null;
@@ -103,10 +93,10 @@ export interface FlavorInfoWithCalcs extends FlavorInfo {
 
 export interface ProteinRowWithCalcs extends ProteinRow {
   flavorInfo: Record<string, FlavorInfoWithCalcs>;
-  totalWeightToCook: number
+  totalWeightToCook: number;
 }
 
-export type AllProteinInfo = Record<string, ProteinRowWithCalcs>
+export type AllProteinInfo = Record<string, ProteinRowWithCalcs>;
 
 export interface SelectedBackstockRow extends AllBackstockRow {
   action: "edit" | "delete";
@@ -120,21 +110,6 @@ export interface UpdateBackstockInfo {
     claimed: boolean;
   };
 }
-
-// export interface OrderStatistics {
-//   orders: number;
-//   mealCount: number;
-//   veggieMeals: number;
-//   thankYouBags: number;
-//   totalProteinWeight: number;
-//   teriyakiCuppyCount: number;
-//   extraRoastedVeggies: number;
-//   proteinCubes: Record<string, number>;
-//   containers: Partial<Record<ContainerSize, number>>;
-//   proteins: IngredientAmounts;
-//   veggieCarbs: IngredientAmounts;
-//   carbsToCook: IngredientAmounts;
-// }
 
 export interface OrderStatistics {
   numOrders: number;
@@ -171,7 +146,7 @@ export interface IngredientAmounts {
     amount: number;
     lbsPer: number;
     units: string;
-    ingredientType: "proteins" | "veggies" | "carbs" | "misc"
+    ingredientType: "proteins" | "veggies" | "carbs" | "misc";
   };
 }
 
@@ -180,23 +155,13 @@ export interface Meal {
   proteinLabel: string;
   flavor: string;
   flavorLabel: string;
-  orderedWeight: number;  // Amount ordered by customer
-  weightAfterBackstock: number;   // Amount after backstock adjustment
-  weightToCook: number;    // Amount before shrink, i.e., amount to cook
+  orderedWeight: number; // Amount ordered by customer
+  weightAfterBackstock: number; // Amount after backstock adjustment
+  weightToCook: number; // Amount before shrink, i.e., amount to cook
   weightLbOz: string;
   backstockWeight: number;
   displayColor: string | null;
 }
-
-// export interface ProteinWeights {
-//   [protein: string]: {
-//     [flavor: string]: {
-//       proteinLabel: string;
-//       flavorLabel: string;
-//       weight: number;
-//     };
-//   };
-// }
 
 export interface OrderReportInfo {
   orders: Order[];
@@ -207,19 +172,19 @@ export interface OrderReportInfo {
   pullListInfo: {
     extraRoastedVeggies: number;
     pullRows: PullListRow[];
-  }
+  };
   shopSheetRows: ShopRowsByStore;
   cookSheetInfo: CookSheetInfo;
   proteinInfo: AllProteinInfo;
 }
 
 export interface CarbToCook {
-  displayOrder: number,
-  name: string,
-  label: string,
-  amountWithUnits: string,
-  water: string | null,
-  note: string | null
+  displayOrder: number;
+  name: string;
+  label: string;
+  amountWithUnits: string;
+  water: string | null;
+  note: string | null;
 }
 
 export interface CookSheetInfo {
@@ -238,7 +203,7 @@ export interface AllVeggieCarbInfo {
     cookDisplayOrder: number | null;
     cookLabel: string | null;
     waterMultiplier: number | null;
-  }
+  };
 }
 
 export interface StoreRow {
@@ -252,12 +217,12 @@ export interface StoreRow {
   editable: boolean;
 }
 
-export type ShopRowsByStore = Map<string, StoreRow[]>
+export type ShopRowsByStore = Map<string, StoreRow[]>;
 
 export type OrderHistoryRow = ToCamelCase<
   SupaOrderHistoryRow,
   { data: OrderReportInfo }
->
+>;
 //#endregion
 
 /**
@@ -396,18 +361,6 @@ export type InsertTimecardHistoryRow =
 
 /**
  * *****************************
- *           TEMPLATES
- * *****************************
- */
-//#region
-// export interface UpdatePullListInfo {
-//   idsToDelete: Set<number>;
-//   updates: PullListRow[];
-// }
-//#endregion
-
-/**
- * *****************************
  *           UI
  * *****************************
  */
@@ -423,45 +376,4 @@ export interface NavbarInfo extends NavbarLinkInfo {
   icon: ReactNode;
   sublinks?: NavbarLinkInfo[];
 }
-//#endregion
-
-
-/**
- * *****************************
- *           SETTINGS
- * *****************************
- */
-//#region
-// export type InsertSettingsRow =
-//   Database["public"]["Tables"]["settings"]["Insert"];
-
-// export type UpdateSettingsInfo =
-//   Database["public"]["Tables"]["settings"]["Update"];
-
-// export interface SettingsRow {
-//   userId: string;
-//   general: GeneralSettings;
-//   orders: OrderSettings;
-//   backstock: BackstockSettings;
-//   timecards: TimecardsSettings;
-//   finances: FinancesSettings;
-//   menu: MenuSettings;
-//   employees: EmployeesSettings;
-// }
-
-// export interface GeneralSettings extends Record<string, Json> {}
-
-// export interface OrderSettings extends Record<string, Json> {
-//   skipEdits: boolean;
-// }
-
-// export interface BackstockSettings extends Record<string, Json> {}
-
-// export interface TimecardsSettings extends Record<string, Json> {}
-
-// export interface FinancesSettings extends Record<string, Json> {}
-
-// export interface MenuSettings extends Record<string, Json> {}
-
-// export interface EmployeesSettings extends Record<string, Json> {}
 //#endregion
