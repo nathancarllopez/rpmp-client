@@ -17,7 +17,7 @@ import type {
   ShopRowsByStore,
   StoreRow,
 } from "@/types/rpmp-types";
-import { Fragment, useMemo } from "react";
+import { Fragment, useRef } from "react";
 import ShopEditorRow from "./ShopEditorRow";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useToggle } from "@mantine/hooks";
@@ -51,10 +51,6 @@ export default function ShopEditor({
   toNextStep,
   backToUpload,
 }: ShopEditorProps) {
-  const [orderViewVisible, toggle] = useToggle();
-
-  const { shopSheetRows } = orderReportInfo;
-
   const {
     storeError,
     storeNames,
@@ -63,25 +59,31 @@ export default function ShopEditor({
     pullRowsError,
   } = useQueryData();
 
-  const originalQuantities: Record<string, number[]> = useMemo(
-    () =>
-      storeNames.reduce(
-        (quantities, storeName) => {
-          const storeRows = shopSheetRows.get(storeName);
-          if (storeRows === undefined) {
-            throw new Error(
-              `Could not find store rows for this store: ${storeName}`
-            );
-          }
+  const [orderViewVisible, toggle] = useToggle();
 
-          quantities[storeName] = storeRows.map(({ quantity }) => quantity);
+  const originalQuantitiesRef = useRef<Record<string, number[]> | null>(null);
 
-          return quantities;
-        },
-        {} as Record<string, number[]>
-      ),
-    [storeNames]
-  );
+  const { shopSheetRows } = orderReportInfo;
+
+  if (originalQuantitiesRef.current === null) {
+    originalQuantitiesRef.current = storeNames.reduce(
+      (quantities, storeName) => {
+        const storeRows = shopSheetRows.get(storeName);
+        if (storeRows === undefined) {
+          throw new Error(
+            `Could not find store rows for this store: ${storeName}`
+          );
+        }
+
+        quantities[storeName] = storeRows.map(({ quantity }) => quantity);
+
+        return quantities;
+      },
+      {} as Record<string, number[]>
+    )
+  }
+
+  const originalQuantities = originalQuantitiesRef.current;
 
   const errors = [storeError, pullRowsError].filter((error) => !!error);
   if (errors.length > 0) {
