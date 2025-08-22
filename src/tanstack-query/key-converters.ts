@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export function snakeToCamel<T>(obj: any): T {
   if (Array.isArray(obj)) {
     return obj.map(snakeToCamel) as any;

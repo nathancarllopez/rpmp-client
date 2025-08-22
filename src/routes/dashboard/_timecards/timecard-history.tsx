@@ -30,7 +30,7 @@ function TimecardHistory() {
         value: row.id.toString(),
         label: new Date(row.createdAt).toLocaleString(),
       })),
-    []
+    [timecardHistoryRows]
   );
 
   const errors = [timecardError].filter((error) => !!error);

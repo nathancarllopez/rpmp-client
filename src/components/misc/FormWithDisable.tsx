@@ -5,7 +5,7 @@ import { useRef, type FormEvent } from "react";
 interface FormWithDisableProps {
   margins?: Record<string, number>;
   submitButtonLabels: { label: string, disabledLabel: string };
-  submitButtonStyle?: Record<string, any>;
+  submitButtonStyle?: Record<string, string | boolean>;
   submitButtonPlacement?: "top" | "bottom"
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> | void;
   children: React.ReactNode;

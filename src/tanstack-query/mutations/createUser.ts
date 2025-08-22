@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../QueryClientProvider";
 import type { CreatedUserInfo, InsertProfileRow, NewUserInfo, ProfileRow } from "@/types/rpmp-types";
 import { camelToSnake, snakeToCamel } from "../key-converters";
+import { queryClient } from "../queryClient";
 
 export function useCreateUserMutation(invokerId: string) {
   return useMutation({

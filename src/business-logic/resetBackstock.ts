@@ -11,7 +11,7 @@ export async function resetBackstock() {
     .update({ claimed: false, deleted_on: null })
     .gt('id', 0);
 
-  queryClient.invalidateQueries({ queryKey: ["backstock"] }),
+  queryClient.invalidateQueries({ queryKey: ["backstock"] });
 
   console.log(error);
   

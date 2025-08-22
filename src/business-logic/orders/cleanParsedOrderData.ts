@@ -26,7 +26,7 @@ export function cleanParsedOrderData(
   );
 
   for (const header of requiredHeaders) {
-    if (!firstRow.hasOwnProperty(header)) {
+    if (!Object.hasOwn(firstRow, header)) {
       cleaningErrors.push({
         missingHeader: header,
       });

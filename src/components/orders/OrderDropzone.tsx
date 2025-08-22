@@ -5,7 +5,7 @@ import { notifications } from "@mantine/notifications";
 import { Box, Button, Container, Group, Paper, Stack, Text, Title } from "@mantine/core";
 import { Dropzone, MIME_TYPES, type FileWithPath } from "@mantine/dropzone";
 import { IconFileDescription, IconUpload, IconX } from "@tabler/icons-react";
-import Papa, { parse } from "papaparse";
+import Papa from "papaparse";
 import type { AllBackstockRow, OrderReportInfo, VeggieCarbInfoRow } from "@/types/rpmp-types";
 import { orderHeadersOptions } from "@/tanstack-query/queries/orderHeaders";
 import { flavorsOptions } from "@/tanstack-query/queries/flavors";
@@ -106,8 +106,8 @@ export function OrderDropzone({
         onReject={handleReject}
         accept={[MIME_TYPES.csv]}
         loading={isParsing}
-        disabled={!!parseError}
-        className={!!parseError ? classes.disabled : undefined}
+        disabled={parseError !== null}
+        className={parseError !== null ? classes.disabled : undefined}
       >
         <Group justify="center" mih={100} style={{ pointerEvents: "none" }}>
           <Dropzone.Idle>

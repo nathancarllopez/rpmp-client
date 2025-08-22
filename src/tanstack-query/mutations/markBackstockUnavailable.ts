@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../QueryClientProvider";
 import { supabase } from "@/supabase/client";
+import { queryClient } from "../queryClient";
 
 export function useMarkBackstockUnavailableMutation() {
   return useMutation({

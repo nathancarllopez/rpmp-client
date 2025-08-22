@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../QueryClientProvider";
 import type { ProfileRow } from "@/types/rpmp-types";
+import { queryClient } from "../queryClient";
 
 export function useDeleteUserMutation(invokerId: string) {
   return useMutation({

@@ -22,7 +22,7 @@ export default function useCountdown(duration: number, navigateTo: string) {
     if (remaining === 0) {
       navigate({ to: navigateTo });
     }
-  }, [remaining]);
+  }, [remaining, navigate, navigateTo]);
 
   return remaining;
 }

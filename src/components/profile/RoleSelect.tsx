@@ -5,11 +5,11 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { rolesOptions } from "@/tanstack-query/queries/roles";
 import Subtitle from "../misc/Subtitle";
 
-interface RoleSelectProps<T extends Record<string, any>> {
+interface RoleSelectProps<T extends Record<string, string | number | null>> {
   form: UseFormReturnType<T>;
 }
 
-export default function RoleSelect<T extends Record<string, any>>({ form }: RoleSelectProps<T>) {
+export default function RoleSelect<T extends Record<string, string | number | null>>({ form }: RoleSelectProps<T>) {
   const { data: rolesInfo, error: rolesError } = useSuspenseQuery(rolesOptions());
   const roleExplanations = rolesInfo.reduce((explanations, row) => {
     explanations[row.name] = row.explanation
@@ -33,7 +33,11 @@ export default function RoleSelect<T extends Record<string, any>>({ form }: Role
     value: row.name
   }));
 
-  form.watch("role", ({ value }) => setExplanation(roleExplanations[value]));
+  form.watch("role", ({ value }) => {
+    if (typeof value === "string") {
+      setExplanation(roleExplanations[value])
+    }
+  });
   
   return (
     <Stack>

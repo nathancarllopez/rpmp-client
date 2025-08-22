@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import type { PostgrestError } from "@supabase/supabase-js";
-import { queryClient } from "../QueryClientProvider";
 import type { UpdateBackstockInfo } from "@/types/rpmp-types";
 import { supabase } from "@/supabase/client";
+import { queryClient } from "../queryClient";
 
 export function useUpdateBackstockMutation() {
   return useMutation({

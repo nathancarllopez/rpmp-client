@@ -1,7 +1,7 @@
 import type { FileWithPath } from "@mantine/dropzone";
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../QueryClientProvider";
 import { supabase } from "@/supabase/client";
+import { queryClient } from "../queryClient";
 
 export function useUpdateProfilePicMutation(userId: string | undefined) {
   if (!userId) {

@@ -29,7 +29,7 @@ function OrderHistory() {
         value: row.id.toString(),
         label: new Date(row.createdAt).toLocaleString(),
       })),
-    []
+    [orderHistoryRows]
   );
 
   const errors = [orderError].filter((error) => !!error);
