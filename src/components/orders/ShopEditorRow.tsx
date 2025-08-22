@@ -61,14 +61,10 @@ export default function ShopEditorRow({
     const textColor = storeRow.quantity !== 0 ? undefined : "dimmed";
     return (
       <Table.Td key={id}>
-        <Text c={textColor}>
-          {rowValue ?? "-"}
-        </Text>
+        <Text c={textColor}>{rowValue ?? "-"}</Text>
       </Table.Td>
     );
   });
 
-  return (
-    <Table.Tr>{rowData}</Table.Tr>
-  );
+  return <Table.Tr>{rowData}</Table.Tr>;
 }

@@ -22,7 +22,7 @@ async function getBackstock(): Promise<AllBackstockRow[]> {
   }
 
   const backstockData: AllBackstockRow[] = data.map((row) =>
-    snakeToCamel<AllBackstockRow>(row)
+    snakeToCamel<AllBackstockRow>(row),
   );
 
   return backstockData;

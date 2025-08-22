@@ -6,7 +6,7 @@ export function allProfilePicsOptions() {
     queryKey: ["allProfilePics"],
     queryFn: getProfilePics,
     staleTime: Infinity,
-  })
+  });
 }
 
 async function getProfilePics(): Promise<Record<string, string>> {
@@ -21,19 +21,24 @@ async function getProfilePics(): Promise<Record<string, string>> {
     throw error;
   } else if (!data) {
     throw new Error(
-      "Supabase didn't return any data from the profilePics file in avatars storage bucket"
+      "Supabase didn't return any data from the profilePics file in avatars storage bucket",
     );
   }
 
-  const profilePics = data.reduce((pics, file) => {
-    const userId = file.name.substring(0, file.name.indexOf("."));
-    const path = `profilePics/${file.name}`;
-    const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
+  const profilePics = data.reduce(
+    (pics, file) => {
+      const userId = file.name.substring(0, file.name.indexOf("."));
+      const path = `profilePics/${file.name}`;
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("avatars").getPublicUrl(path);
 
-    pics[userId] = publicUrl;
-    
-    return pics;
-  }, {} as Record<string, string>);
+      pics[userId] = publicUrl;
+
+      return pics;
+    },
+    {} as Record<string, string>,
+  );
 
   return profilePics;
 }

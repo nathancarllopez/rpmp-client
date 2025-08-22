@@ -2,7 +2,7 @@ import { supabase } from "./client";
 
 export default async function doLogin(
   email: string,
-  password: string
+  password: string,
 ): Promise<boolean> {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,

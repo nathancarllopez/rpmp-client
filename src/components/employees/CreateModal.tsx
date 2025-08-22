@@ -39,20 +39,22 @@ export default function CreateModal({
   const atSmallBp = useMediaQuery("(min-width: 48em)");
 
   const { data: roleRows, error } = useSuspenseQuery(rolesOptions());
-  
+
   // This is for passing props to a Mantine Select component
   const roleData: { label: string; value: string }[] = roleRows.map(
-    ({ name, label }) => ({ label, value: name })
+    ({ name, label }) => ({ label, value: name }),
   );
-  
+
   const roleExplanations: Record<string, string> = roleRows.reduce(
     (explanations, roleRow) => {
       explanations[roleRow.name] = roleRow.explanation;
       return explanations;
     },
-    {} as Record<string, string>
+    {} as Record<string, string>,
   );
-  const [explanation, setExplanation] = useState<string>(roleExplanations.employee);
+  const [explanation, setExplanation] = useState<string>(
+    roleExplanations.employee,
+  );
 
   const { userId } = getRouteApi("/dashboard/employees").useRouteContext();
   const createUserMutation = useCreateUserMutation(userId);
@@ -66,7 +68,7 @@ export default function CreateModal({
       role: "employee",
       kitchenRate: null,
       drivingRate: null,
-      displayColor: "blue"  // To do: Add a color picker input for this
+      displayColor: "blue", // To do: Add a color picker input for this
     },
     validate: {
       email: isEmail("Invalid email format"),

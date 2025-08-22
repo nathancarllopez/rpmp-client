@@ -1,5 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import type { CreatedUserInfo, InsertProfileRow, NewUserInfo, ProfileRow } from "@/types/rpmp-types";
+import type {
+  CreatedUserInfo,
+  InsertProfileRow,
+  NewUserInfo,
+  ProfileRow,
+} from "@/types/rpmp-types";
 import { camelToSnake, snakeToCamel } from "../key-converters";
 import { queryClient } from "../queryClient";
 
@@ -20,11 +25,11 @@ const endpoint = "/auth/create-user";
 
 async function createUser(
   info: NewUserInfo,
-  invokerId: string
+  invokerId: string,
 ): Promise<CreatedUserInfo> {
   const authStr = `Bearer ${invokerId}`;
   const apiUrl = import.meta.env.VITE_BACKEND_URL + endpoint;
-  
+
   const { email, profileData } = info;
   const insertData = camelToSnake<InsertProfileRow>(profileData);
 

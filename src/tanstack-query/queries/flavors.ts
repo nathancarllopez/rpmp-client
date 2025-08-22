@@ -24,8 +24,7 @@ async function getFlavors(): Promise<FlavorRow[]> {
     throw error;
   }
 
-  const flavors: FlavorRow[] = data
-    .map((row) => snakeToCamel<FlavorRow>(row));
+  const flavors: FlavorRow[] = data.map((row) => snakeToCamel<FlavorRow>(row));
 
   return flavors;
 }

@@ -25,7 +25,7 @@ async function getTimecardHistory(): Promise<TimecardHistoryRow[]> {
   }
 
   const timecardHistory: TimecardHistoryRow[] = data.map((row) =>
-    snakeToCamel<TimecardHistoryRow>(row)
+    snakeToCamel<TimecardHistoryRow>(row),
   );
 
   return timecardHistory;

@@ -1,7 +1,10 @@
 import { Box, Button, Group, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { getRouteApi } from "@tanstack/react-router";
-import type { InsertOrderHistoryRow, OrderReportInfo } from "@/types/rpmp-types";
+import type {
+  InsertOrderHistoryRow,
+  OrderReportInfo,
+} from "@/types/rpmp-types";
 import { useMarkBackstockUnavailableMutation } from "@/tanstack-query/mutations/markBackstockUnavailable";
 import { useInsertOrderHistoryMutation } from "@/tanstack-query/mutations/insertOrderHistory";
 
@@ -21,7 +24,9 @@ export default function ReportDisplay({
   const markBackstockMutation = useMarkBackstockUnavailableMutation();
   const insertOrderHistoryMutation = useInsertOrderHistoryMutation();
 
-  const { userId } = getRouteApi("/dashboard/_orders/process-order").useRouteContext();
+  const { userId } = getRouteApi(
+    "/dashboard/_orders/process-order",
+  ).useRouteContext();
 
   const handleSaveDownloadClick = () => {
     let noBackstockError = true;
@@ -50,9 +55,9 @@ export default function ReportDisplay({
     if (noBackstockError) {
       const insertOrderRow: InsertOrderHistoryRow = {
         added_by: userId,
-        data: JSON.parse(JSON.stringify(orderReportInfo))
+        data: JSON.parse(JSON.stringify(orderReportInfo)),
       };
-      
+
       insertOrderHistoryMutation.mutate(insertOrderRow, {
         onSuccess: () => {
           notifications.show({
@@ -71,7 +76,7 @@ export default function ReportDisplay({
             title: "Saving Order Failed",
             message: error.message,
           });
-        }
+        },
       });
     }
   };
@@ -79,9 +84,7 @@ export default function ReportDisplay({
   return (
     <Stack mt={"md"}>
       <Group grow>
-        <Button onClick={toPrevStep}>
-          Back to Edit
-        </Button>
+        <Button onClick={toPrevStep}>Back to Edit</Button>
         <Button
           component={"a"}
           href={reportUrl}

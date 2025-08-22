@@ -5,7 +5,7 @@ import { queryClient } from "../queryClient";
 export function useMarkBackstockUnavailableMutation() {
   return useMutation({
     mutationFn: markBackstockUnavailable,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["backstock"] })
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["backstock"] }),
   });
 }
 

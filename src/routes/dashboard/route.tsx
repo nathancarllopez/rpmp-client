@@ -28,7 +28,7 @@ export const Route = createFileRoute("/dashboard")({
     const { userId } = context;
 
     if (userId !== null) {
-      return { userId }
+      return { userId };
     }
 
     const session = await getSupaSession();
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/dashboard")({
     return { userId: session.user.id };
   },
   loader: ({ context: { queryClient } }) => {
-    queryClient.ensureQueryData(allProfilePicsOptions())
+    queryClient.ensureQueryData(allProfilePicsOptions());
     queryClient.ensureQueryData(rolesOptions());
   },
   pendingComponent: SkeletonDashboard,
@@ -89,14 +89,11 @@ function Dashboard() {
             size="sm"
           />
 
-          <UnstyledButton
-            component={Link}
-            to="/dashboard/home/"
-          >
+          <UnstyledButton component={Link} to="/dashboard/home/">
             <Group>
               <Title visibleFrom="sm">RPMP Dashboard</Title>
               <Title hiddenFrom="sm">RPMP</Title>
-              <Image w={50} src={"/logo.png"}/>
+              <Image w={50} src={"/logo.png"} />
             </Group>
           </UnstyledButton>
 

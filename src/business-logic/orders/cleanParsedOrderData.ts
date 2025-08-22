@@ -3,7 +3,9 @@ import type { ContainerSize, Order, OrderError } from "@/types/rpmp-types";
 export function cleanParsedOrderData(
   rows: Record<string, string>[],
   headerMapping: { [name: string]: { label: string; rawLabel: string } },
-  flavorMapping: { [rawLabel: string]: { flavor: string; flavorLabel: string } }
+  flavorMapping: {
+    [rawLabel: string]: { flavor: string; flavorLabel: string };
+  },
 ): {
   orders: Order[];
   cleaningErrors: Record<string, string>[];
@@ -22,7 +24,7 @@ export function cleanParsedOrderData(
 
   const firstRow = rows[0];
   const requiredHeaders = Object.values(headerMapping).map(
-    ({ rawLabel }) => rawLabel
+    ({ rawLabel }) => rawLabel,
   );
 
   for (const header of requiredHeaders) {

@@ -6,9 +6,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
-export const Route = createFileRoute(
-  "/dashboard/_orders/order-history"
-)({
+export const Route = createFileRoute("/dashboard/_orders/order-history")({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(orderHistoryOptions());
   },
@@ -21,7 +19,7 @@ function OrderHistory() {
   const [displayedUrl, setDisplayedUrl] = useState<string | null>(null);
 
   const { data: orderHistoryRows, error: orderError } = useSuspenseQuery(
-    orderHistoryOptions()
+    orderHistoryOptions(),
   );
   const selectData = useMemo(
     () =>
@@ -29,7 +27,7 @@ function OrderHistory() {
         value: row.id.toString(),
         label: new Date(row.createdAt).toLocaleString(),
       })),
-    [orderHistoryRows]
+    [orderHistoryRows],
   );
 
   const errors = [orderError].filter((error) => !!error);
@@ -56,7 +54,7 @@ function OrderHistory() {
     }
 
     const ordersMatch = orderHistoryRows.find(
-      (row) => row.id === Number(value)
+      (row) => row.id === Number(value),
     );
     if (ordersMatch === undefined) {
       console.warn("Could not find matching order for this row id:");

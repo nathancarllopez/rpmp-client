@@ -13,7 +13,11 @@ interface ProfilePicProps {
   userId: string | undefined;
 }
 
-export default function ProfilePic({ profilePicUrl, showUpload, userId }: ProfilePicProps) {
+export default function ProfilePic({
+  profilePicUrl,
+  showUpload,
+  userId,
+}: ProfilePicProps) {
   const updateProfilePicMutation = useUpdateProfilePicMutation(userId);
 
   if (!showUpload) {
@@ -31,7 +35,7 @@ export default function ProfilePic({ profilePicUrl, showUpload, userId }: Profil
           withCloseButton: true,
           color: "green",
           title: "Upload Successful",
-          message: "Profile picture has been updated"
+          message: "Profile picture has been updated",
         });
       },
       onError: (error) => {
@@ -42,7 +46,7 @@ export default function ProfilePic({ profilePicUrl, showUpload, userId }: Profil
           title: "Upload Failed",
           message: error.message,
         });
-      }
+      },
     });
   };
 

@@ -2,11 +2,24 @@ import { useState } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
-import { Box, Button, Container, Group, Paper, Stack, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  Group,
+  Paper,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { Dropzone, MIME_TYPES, type FileWithPath } from "@mantine/dropzone";
 import { IconFileDescription, IconUpload, IconX } from "@tabler/icons-react";
 import Papa from "papaparse";
-import type { AllBackstockRow, OrderReportInfo, VeggieCarbInfoRow } from "@/types/rpmp-types";
+import type {
+  AllBackstockRow,
+  OrderReportInfo,
+  VeggieCarbInfoRow,
+} from "@/types/rpmp-types";
 import { orderHeadersOptions } from "@/tanstack-query/queries/orderHeaders";
 import { flavorsOptions } from "@/tanstack-query/queries/flavors";
 import { backstockOptions } from "@/tanstack-query/queries/backstock";
@@ -85,7 +98,7 @@ export function OrderDropzone({
           veggieCarbBackstock,
           setOrderReportInfo,
           setReviewOrderUrl,
-          toNextStep
+          toNextStep,
         ),
     });
   };
@@ -127,7 +140,9 @@ export function OrderDropzone({
                 : "Tap here to upload the order sheet"}
             </Title>
             <Box visibleFrom="sm">
-              <Subtitle>You can also click to search for the order sheet</Subtitle>
+              <Subtitle>
+                You can also click to search for the order sheet
+              </Subtitle>
             </Box>
           </Container>
         </Group>
@@ -135,8 +150,12 @@ export function OrderDropzone({
 
       {parseError && (
         <Paper>
-          <Title order={3} mb={"md"}>Issue uploading order: {parseError}</Title>
-          <Button fullWidth onClick={() => setParseError(null)}>Reset</Button>
+          <Title order={3} mb={"md"}>
+            Issue uploading order: {parseError}
+          </Title>
+          <Button fullWidth onClick={() => setParseError(null)}>
+            Reset
+          </Button>
         </Paper>
       )}
     </Stack>
@@ -165,7 +184,7 @@ async function handleParseComplete(
   veggieCarbBackstock: AllBackstockRow[],
   setOrderReportInfo: React.Dispatch<React.SetStateAction<OrderReportInfo>>,
   setReviewOrderUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
-  toNextStep: () => void
+  toNextStep: () => void,
 ) {
   const parseErrors = results.errors;
 
@@ -179,28 +198,29 @@ async function handleParseComplete(
     const { orders, cleaningErrors } = cleanParsedOrderData(
       results.data as Record<string, string>[],
       headerMapping,
-      flavorMapping
+      flavorMapping,
     );
 
     if (cleaningErrors.length > 0) {
       setParseError(
-        cleaningErrors.map((err) => JSON.stringify(err)).join("\n")
+        cleaningErrors.map((err) => JSON.stringify(err)).join("\n"),
       );
       return;
     }
 
-    const { proteinInfo: initialProteinInfo, stats: initialStats } = orderReportInfo;
+    const { proteinInfo: initialProteinInfo, stats: initialStats } =
+      orderReportInfo;
 
     const { orderErrors, usedBackstockIds, meals } = calculateMealRows(
       orders,
       initialProteinInfo,
-      proteinBackstock
+      proteinBackstock,
     );
 
     const { proteinInfo, bisonCubes } = updateProteinWeights(
       initialProteinInfo,
-      meals
-    )
+      meals,
+    );
 
     const { stats, extraRoastedVeggies } = calculateStats(
       initialStats,
@@ -208,7 +228,7 @@ async function handleParseComplete(
       proteinInfo,
       veggieCarbInfo,
       veggieCarbBackstock,
-      usedBackstockIds
+      usedBackstockIds,
     );
 
     const updatedInfo: OrderReportInfo = {
@@ -220,13 +240,13 @@ async function handleParseComplete(
       stats,
       pullListInfo: {
         ...orderReportInfo.pullListInfo,
-        extraRoastedVeggies
+        extraRoastedVeggies,
       },
       proteinInfo,
       cookSheetInfo: {
         ...orderReportInfo.cookSheetInfo,
-        proteinCubes: { "beefBison": bisonCubes }
-      }
+        proteinCubes: { beefBison: bisonCubes },
+      },
     };
 
     const url = await fetchOrderReviewUrl(updatedInfo);
@@ -243,7 +263,7 @@ async function handleParseComplete(
       setParseError(error.message);
     } else {
       console.warn(JSON.stringify(error));
-      setParseError(JSON.stringify(error))
+      setParseError(JSON.stringify(error));
     }
   } finally {
     setIsParsing(false);
@@ -265,7 +285,7 @@ function useQueryData() {
           }
           return mapping;
         },
-        {} as { [name: string]: { label: string; rawLabel: string } }
+        {} as { [name: string]: { label: string; rawLabel: string } },
       ),
   });
 
@@ -280,7 +300,7 @@ function useQueryData() {
           };
           return mapping;
         },
-        {} as { [rawLabel: string]: { flavor: string; flavorLabel: string } }
+        {} as { [rawLabel: string]: { flavor: string; flavorLabel: string } },
       ),
   });
 
@@ -300,11 +320,11 @@ function useQueryData() {
     { proteinBackstock: [], veggieCarbBackstock: [] } as {
       proteinBackstock: AllBackstockRow[];
       veggieCarbBackstock: AllBackstockRow[];
-    }
+    },
   );
 
   const { data: veggieCarbInfo, error: veggieCarbError } = useSuspenseQuery(
-    veggieCarbInfoOptions()
+    veggieCarbInfoOptions(),
   );
 
   return {

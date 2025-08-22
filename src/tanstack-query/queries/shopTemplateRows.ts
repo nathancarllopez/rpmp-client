@@ -22,7 +22,7 @@ async function getShopTemplateRows(): Promise<ShopTemplateRow[]> {
   }
 
   const templateRows: ShopTemplateRow[] = data.map((row) =>
-    snakeToCamel<ShopTemplateRow>(row)
+    snakeToCamel<ShopTemplateRow>(row),
   );
 
   return templateRows;

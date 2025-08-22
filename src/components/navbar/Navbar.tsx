@@ -1,12 +1,6 @@
-import {
-  AppShell,
-  Divider,
-  NavLink,
-} from "@mantine/core";
+import { AppShell, Divider, NavLink } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import {
-  IconLogout2,
-} from "@tabler/icons-react";
+import { IconLogout2 } from "@tabler/icons-react";
 import { getRouteApi, Link, useRouter } from "@tanstack/react-router";
 import NavLinkLabel from "./NavLinkLabel.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -25,11 +19,11 @@ export default function Navbar({
   const { userId } = getRouteApi("/dashboard").useRouteContext();
 
   const { data: profile, error: profileError } = useSuspenseQuery(
-    profileByIdOptions(userId)
+    profileByIdOptions(userId),
   );
 
   const navLinks = navbarInfo.filter((info) =>
-    info.hasPermission.includes(profile.role)
+    info.hasPermission.includes(profile.role),
   );
 
   const handleLogoutClick = async () => {

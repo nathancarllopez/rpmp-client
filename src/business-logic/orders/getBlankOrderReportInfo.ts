@@ -1,4 +1,10 @@
-import type { AllProteinInfo, FlavorInfoWithCalcs, OrderReportInfo, ProteinRow, StoreRow } from "@/types/rpmp-types";
+import type {
+  AllProteinInfo,
+  FlavorInfoWithCalcs,
+  OrderReportInfo,
+  ProteinRow,
+  StoreRow,
+} from "@/types/rpmp-types";
 
 export function getBlankOrderReportInfo(
   proteinRows: ProteinRow[],
@@ -9,25 +15,28 @@ export function getBlankOrderReportInfo(
   const proteinInfo: AllProteinInfo = proteinRows.reduce((info, row) => {
     const { name, flavors } = row;
 
-    const flavorInfo = flavors.reduce((fInfo, fRow) => {
-      const { name: flavor } = fRow;
+    const flavorInfo = flavors.reduce(
+      (fInfo, fRow) => {
+        const { name: flavor } = fRow;
 
-      fInfo[flavor] = {
-        ...fRow,
-        orderedWeight: 0,
-        weightToCook: 0,
-        weightLbOz: "",
-        cookedTeriyaki: null,
-        sauce: null
-      };
+        fInfo[flavor] = {
+          ...fRow,
+          orderedWeight: 0,
+          weightToCook: 0,
+          weightLbOz: "",
+          cookedTeriyaki: null,
+          sauce: null,
+        };
 
-      return fInfo;
-    }, {} as Record<string, FlavorInfoWithCalcs>)
+        return fInfo;
+      },
+      {} as Record<string, FlavorInfoWithCalcs>,
+    );
 
     info[name] = {
       ...row,
       flavorInfo,
-      totalWeightToCook: 0
+      totalWeightToCook: 0,
     };
 
     return info;
@@ -46,11 +55,11 @@ export function getBlankOrderReportInfo(
       totalProteinWeight: 0,
       containers: {},
       proteins: {},
-      veggieCarbs: {}
+      veggieCarbs: {},
     },
     pullListInfo: {
       extraRoastedVeggies: 0,
-      pullRows: []
+      pullRows: [],
     },
     shopSheetRows: new Map<string, StoreRow[]>(),
     cookSheetInfo: {
@@ -59,7 +68,7 @@ export function getBlankOrderReportInfo(
       carbsToCook: [],
     },
     proteinInfo,
-  }
+  };
 
   return initialInfo;
 }

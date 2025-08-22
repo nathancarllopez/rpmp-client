@@ -1,6 +1,8 @@
 import type { TimecardDisplayValues } from "@/types/rpmp-types";
 
-export default async function fetchTimecardsUrl(timecards: TimecardDisplayValues[]): Promise<string> {
+export default async function fetchTimecardsUrl(
+  timecards: TimecardDisplayValues[],
+): Promise<string> {
   const apiUrl =
     import.meta.env.VITE_BACKEND_URL + "/timecards/generate-timecards";
   const response = await fetch(apiUrl, {

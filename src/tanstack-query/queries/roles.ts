@@ -22,7 +22,7 @@ async function getRoles(): Promise<RoleInfoRow[]> {
   }
 
   const roleInfo: RoleInfoRow[] = data.map((row) =>
-    snakeToCamel<RoleInfoRow>(row)
+    snakeToCamel<RoleInfoRow>(row),
   );
 
   return roleInfo;

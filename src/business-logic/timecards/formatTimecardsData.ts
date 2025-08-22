@@ -1,6 +1,8 @@
 import type { TimecardDisplayValues, TimecardValues } from "@/types/rpmp-types";
 
-export function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDisplayValues[] {
+export function formatTimecardsData(
+  timecardsData: TimecardValues[],
+): TimecardDisplayValues[] {
   const formatAmount = (amount: number | "") => `$${Number(amount).toFixed(2)}`;
   const formatTime = (milTime: string) => {
     if (!milTime) return "";
@@ -14,7 +16,7 @@ export function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDi
   const formatDuration = (duration: number) => {
     if (isNaN(duration) || duration <= 0) return "";
     return `${duration} ${duration === 1 ? "hr" : "hrs"}`;
-  }
+  };
 
   return timecardsData.map((timecard) => ({
     ...timecard,
@@ -47,6 +49,6 @@ export function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDi
     route2: formatAmount(timecard.route2),
     stops: String(timecard.stops),
     miscAmount: formatAmount(timecard.miscAmount),
-    grandTotal: formatAmount(timecard.grandTotal)
+    grandTotal: formatAmount(timecard.grandTotal),
   }));
 }

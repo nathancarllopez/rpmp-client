@@ -10,13 +10,16 @@ interface NavLinkWithSubLinksProps {
   closeOnMobile: () => void;
 }
 
-export default function NavLinkWithSubLinks({ linkInfo, closeOnMobile }: NavLinkWithSubLinksProps) {
+export default function NavLinkWithSubLinks({
+  linkInfo,
+  closeOnMobile,
+}: NavLinkWithSubLinksProps) {
   const [collapsed, { toggle }] = useDisclosure(true);
-  
+
   if (!linkInfo.sublinks) {
     return (
       <NavLink
-        label={<NavLinkLabel label={linkInfo.label}/>}
+        label={<NavLinkLabel label={linkInfo.label} />}
         leftSection={linkInfo.icon}
         component={Link}
         to={linkInfo.href}
@@ -24,18 +27,18 @@ export default function NavLinkWithSubLinks({ linkInfo, closeOnMobile }: NavLink
       />
     );
   }
-  
+
   return (
     <>
       <NavLink
-        label={<NavLinkLabel label={linkInfo.label}/>}
+        label={<NavLinkLabel label={linkInfo.label} />}
         leftSection={linkInfo.icon}
-        rightSection={<NavLinkChevron pointedDown={!collapsed}/>}
+        rightSection={<NavLinkChevron pointedDown={!collapsed} />}
         onClick={toggle}
       />
 
       <Collapse in={!collapsed}>
-        <Box ms={'lg'} style={{ borderLeft: "1px solid rgb(66,66,66)" }}>
+        <Box ms={"lg"} style={{ borderLeft: "1px solid rgb(66,66,66)" }}>
           {linkInfo.sublinks.map((sublink) => (
             <NavLink
               key={sublink.id}

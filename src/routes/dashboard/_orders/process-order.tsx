@@ -20,9 +20,7 @@ import OrderReviewer from "@/components/orders/OrderReviewer";
 import ShopEditor from "@/components/orders/ShopEditor";
 import ReportDisplay from "@/components/orders/ReportDisplay";
 
-export const Route = createFileRoute(
-  "/dashboard/_orders/process-order"
-)({
+export const Route = createFileRoute("/dashboard/_orders/process-order")({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(orderHeadersOptions());
     queryClient.ensureQueryData(proteinsOptions());
@@ -39,14 +37,17 @@ export const Route = createFileRoute(
 });
 
 function OrderProcessor() {
-  const { data: proteinRows, error: proteinError } = useSuspenseQuery(proteinsOptions())
+  const { data: proteinRows, error: proteinError } =
+    useSuspenseQuery(proteinsOptions());
 
   const [active, setActive] = useState(0);
   const [orderReportInfo, setOrderReportInfo] = useState<OrderReportInfo>(() =>
-    getBlankOrderReportInfo(proteinRows, proteinError)
+    getBlankOrderReportInfo(proteinRows, proteinError),
   );
   const [infoHistory, setInfoHistory] = useState<OrderReportInfo[]>([]);
-  const [reviewOrderUrl, setReviewOrderUrl] = useState<string | undefined>(undefined);
+  const [reviewOrderUrl, setReviewOrderUrl] = useState<string | undefined>(
+    undefined,
+  );
   const [reportUrl, setReportUrl] = useState<string | undefined>(undefined);
 
   const blockerProps = useBlocker({
@@ -55,7 +56,10 @@ function OrderProcessor() {
   });
   const alertText = {
     title: "Leave Without Saving?",
-    message: active === 2 ? "Any changes you've made to the shop sheet will not be saved if you leave this page." : "The final report has not been downloaded and the backstock has not been updated. Leave anyway?"
+    message:
+      active === 2
+        ? "Any changes you've made to the shop sheet will not be saved if you leave this page."
+        : "The final report has not been downloaded and the backstock has not been updated. Leave anyway?",
   };
 
   const errors = [proteinError].filter((error) => !!error);
@@ -66,7 +70,9 @@ function OrderProcessor() {
 
         <Paper>
           <Text>Error fetching order data:</Text>
-          {errors.map((error, index) => <Text key={index}>{error.message}</Text>)}
+          {errors.map((error, index) => (
+            <Text key={index}>{error.message}</Text>
+          ))}
         </Paper>
       </Stack>
     );
@@ -80,15 +86,14 @@ function OrderProcessor() {
   };
   const numSteps = Object.keys(stepProps).length;
 
-  const toNextStep = () =>
-    setActive((curr) => Math.min(curr + 1, numSteps));
+  const toNextStep = () => setActive((curr) => Math.min(curr + 1, numSteps));
   const toPrevStep = () => {
     if (infoHistory.length === 0) {
       setOrderReportInfo(getBlankOrderReportInfo(proteinRows, proteinError));
     } else {
       const prevInfo = infoHistory[infoHistory.length - 1];
       setOrderReportInfo({ ...prevInfo });
-      setInfoHistory((curr) => curr.slice(0, -1))
+      setInfoHistory((curr) => curr.slice(0, -1));
     }
 
     setActive((curr) => Math.max(0, curr - 1));
@@ -96,14 +101,11 @@ function OrderProcessor() {
   const backToUpload = () => {
     setOrderReportInfo(getBlankOrderReportInfo(proteinRows, proteinError));
     setActive(0);
-  }
+  };
 
   return (
     <Stack>
-      <NavigationBlockAlert
-        blockerProps={blockerProps}
-        alertText={alertText}
-      />
+      <NavigationBlockAlert blockerProps={blockerProps} alertText={alertText} />
 
       <Title>Process Order</Title>
 

@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>): LoginRedirect => {
     return {
       redirect: (search.redirect as string) || "/dashboard/home",
-    }
+    };
   },
   beforeLoad: ({ context, search }) => {
     if (context.userId) {

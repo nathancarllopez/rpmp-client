@@ -10,7 +10,7 @@ import { chooseBackstockWeights } from "./chooseBackstockWeights";
 export function calculateMealRows(
   orders: Order[],
   proteinInfo: AllProteinInfo,
-  proteinBackstock: AllBackstockRow[]
+  proteinBackstock: AllBackstockRow[],
 ): {
   orderErrors: OrderError[];
   usedBackstockIds: Set<number>;
@@ -39,7 +39,9 @@ export function calculateMealRows(
 
   // Initialize the meals objects
   const initialMeals: Meal[] = [];
-  const sortedProteins = Object.keys(proteinInfo).sort().filter((protein) => protein !== "beef" && protein !== "bison");
+  const sortedProteins = Object.keys(proteinInfo)
+    .sort()
+    .filter((protein) => protein !== "beef" && protein !== "bison");
   for (const protein of sortedProteins) {
     const { displayColor, shrink, label: proteinLabel } = proteinInfo[protein];
     const shrinkMultiplier = 1 + shrink / 100;
@@ -72,7 +74,7 @@ export function calculateMealRows(
       proteinBackstock,
       protein,
       flavor,
-      orderedWeight
+      orderedWeight,
     );
 
     if (backstockRows === null) return meal;
@@ -109,14 +111,14 @@ export function calculateMealRows(
       (row) =>
         !usedBackstockIds.has(row.id) &&
         row.name === protein &&
-        row.subName === flavor
+        row.subName === flavor,
     );
 
     const backstockRows = chooseBackstockWeights(
       matchingBackstock,
       protein,
       baseFlavor,
-      meal.weightAfterBackstock
+      meal.weightAfterBackstock,
     );
 
     if (backstockRows === null) return meal;

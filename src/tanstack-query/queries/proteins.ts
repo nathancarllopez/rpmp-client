@@ -25,7 +25,7 @@ async function getProteins(): Promise<ProteinRow[]> {
   }
 
   const proteins: ProteinRow[] = data.map((row) =>
-    snakeToCamel<ProteinRow>(row)
+    snakeToCamel<ProteinRow>(row),
   );
 
   return proteins;

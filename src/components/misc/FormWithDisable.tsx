@@ -4,9 +4,9 @@ import { useRef, type FormEvent } from "react";
 
 interface FormWithDisableProps {
   margins?: Record<string, number>;
-  submitButtonLabels: { label: string, disabledLabel: string };
+  submitButtonLabels: { label: string; disabledLabel: string };
   submitButtonStyle?: Record<string, string | boolean>;
-  submitButtonPlacement?: "top" | "bottom"
+  submitButtonPlacement?: "top" | "bottom";
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> | void;
   children: React.ReactNode;
 }
@@ -34,8 +34,8 @@ export default function FormWithDisable({
 
     try {
       await onSubmit(e);
-    } catch(error) {
-      console.warn("Error submitting form")
+    } catch (error) {
+      console.warn("Error submitting form");
 
       if (error instanceof Error) {
         console.warn(error.message);

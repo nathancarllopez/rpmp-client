@@ -20,7 +20,7 @@ export default function ProfileNavLink({
   const { userId } = profile;
   const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery({
     ...allProfilePicsOptions(),
-    select: (data) => data[userId]
+    select: (data) => data[userId],
   });
 
   const Label = () => (

@@ -22,7 +22,7 @@ async function getVeggieCarbInfo(): Promise<VeggieCarbInfoRow[]> {
   }
 
   const veggieCarbInfo: VeggieCarbInfoRow[] = data.map((row) =>
-    snakeToCamel<VeggieCarbInfoRow>(row)
+    snakeToCamel<VeggieCarbInfoRow>(row),
   );
 
   return veggieCarbInfo;

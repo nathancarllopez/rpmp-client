@@ -7,9 +7,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
-export const Route = createFileRoute(
-  "/dashboard/_timecards/timecard-history"
-)({
+export const Route = createFileRoute("/dashboard/_timecards/timecard-history")({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(timecardHistoryOptions());
   },
@@ -19,10 +17,10 @@ export const Route = createFileRoute(
 
 function TimecardHistory() {
   const [selected, setSelected] = useState<string>("");
-  const [displayedUrl, setDisplayedUrl] = useState<string | null>(null)
+  const [displayedUrl, setDisplayedUrl] = useState<string | null>(null);
 
   const { data: timecardHistoryRows, error: timecardError } = useSuspenseQuery(
-    timecardHistoryOptions()
+    timecardHistoryOptions(),
   );
   const selectData = useMemo(
     () =>
@@ -30,7 +28,7 @@ function TimecardHistory() {
         value: row.id.toString(),
         label: new Date(row.createdAt).toLocaleString(),
       })),
-    [timecardHistoryRows]
+    [timecardHistoryRows],
   );
 
   const errors = [timecardError].filter((error) => !!error);
@@ -56,7 +54,9 @@ function TimecardHistory() {
       setDisplayedUrl(null);
     }
 
-    const timecardsMatch = timecardHistoryRows.find((row) => row.id === Number(value));
+    const timecardsMatch = timecardHistoryRows.find(
+      (row) => row.id === Number(value),
+    );
     if (timecardsMatch === undefined) {
       console.warn("Could not find matching timecard for this row id:");
       console.warn(value);
@@ -68,7 +68,7 @@ function TimecardHistory() {
     const timecardsData = formatTimecardsData(timecardsMatch.data);
     const url = await fetchTimecardsUrl(timecardsData);
     setDisplayedUrl(url);
-  }
+  };
 
   return (
     <Stack>

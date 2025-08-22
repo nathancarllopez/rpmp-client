@@ -24,18 +24,21 @@ export default function TimecardsForm({
   toNextStep,
 }: TimecardsFormProps) {
   const [collapsedTimecards, setCollapsedTimecards] = useState(() =>
-    timecardsData.map(() => true)
+    timecardsData.map(() => true),
   );
   const [allFormErrors, setAllFormErrors] = useState<Record<string, string>[]>(
-    () => timecardsData.map(() => ({}))
+    () => timecardsData.map(() => ({})),
   );
   const [showErrorAlert, toggleErrorAlert] = useToggle();
 
   const someTimecardDirty = useMemo(
     () => timecardsData.some((timecard) => timecard.hasChanged),
-    [timecardsData]
+    [timecardsData],
   );
-  const someGrandTotalPositive = useMemo(() => timecardsData.some((timecard) => timecard.grandTotal > 0), [timecardsData]);
+  const someGrandTotalPositive = useMemo(
+    () => timecardsData.some((timecard) => timecard.grandTotal > 0),
+    [timecardsData],
+  );
   const disableCreateButton = !someTimecardDirty || !someGrandTotalPositive;
 
   const toggleCollapsed = (index: number) =>
@@ -72,7 +75,7 @@ export default function TimecardsForm({
         curr.map((timecard) => {
           const renderKey = timecard.renderKey;
           return { ...timecard, renderKey: renderKey + 1 };
-        })
+        }),
       );
 
       toggleErrorAlert();
@@ -83,7 +86,7 @@ export default function TimecardsForm({
 
     const timecardsDisplayData = formatTimecardsData(timecardsData);
     const url = await fetchTimecardsUrl(timecardsDisplayData);
-    
+
     setTimecardsUrl(url);
     toNextStep();
   };

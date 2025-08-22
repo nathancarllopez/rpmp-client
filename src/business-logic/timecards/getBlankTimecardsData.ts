@@ -2,7 +2,7 @@ import type { ProfileRow, TimecardValues } from "@/types/rpmp-types";
 
 export function getBlankTimecardsData(
   employeeInfo: ProfileRow[],
-  employeePics: Record<string, string>
+  employeePics: Record<string, string>,
 ): TimecardValues[] {
   return employeeInfo.map((employee) => {
     if (!Object.hasOwn(employeePics, employee.userId)) {

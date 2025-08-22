@@ -13,7 +13,7 @@ interface BackstockHeaderProps {
   reversed: boolean;
   sorted: boolean;
   onSort: () => void;
-  visibleFrom: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
+  visibleFrom: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
 }
 
 export default function BackstockHeader({
@@ -21,7 +21,7 @@ export default function BackstockHeader({
   reversed,
   sorted,
   onSort,
-  visibleFrom
+  visibleFrom,
 }: BackstockHeaderProps) {
   const atSmallBp = useMediaQuery("(min-width: 48em)");
   const Icon = sorted
@@ -32,10 +32,10 @@ export default function BackstockHeader({
 
   return (
     <Table.Th p={0} visibleFrom={visibleFrom}>
-      <UnstyledButton onClick={onSort} className={classes.control} p={'sm'}>
+      <UnstyledButton onClick={onSort} className={classes.control} p={"sm"}>
         <Group justify="space-between">
           {label}
-          { atSmallBp && <Icon /> }
+          {atSmallBp && <Icon />}
         </Group>
       </UnstyledButton>
     </Table.Th>

@@ -117,11 +117,11 @@ export default function ViewEditProfile({
     const fullName = profileToDisplay.fullName;
     if (!idToDelete) {
       throw new Error(
-        `Cannot find user id for this profile: ${profileToDisplay}`
+        `Cannot find user id for this profile: ${profileToDisplay}`,
       );
     } else if (!fullName) {
       throw new Error(
-        `Cannot find full name for this profile: ${profileToDisplay}`
+        `Cannot find full name for this profile: ${profileToDisplay}`,
       );
     }
 

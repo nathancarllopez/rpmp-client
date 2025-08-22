@@ -11,7 +11,7 @@ export function fillShopSheetRows(
   storesInDisplayOrder: string[],
   templateRows: ShopTemplateRow[],
   veggieCarbs: AllVeggieCarbInfo,
-  proteinInfo: AllProteinInfo
+  proteinInfo: AllProteinInfo,
 ): {
   shopSheetRows: ShopRowsByStore;
   carbsToCook: CarbToCook[];
@@ -37,7 +37,7 @@ export function fillShopSheetRows(
         ...row,
         label: row.shopLabel ?? row.label,
         quantity: 0,
-        editable: purchaseSize === null
+        editable: purchaseSize === null,
       };
 
       if (purchaseSize === null) {

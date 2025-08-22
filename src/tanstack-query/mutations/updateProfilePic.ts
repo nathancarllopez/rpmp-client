@@ -13,14 +13,14 @@ export function useUpdateProfilePicMutation(userId: string | undefined) {
     onSuccess: (data) =>
       queryClient.setQueryData(
         ["allProfilePics"],
-        (prevData: Record<string, string>) => ({ ...prevData, userId: data })
+        (prevData: Record<string, string>) => ({ ...prevData, userId: data }),
       ),
   });
 }
 
 async function updateProfilePic(
   newPic: FileWithPath,
-  userId: string | undefined
+  userId: string | undefined,
 ): Promise<string> {
   if (!userId) {
     throw new Error("UserId is required");
@@ -65,7 +65,7 @@ async function updateProfilePic(
   const filesToDelete =
     existingFiles
       ?.filter(
-        (file) => file.name.startsWith(userId) && file.name !== newFileName
+        (file) => file.name.startsWith(userId) && file.name !== newFileName,
       )
       .map((file) => `profilePics/${file.name}`) ?? [];
 

@@ -14,10 +14,10 @@ export default function calculateStats(
   proteinInfo: AllProteinInfo,
   veggieCarbInfoRows: VeggieCarbInfoRow[],
   veggieCarbBackstock: AllBackstockRow[],
-  usedBackstockIds: Set<number>
-): { 
-  stats: OrderStatistics, 
-  extraRoastedVeggies: number 
+  usedBackstockIds: Set<number>,
+): {
+  stats: OrderStatistics;
+  extraRoastedVeggies: number;
 } {
   const stats: OrderStatistics = { ...initialStats };
   let extraRoastedVeggies = 0;
@@ -49,7 +49,7 @@ export default function calculateStats(
     (count, orderCount) => {
       return count + Math.ceil(orderCount / 14);
     },
-    0
+    0,
   );
 
   // Calculate ingredient amounts of proteins for stats
@@ -66,8 +66,8 @@ export default function calculateStats(
       amount: amountInLbs,
       lbsPer,
       units: "lbs",
-      ingredientType: "proteins"
-    }
+      ingredientType: "proteins",
+    };
   }
 
   // Add two pounds to sirloin to account for trimmed fat
@@ -80,23 +80,30 @@ export default function calculateStats(
       const { amount } = stats.proteins[key];
       return total + Math.ceil(amount);
     },
-    0
+    0,
   );
 
   // Add the starting veggie and carb data using stats.mealCount. The amounts column contains how many units of each veggie and carb should be used for each meal count threshold
   stats.veggieCarbs = veggieCarbInfoRows.reduce((result, vcRow) => {
     const maxKey = Object.keys(vcRow.amounts).reduce(
       (max, curr) => Math.max(max, Number(curr)),
-      0
+      0,
     );
     const amountKey = Number(
       Object.keys(vcRow.amounts)
         .sort((a, b) => Number(a) - Number(b))
-        .find((key) => Number(key) >= stats.numMeals) || maxKey
+        .find((key) => Number(key) >= stats.numMeals) || maxKey,
     );
     const amount = vcRow.amounts[amountKey];
 
-    const { label, lbsPer, units, cookDisplayOrder, cookLabel, waterMultiplier } = vcRow;
+    const {
+      label,
+      lbsPer,
+      units,
+      cookDisplayOrder,
+      cookLabel,
+      waterMultiplier,
+    } = vcRow;
     result[vcRow.name] = {
       label,
       amount,
@@ -105,7 +112,7 @@ export default function calculateStats(
       ingredientType: vcRow.isVeggie ? "veggies" : "carbs",
       cookDisplayOrder,
       cookLabel,
-      waterMultiplier
+      waterMultiplier,
     };
     return result;
   }, {} as AllVeggieCarbInfo);
@@ -138,13 +145,13 @@ export default function calculateStats(
             veggieCarbBackstock,
             veggieCarb,
             undefined,
-            amount + 5
+            amount + 5,
           )
         : chooseBackstockWeights(
             veggieCarbBackstock,
             veggieCarb,
             undefined,
-            amount
+            amount,
           );
 
     if (backstockRows === null) continue;

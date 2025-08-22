@@ -25,7 +25,7 @@ async function getPullList(): Promise<PullListRow[]> {
   }
 
   const pullList: PullListRow[] = data.map((row) =>
-    snakeToCamel<PullListRow>(row)
+    snakeToCamel<PullListRow>(row),
   );
 
   return pullList;

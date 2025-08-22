@@ -9,36 +9,44 @@ interface RoleSelectProps<T extends Record<string, string | number | null>> {
   form: UseFormReturnType<T>;
 }
 
-export default function RoleSelect<T extends Record<string, string | number | null>>({ form }: RoleSelectProps<T>) {
-  const { data: rolesInfo, error: rolesError } = useSuspenseQuery(rolesOptions());
-  const roleExplanations = rolesInfo.reduce((explanations, row) => {
-    explanations[row.name] = row.explanation
-    return explanations
-  }, {} as { [role: string]: string })
+export default function RoleSelect<
+  T extends Record<string, string | number | null>,
+>({ form }: RoleSelectProps<T>) {
+  const { data: rolesInfo, error: rolesError } =
+    useSuspenseQuery(rolesOptions());
+  const roleExplanations = rolesInfo.reduce(
+    (explanations, row) => {
+      explanations[row.name] = row.explanation;
+      return explanations;
+    },
+    {} as { [role: string]: string },
+  );
 
   const [explanation, setExplanation] = useState(roleExplanations["employee"]);
 
-  const errors = [rolesError].filter((error) => !!error)
+  const errors = [rolesError].filter((error) => !!error);
   if (errors.length > 0) {
     return (
       <Stack>
         <Text>Errors fetching role info</Text>
-        {errors.map((error, index) => <Text key={index}>{error.message}</Text>)}
+        {errors.map((error, index) => (
+          <Text key={index}>{error.message}</Text>
+        ))}
       </Stack>
     );
   }
 
   const selectData = rolesInfo.map((row) => ({
     label: row.label,
-    value: row.name
+    value: row.name,
   }));
 
   form.watch("role", ({ value }) => {
     if (typeof value === "string") {
-      setExplanation(roleExplanations[value])
+      setExplanation(roleExplanations[value]);
     }
   });
-  
+
   return (
     <Stack>
       <Select
@@ -46,8 +54,7 @@ export default function RoleSelect<T extends Record<string, string | number | nu
         name="role"
         data={selectData}
         key={form.key("role")}
-        { ...form.getInputProps("role") }
-        
+        {...form.getInputProps("role")}
       />
       <Subtitle textAlign="start">{explanation}</Subtitle>
     </Stack>

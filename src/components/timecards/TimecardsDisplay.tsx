@@ -1,6 +1,9 @@
 import { useInsertTimecardHistoryMutation } from "@/tanstack-query/mutations/insertTimecardHistory";
 import { timecardHistoryOptions } from "@/tanstack-query/queries/timecardHistory";
-import type { InsertTimecardHistoryRow, TimecardValues } from "@/types/rpmp-types";
+import type {
+  InsertTimecardHistoryRow,
+  TimecardValues,
+} from "@/types/rpmp-types";
 import { Box, Button, Group, Paper, Stack, Table, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -29,7 +32,7 @@ export default function TimecardsDisplay({
 
         const latestTimecardHistory = data.reduce((latest, row) => {
           const [latestTimestamp, rowTimestamp] = [latest, row].map((x) =>
-            new Date(x.createdAt).getTime()
+            new Date(x.createdAt).getTime(),
           );
           return rowTimestamp >= latestTimestamp ? row : latest;
         });
@@ -46,14 +49,16 @@ export default function TimecardsDisplay({
     getSummaryData(timecardsData, "Today"),
     getSummaryData(
       latestTimecardHistory ? latestTimecardHistory.data : null,
-      latestTimecardHistory ? new Date(latestTimecardHistory.createdAt).toLocaleDateString() : ""
+      latestTimecardHistory
+        ? new Date(latestTimecardHistory.createdAt).toLocaleDateString()
+        : "",
     ),
   ];
 
   const insertTimecardHistoryMutation = useInsertTimecardHistoryMutation();
 
   const { userId } = getRouteApi(
-    "/dashboard/_timecards/create-timecards"
+    "/dashboard/_timecards/create-timecards",
   ).useRouteContext();
 
   const errors = [timecardError].filter((error) => !!error);
@@ -154,7 +159,7 @@ export default function TimecardsDisplay({
 
 function getSummaryData(
   timecardsData: TimecardValues[] | null,
-  date: string
+  date: string,
 ): { date: string; regPay: string; overtimePay: string; total: string } {
   if (timecardsData === null) {
     return {
@@ -171,10 +176,10 @@ function getSummaryData(
       row.sundayRegularPay +
       row.mondayRegularPay +
       row.drivingRegularPay +
-      Number(row.route1) + 
+      Number(row.route1) +
       Number(row.route2) +
       Number(row.miscAmount),
-    0
+    0,
   );
 
   const overtimePay = timecardsData.reduce(
@@ -183,7 +188,7 @@ function getSummaryData(
       row.sundayOvertimePay +
       row.mondayOvertimePay +
       row.drivingOvertimePay,
-    0
+    0,
   );
 
   return {

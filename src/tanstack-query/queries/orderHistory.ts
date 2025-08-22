@@ -25,7 +25,7 @@ async function getOrderHistory(): Promise<OrderHistoryRow[]> {
   }
 
   const orderHistory: OrderHistoryRow[] = data.map((row) =>
-    snakeToCamel<OrderHistoryRow>(row)
+    snakeToCamel<OrderHistoryRow>(row),
   );
 
   return orderHistory;

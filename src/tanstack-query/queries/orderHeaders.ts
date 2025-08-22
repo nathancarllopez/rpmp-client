@@ -25,7 +25,7 @@ async function getOrderHeaders(): Promise<OrderHeaderRow[]> {
   }
 
   const orderHeaders: OrderHeaderRow[] = data.map((row) =>
-    snakeToCamel<OrderHeaderRow>(row)
+    snakeToCamel<OrderHeaderRow>(row),
   );
 
   return orderHeaders;

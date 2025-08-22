@@ -37,7 +37,10 @@ function ResetPassword() {
       if (error instanceof Error) {
         console.warn("Error resetting password: ", error.message);
       } else {
-        console.warn("Unkown error resetting password: ", JSON.stringify(error));
+        console.warn(
+          "Unkown error resetting password: ",
+          JSON.stringify(error),
+        );
       }
 
       notifications.show({

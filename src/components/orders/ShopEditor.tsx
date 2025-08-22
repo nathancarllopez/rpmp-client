@@ -37,7 +37,7 @@ interface ShopEditorProps {
   orderReportInfo: OrderReportInfo;
   setOrderReportInfo: React.Dispatch<React.SetStateAction<OrderReportInfo>>;
   setReportUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
-  setInfoHistory: React.Dispatch<React.SetStateAction<OrderReportInfo[]>>
+  setInfoHistory: React.Dispatch<React.SetStateAction<OrderReportInfo[]>>;
   toNextStep: () => void;
   backToUpload: () => void;
 }
@@ -71,7 +71,7 @@ export default function ShopEditor({
         const storeRows = shopSheetRows.get(storeName);
         if (storeRows === undefined) {
           throw new Error(
-            `Could not find store rows for this store: ${storeName}`
+            `Could not find store rows for this store: ${storeName}`,
           );
         }
 
@@ -79,8 +79,8 @@ export default function ShopEditor({
 
         return quantities;
       },
-      {} as Record<string, number[]>
-    )
+      {} as Record<string, number[]>,
+    );
   }
 
   const originalQuantities = originalQuantitiesRef.current;
@@ -137,7 +137,7 @@ export default function ShopEditor({
         if (currRows === undefined) {
           console.warn(currShopRows);
           throw new Error(
-            `Could not find store rows for this store: ${storeName}`
+            `Could not find store rows for this store: ${storeName}`,
           );
         }
 
@@ -174,7 +174,7 @@ export default function ShopEditor({
     const url = await fetchReportUrl(updatedInfo);
 
     setOrderReportInfo(updatedInfo);
-    setInfoHistory((curr) => [ ...curr, { ...orderReportInfo }])
+    setInfoHistory((curr) => [...curr, { ...orderReportInfo }]);
     setReportUrl(url);
 
     toNextStep();
@@ -183,7 +183,7 @@ export default function ShopEditor({
   const handleQuantityUpdate = (
     newQuantity: number,
     storeName: string,
-    index: number
+    index: number,
   ) =>
     setOrderReportInfo((curr) => {
       const { shopSheetRows: currShopRows } = curr;
@@ -192,7 +192,7 @@ export default function ShopEditor({
       if (currRows === undefined) {
         console.warn(currShopRows);
         throw new Error(
-          `Could not find store rows for this store: ${storeName}`
+          `Could not find store rows for this store: ${storeName}`,
         );
       }
 
@@ -324,12 +324,11 @@ function useQueryData() {
     { storeNames: [], storeLabels: [] } as {
       storeNames: string[];
       storeLabels: string[];
-    }
+    },
   );
 
   const { data: pullTemplateRows, error: pullRowsError } =
     useSuspenseQuery(pullListOptions());
-
 
   return {
     storeError,

@@ -2,7 +2,7 @@ import type { TimecardValues } from "@/types/rpmp-types";
 import { getDuration } from "./timecardValidation";
 
 export function calculateTimecardHoursAndPay(
-  formValues: TimecardValues
+  formValues: TimecardValues,
 ): Record<string, number> {
   const {
     sundayStart,

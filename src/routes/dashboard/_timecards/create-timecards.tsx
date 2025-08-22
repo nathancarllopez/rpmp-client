@@ -11,9 +11,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-export const Route = createFileRoute(
-  "/dashboard/_timecards/create-timecards"
-)({
+export const Route = createFileRoute("/dashboard/_timecards/create-timecards")({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(allProfilesOptions());
     queryClient.ensureQueryData(timecardHistoryOptions());
@@ -28,18 +26,22 @@ function CreateTimecards() {
     select: (data) =>
       data.filter(
         (employee) =>
-          employee.drivingRate !== null || employee.kitchenRate !== null
+          employee.drivingRate !== null || employee.kitchenRate !== null,
       ),
   });
 
   const { data: employeePics, error: picsError } = useSuspenseQuery(
-    allProfilePicsOptions()
+    allProfilePicsOptions(),
   );
 
-  const initialTimecardsData = getBlankTimecardsData(employeeInfo, employeePics);
+  const initialTimecardsData = getBlankTimecardsData(
+    employeeInfo,
+    employeePics,
+  );
 
   const [active, setActive] = useState(0);
-  const [timecardsData, setTimecardsData] = useState<TimecardValues[]>(initialTimecardsData);
+  const [timecardsData, setTimecardsData] =
+    useState<TimecardValues[]>(initialTimecardsData);
   const [timecardsUrl, setTimecardsUrl] = useState<string | null>(null);
 
   const errors = [employeeError, picsError].filter((error) => !!error);
@@ -65,8 +67,7 @@ function CreateTimecards() {
   };
   const numSteps = Object.keys(stepProps).length;
 
-  const toNextStep = () =>
-    setActive((curr) => Math.min(curr + 1, numSteps));
+  const toNextStep = () => setActive((curr) => Math.min(curr + 1, numSteps));
   const toPrevStep = () => setActive((curr) => Math.max(0, curr - 1));
 
   return (

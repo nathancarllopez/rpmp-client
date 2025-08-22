@@ -14,7 +14,10 @@ import { useForm } from "@mantine/form";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { DateInput } from "@mantine/dates";
 import { notifications } from "@mantine/notifications";
-import type { SelectedBackstockRow, UpdateBackstockInfo } from "@/types/rpmp-types";
+import type {
+  SelectedBackstockRow,
+  UpdateBackstockInfo,
+} from "@/types/rpmp-types";
 import { useUpdateBackstockMutation } from "@/tanstack-query/mutations/updateBackstock";
 import FormWithDisable from "../misc/FormWithDisable";
 
@@ -38,7 +41,7 @@ export default function EditSelectedModal({
     mode: "uncontrolled",
     initialValues: {
       selectedRows: selected.sort((rowA, rowB) =>
-        rowA.name.localeCompare(rowB.name)
+        rowA.name.localeCompare(rowB.name),
       ),
     },
   });
@@ -77,7 +80,9 @@ export default function EditSelectedModal({
           <Checkbox
             disabled={item.action === "delete"}
             key={form.key(`selectedRows.${index}.claimed`)}
-            {...form.getInputProps(`selectedRows.${index}.claimed`, { type: "checkbox" })}
+            {...form.getInputProps(`selectedRows.${index}.claimed`, {
+              type: "checkbox",
+            })}
           />
         </Center>
       </Table.Td>
@@ -113,7 +118,7 @@ export default function EditSelectedModal({
       info[idStr] = {
         weight: row.weight,
         created_at: new Date(row.createdAt).toISOString(),
-        claimed: row.claimed
+        claimed: row.claimed,
       };
 
       if (row.action === "delete") {
@@ -147,16 +152,12 @@ export default function EditSelectedModal({
           title: "Updating backstock failed",
           message: error.message,
         });
-      }
+      },
     });
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={handleClose}
-      size={"auto"}
-    >
+    <Modal opened={opened} onClose={handleClose} size={"auto"}>
       <Group mb={"md"}>
         <Title me={"auto"}>Update Backstock</Title>
         <CloseButton size={"xl"} onClick={handleClose} />

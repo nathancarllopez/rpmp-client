@@ -1,7 +1,7 @@
 import type { TimecardValues } from "@/types/rpmp-types";
 
 export function validateTimecards(
-  timecardsData: TimecardValues[]
+  timecardsData: TimecardValues[],
 ): Record<string, string>[] | null {
   let errorsFound = false;
   const validationErrors = timecardsData.map((timecard) => {

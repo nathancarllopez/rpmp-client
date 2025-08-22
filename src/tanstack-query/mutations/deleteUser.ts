@@ -7,7 +7,7 @@ export function useDeleteUserMutation(invokerId: string) {
     mutationFn: (idToDelete: string) => deleteUser(idToDelete, invokerId),
     onSuccess: (deletedId) => {
       queryClient.setQueryData(["allProfiles"], (prevData: ProfileRow[]) =>
-        [...prevData].filter((profile) => profile.userId !== deletedId)
+        [...prevData].filter((profile) => profile.userId !== deletedId),
       );
       queryClient.removeQueries({
         queryKey: ["profilePic", deletedId],
@@ -25,7 +25,7 @@ const endpoint = "/auth/delete-user";
 
 async function deleteUser(
   idToDelete: string,
-  invokerId: string
+  invokerId: string,
 ): Promise<string> {
   const apiUrl = import.meta.env.VITE_BACKEND_URL + endpoint;
   const response = await fetch(apiUrl, {

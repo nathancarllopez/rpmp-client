@@ -1,5 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import type { InsertTimecardHistoryRow, TimecardHistoryRow } from "@/types/rpmp-types";
+import type {
+  InsertTimecardHistoryRow,
+  TimecardHistoryRow,
+} from "@/types/rpmp-types";
 import { supabase } from "@/supabase/client";
 import { snakeToCamel } from "../key-converters";
 import { queryClient } from "../queryClient";
@@ -10,13 +13,13 @@ export function useInsertTimecardHistoryMutation() {
     onSuccess: (data) =>
       queryClient.setQueryData(
         ["timecardHistory"],
-        (curr: TimecardHistoryRow[] = []) => [data, ...curr]
+        (curr: TimecardHistoryRow[] = []) => [data, ...curr],
       ),
   });
 }
 
 async function insertTimecardHisotry(
-  newTimecards: InsertTimecardHistoryRow
+  newTimecards: InsertTimecardHistoryRow,
 ): Promise<TimecardHistoryRow> {
   const { data, error } = await supabase
     .from("timecards_history")

@@ -4,7 +4,7 @@ export function chooseBackstockWeights(
   allBackstock: AllBackstockRow[],
   name: string,
   subName: string | undefined,
-  weight: number
+  weight: number,
 ): AllBackstockRow[] | null {
   const validBackstock = allBackstock.filter((row) => {
     let goodRow = !row.claimed && row.weight <= weight && row.name === name;

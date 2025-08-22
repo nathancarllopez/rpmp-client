@@ -25,11 +25,12 @@ import type { ProfileRow } from "@/types/rpmp-types";
 import CreateModal from "@/components/employees/CreateModal";
 import ViewEditProfile from "@/components/profile/ViewEditProfile";
 
-export const Route = createFileRoute('/dashboard/employees')({
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(allProfilesOptions()),
+export const Route = createFileRoute("/dashboard/employees")({
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(allProfilesOptions()),
   pendingComponent: LoadingScreen,
   component: Employees,
-})
+});
 
 function Employees() {
   const { userId } = Route.useRouteContext();
@@ -38,8 +39,11 @@ function Employees() {
   const [searchValue, setSearchValue] = useState("");
   const atSmallBp = useMediaQuery("(min-width: 48em)");
 
-  const { data: allProfiles, error: profilesError } = useSuspenseQuery(allProfilesOptions());
-  const { data: allProfilePics, error: profilePicsError } = useSuspenseQuery(allProfilePicsOptions());
+  const { data: allProfiles, error: profilesError } =
+    useSuspenseQuery(allProfilesOptions());
+  const { data: allProfilePics, error: profilePicsError } = useSuspenseQuery(
+    allProfilePicsOptions(),
+  );
 
   const profiles = useMemo(() => {
     return allProfiles.filter((profile) => {
@@ -49,10 +53,10 @@ function Employees() {
       const keyMatchesSearch = (key: keyof ProfileRow) => {
         const value = (profile[key] ?? "").toString().toLowerCase();
         return value.includes(searchValue.toLowerCase());
-      }
+      };
 
       return profileKeys.some((key) => keyMatchesSearch(key));
-    })
+    });
   }, [allProfiles, searchValue]);
 
   const errors = [profilesError, profilePicsError].filter((error) => !!error);

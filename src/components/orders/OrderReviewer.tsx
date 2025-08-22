@@ -10,7 +10,7 @@ interface OrderReviewerProps {
   setReviewOrderUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
   orderReportInfo: OrderReportInfo;
   setOrderReportInfo: React.Dispatch<React.SetStateAction<OrderReportInfo>>;
-  setInfoHistory: React.Dispatch<React.SetStateAction<OrderReportInfo[]>>,
+  setInfoHistory: React.Dispatch<React.SetStateAction<OrderReportInfo[]>>;
   toNextStep: () => void;
   toPrevStep: () => void;
 }
@@ -35,7 +35,7 @@ export default function OrderReviewer({
   });
 
   const { data: templateStoreRows, error: templateError } = useSuspenseQuery(
-    shopTemplateRowsOptions()
+    shopTemplateRowsOptions(),
   );
 
   const errors = [storeError, templateError].filter((err) => !!err);
@@ -55,13 +55,16 @@ export default function OrderReviewer({
   };
 
   const handleEditShopClick = () => {
-    const { stats: { veggieCarbs }, proteinInfo } = orderReportInfo;
+    const {
+      stats: { veggieCarbs },
+      proteinInfo,
+    } = orderReportInfo;
 
     const { shopSheetRows, carbsToCook } = fillShopSheetRows(
       storesInDisplayOrder,
       templateStoreRows,
       veggieCarbs,
-      proteinInfo
+      proteinInfo,
     );
 
     setOrderReportInfo((curr) => ({
@@ -69,10 +72,10 @@ export default function OrderReviewer({
       shopSheetRows,
       cookSheetInfo: {
         ...curr.cookSheetInfo,
-        carbsToCook
-      }
+        carbsToCook,
+      },
     }));
-    setInfoHistory((curr) => [ ...curr, { ...orderReportInfo }]);
+    setInfoHistory((curr) => [...curr, { ...orderReportInfo }]);
     toNextStep();
   };
 

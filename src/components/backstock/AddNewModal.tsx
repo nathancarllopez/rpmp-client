@@ -134,7 +134,7 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
         placeholder="Protein"
         data={proteinInfo.map((info) => ({
           value: info.name,
-          label: info.label
+          label: info.label,
         }))}
         searchable
         required
@@ -154,15 +154,15 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
             }
 
             const proteinData = proteinInfo.find(
-              (info) => info.name === selectedProtein
+              (info) => info.name === selectedProtein,
             );
             if (!proteinData) {
               throw new Error(
-                `Could not find protein data for this protein: ${selectedProtein}`
+                `Could not find protein data for this protein: ${selectedProtein}`,
               );
             }
 
-            copy[item.key] = proteinData.selectData
+            copy[item.key] = proteinData.selectData;
 
             return copy;
           });
@@ -211,7 +211,7 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
 
   const handleSubmit = async (values: typeof form.values) => {
     const newBackstock: InsertBackstockRow[] = values.newBackstock.map(
-      (value) => camelToSnake<InsertBackstockRow>(value)
+      (value) => camelToSnake<InsertBackstockRow>(value),
     );
 
     insertBackstockMutation.mutate(newBackstock, {

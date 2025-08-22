@@ -11,23 +11,23 @@ export function useUpdateBackstockMutation() {
   });
 }
 
-type RPCReturnType = {
-  claimed: boolean
-  created_at: string
-  deleted_on: string
-  id: number
-  weight: number
-}[] | null;
+type RPCReturnType =
+  | {
+      claimed: boolean;
+      created_at: string;
+      deleted_on: string;
+      id: number;
+      weight: number;
+    }[]
+  | null;
 
 async function updateBackstock(
-  updateInfo: UpdateBackstockInfo
+  updateInfo: UpdateBackstockInfo,
 ): Promise<UpdateBackstockInfo> {
-  const { data, error }: { data: RPCReturnType, error: PostgrestError | null } = await supabase.rpc(
-    "update_backstock_rows",
-    {
+  const { data, error }: { data: RPCReturnType; error: PostgrestError | null } =
+    await supabase.rpc("update_backstock_rows", {
       updates: updateInfo,
-    }
-  );
+    });
 
   if (error) {
     console.log(error);
@@ -38,7 +38,7 @@ async function updateBackstock(
   }
 
   if (data === null) {
-    throw new Error(`No data returned after updating backstock`)
+    throw new Error(`No data returned after updating backstock`);
   }
 
   const undoUpdateInfo = data.reduce((undoInfo, row) => {

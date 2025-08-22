@@ -22,7 +22,7 @@ export const navbarInfo: NavbarInfo[] = [
         id: "order-history",
         label: "Order History",
         href: "/dashboard/order-history",
-      }
+      },
     ],
   },
   {
@@ -36,17 +36,17 @@ export const navbarInfo: NavbarInfo[] = [
     id: "timecards",
     label: "Timecards",
     icon: <IconReceiptDollar />,
-    hasPermission: ["admin", 'owner', "manager", "employee"],
+    hasPermission: ["admin", "owner", "manager", "employee"],
     sublinks: [
       {
         id: "create-timecards",
         label: "Create Timecards",
-        href: "/dashboard/create-timecards"
+        href: "/dashboard/create-timecards",
       },
       {
         id: "timecard-history",
         label: "Timecard History",
-        href: "/dashboard/timecard-history"
+        href: "/dashboard/timecard-history",
       },
     ],
   },
@@ -55,6 +55,6 @@ export const navbarInfo: NavbarInfo[] = [
     label: "Employees",
     icon: <IconUsers />,
     href: "/dashboard/employees",
-    hasPermission: ["admin", 'owner'],
+    hasPermission: ["admin", "owner"],
   },
 ];

@@ -1,6 +1,8 @@
 import type { OrderReportInfo } from "@/types/rpmp-types";
 
-export default async function fetchOrderReviewUrl(info: OrderReportInfo): Promise<string> {
+export default async function fetchOrderReviewUrl(
+  info: OrderReportInfo,
+): Promise<string> {
   const apiUrl = import.meta.env.VITE_BACKEND_URL + "/orders/generate-review";
   const response = await fetch(apiUrl, {
     method: "POST",

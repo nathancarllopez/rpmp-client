@@ -7,8 +7,8 @@ export function profileByIdOptions(userId: string) {
   return queryOptions({
     queryKey: ["profile", userId],
     queryFn: () => getProfileById(userId),
-    staleTime: Infinity
-  })
+    staleTime: Infinity,
+  });
 }
 
 async function getProfileById(userId: string): Promise<ProfileRow> {
@@ -22,7 +22,7 @@ async function getProfileById(userId: string): Promise<ProfileRow> {
     console.warn("Error fetching profile:");
     console.warn(error.code);
     console.warn(error.message);
-    
+
     throw error;
   }
 

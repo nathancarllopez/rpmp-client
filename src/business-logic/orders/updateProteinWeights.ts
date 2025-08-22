@@ -2,10 +2,10 @@ import type { AllProteinInfo, Meal } from "@/types/rpmp-types";
 
 export function updateProteinWeights(
   initialProteinInfo: AllProteinInfo,
-  meals: Meal[]
+  meals: Meal[],
 ): {
-  proteinInfo: AllProteinInfo,
-  bisonCubes: number
+  proteinInfo: AllProteinInfo;
+  bisonCubes: number;
 } {
   const proteinInfo = { ...initialProteinInfo };
 
@@ -35,13 +35,17 @@ export function updateProteinWeights(
 
   // Split beefBison into beef and bison: client wants 1.25 pounds of bison for every 10 pounds of beef because they buy "cubes" of bison which each weight 1.25 pounds
   const beefBisonInLbs = proteinInfo["beefBison"].totalWeightToCook / 16;
-  const { bisonCubes, beefWeight, bisonWeight } = splitBeefBison(beefBisonInLbs);
+  const { bisonCubes, beefWeight, bisonWeight } =
+    splitBeefBison(beefBisonInLbs);
 
-  const fixBeefBisonWeights = (protein: "beef" | "bison", weightInLbs: number) => {
+  const fixBeefBisonWeights = (
+    protein: "beef" | "bison",
+    weightInLbs: number,
+  ) => {
     const totalWeightToCook = weightInLbs * 16;
 
     proteinInfo[protein] = { ...proteinInfo[protein], totalWeightToCook };
-  }
+  };
   fixBeefBisonWeights("beef", beefWeight);
   fixBeefBisonWeights("bison", bisonWeight);
 
@@ -49,9 +53,9 @@ export function updateProteinWeights(
 }
 
 function splitBeefBison(beefBisonWeight: number): {
-  bisonCubes: number,
-  beefWeight: number,
-  bisonWeight: number
+  bisonCubes: number;
+  beefWeight: number;
+  bisonWeight: number;
 } {
   const roundAtTensPlace = (weight: number) => 10 * Math.round(weight / 10);
 

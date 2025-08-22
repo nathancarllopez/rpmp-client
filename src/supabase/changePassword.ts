@@ -1,7 +1,7 @@
 import { supabase } from "./client";
 
 export default async function changePassword(
-  newPassword: string
+  newPassword: string,
 ): Promise<void> {
   const { error } = await supabase.auth.updateUser({
     password: newPassword,

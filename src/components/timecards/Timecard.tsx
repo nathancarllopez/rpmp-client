@@ -1,8 +1,28 @@
-import { ActionIcon, Avatar, Badge, Center, Collapse, Fieldset, Group, NumberFormatter, NumberInput, Paper, SimpleGrid, Table, Textarea, TextInput, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Avatar,
+  Badge,
+  Center,
+  Collapse,
+  Fieldset,
+  Group,
+  NumberFormatter,
+  NumberInput,
+  Paper,
+  SimpleGrid,
+  Table,
+  Textarea,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { TimePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useToggle } from "@mantine/hooks";
-import { IconChevronDown, IconChevronUp, IconRestore } from "@tabler/icons-react";
+import {
+  IconChevronDown,
+  IconChevronUp,
+  IconRestore,
+} from "@tabler/icons-react";
 import type { TimecardValues } from "../../types/types";
 import { startBeforeEnd } from "../../business-logic/timecards/timecardValidation";
 import { calculateTimecardHoursAndPay } from "../../business-logic/timecards/calculateTimecardHoursAndPay";
@@ -11,12 +31,19 @@ interface TimecardProps {
   isCollapsed: boolean;
   toggleCollapsed: () => void;
   timecardVals: TimecardValues;
-  formErrors: Record<string, string>
+  formErrors: Record<string, string>;
   updateTimecard: (values: TimecardValues) => void;
   resetTimecard: () => void;
 }
 
-export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, formErrors, updateTimecard, resetTimecard }: TimecardProps) {
+export default function Timecard({
+  isCollapsed,
+  toggleCollapsed,
+  timecardVals,
+  formErrors,
+  updateTimecard,
+  resetTimecard,
+}: TimecardProps) {
   const [variant, toggleVariant] = useToggle(["default", "filled"] as const);
 
   const form = useForm({
@@ -35,9 +62,11 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
       sundayEnd: (value, { sundayStart }) => startBeforeEnd(sundayStart, value),
       mondayStart: (value, { mondayEnd }) => startBeforeEnd(value, mondayEnd),
       mondayEnd: (value, { mondayStart }) => startBeforeEnd(mondayStart, value),
-      drivingStart: (value, { drivingEnd }) => startBeforeEnd(value, drivingEnd),
-      drivingEnd: (value, { drivingStart }) => startBeforeEnd(drivingStart, value),
-    }
+      drivingStart: (value, { drivingEnd }) =>
+        startBeforeEnd(value, drivingEnd),
+      drivingEnd: (value, { drivingStart }) =>
+        startBeforeEnd(drivingStart, value),
+    },
   });
 
   const formValues = form.getValues();
@@ -50,21 +79,32 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
     resetTimecard();
     toggleVariant();
     setTimeout(() => toggleVariant(), 2000);
-  }
+  };
 
-  const updateHoursAndPay = (value: string | number, key: keyof TimecardValues) => {
-    const timecardWithChange: TimecardValues = { ...timecardVals, [key]: value };
+  const updateHoursAndPay = (
+    value: string | number,
+    key: keyof TimecardValues,
+  ) => {
+    const timecardWithChange: TimecardValues = {
+      ...timecardVals,
+      [key]: value,
+    };
     const hoursAndPay = calculateTimecardHoursAndPay(timecardWithChange);
     form.setValues({ ...timecardWithChange, ...hoursAndPay });
-  }
+  };
 
   return (
     <Paper>
-      <Group onClick={() => {
-        if (isCollapsed) toggleCollapsed();
-      }}>
-        <Group me={'auto'}>
-          <Avatar src={timecardVals.profilePicUrl} alt={timecardVals.fullName} />
+      <Group
+        onClick={() => {
+          if (isCollapsed) toggleCollapsed();
+        }}
+      >
+        <Group me={"auto"}>
+          <Avatar
+            src={timecardVals.profilePicUrl}
+            alt={timecardVals.fullName}
+          />
           <Title>{timecardVals.fullName}</Title>
         </Group>
         <NumberInput
@@ -84,8 +124,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
           hideControls
           {...form.getInputProps(`kitchenRate`)}
           onChange={(value) => {
-            form.getInputProps('kitchenRate').onChange(value);
-            updateHoursAndPay(value, 'kitchenRate');
+            form.getInputProps("kitchenRate").onChange(value);
+            updateHoursAndPay(value, "kitchenRate");
           }}
         />
         <NumberInput
@@ -105,17 +145,26 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
           hideControls
           {...form.getInputProps(`drivingRate`)}
           onChange={(value) => {
-            form.getInputProps('drivingRate').onChange(value);
-            updateHoursAndPay(value, 'drivingRate');
+            form.getInputProps("drivingRate").onChange(value);
+            updateHoursAndPay(value, "drivingRate");
           }}
         />
-        <ActionIcon disabled={!form.isDirty()} variant={variant} size={"lg"} onClick={handleResetClick}>
+        <ActionIcon
+          disabled={!form.isDirty()}
+          variant={variant}
+          size={"lg"}
+          onClick={handleResetClick}
+        >
           <IconRestore />
         </ActionIcon>
-        <ActionIcon variant="default" size={"lg"} onClick={() => {
-          if (!isCollapsed) toggleCollapsed();
-        }}>
-          {isCollapsed ? <IconChevronUp /> : <IconChevronDown /> }
+        <ActionIcon
+          variant="default"
+          size={"lg"}
+          onClick={() => {
+            if (!isCollapsed) toggleCollapsed();
+          }}
+        >
+          {isCollapsed ? <IconChevronUp /> : <IconChevronDown />}
         </ActionIcon>
       </Group>
 
@@ -135,8 +184,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`sundayStart`)}
               {...form.getInputProps(`sundayStart`)}
               onChange={(value) => {
-                form.getInputProps('sundayStart').onChange(value);
-                updateHoursAndPay(value, 'sundayStart');
+                form.getInputProps("sundayStart").onChange(value);
+                updateHoursAndPay(value, "sundayStart");
               }}
             />
             <TimePicker
@@ -152,8 +201,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`sundayEnd`)}
               {...form.getInputProps(`sundayEnd`)}
               onChange={(value) => {
-                form.getInputProps('sundayEnd').onChange(value);
-                updateHoursAndPay(value, 'sundayEnd');
+                form.getInputProps("sundayEnd").onChange(value);
+                updateHoursAndPay(value, "sundayEnd");
               }}
             />
             <TextInput
@@ -201,8 +250,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`mondayStart`)}
               {...form.getInputProps(`mondayStart`)}
               onChange={(value) => {
-                form.getInputProps('mondayStart').onChange(value);
-                updateHoursAndPay(value, 'mondayStart');
+                form.getInputProps("mondayStart").onChange(value);
+                updateHoursAndPay(value, "mondayStart");
               }}
             />
             <TimePicker
@@ -218,8 +267,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`mondayEnd`)}
               {...form.getInputProps(`mondayEnd`)}
               onChange={(value) => {
-                form.getInputProps('mondayEnd').onChange(value);
-                updateHoursAndPay(value, 'mondayEnd');
+                form.getInputProps("mondayEnd").onChange(value);
+                updateHoursAndPay(value, "mondayEnd");
               }}
             />
             <TextInput
@@ -267,8 +316,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`drivingStart`)}
               {...form.getInputProps(`drivingStart`)}
               onChange={(value) => {
-                form.getInputProps('drivingStart').onChange(value);
-                updateHoursAndPay(value, 'drivingStart');
+                form.getInputProps("drivingStart").onChange(value);
+                updateHoursAndPay(value, "drivingStart");
               }}
             />
             <TimePicker
@@ -284,8 +333,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`drivingEnd`)}
               {...form.getInputProps(`drivingEnd`)}
               onChange={(value) => {
-                form.getInputProps('drivingEnd').onChange(value);
-                updateHoursAndPay(value, 'drivingEnd');
+                form.getInputProps("drivingEnd").onChange(value);
+                updateHoursAndPay(value, "drivingEnd");
               }}
             />
             <TextInput
@@ -311,8 +360,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               // key={form.key("route1")}
               {...form.getInputProps(`route1`)}
               onChange={(value) => {
-                form.getInputProps('route1').onChange(value);
-                updateHoursAndPay(value, 'route1');
+                form.getInputProps("route1").onChange(value);
+                updateHoursAndPay(value, "route1");
               }}
             />
             <NumberInput
@@ -331,8 +380,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               // key={form.key("route2")}
               {...form.getInputProps(`route2`)}
               onChange={(value) => {
-                form.getInputProps('route2').onChange(value);
-                updateHoursAndPay(value, 'route2');
+                form.getInputProps("route2").onChange(value);
+                updateHoursAndPay(value, "route2");
               }}
             />
             <NumberInput
@@ -346,8 +395,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               key={form.key(`stops`)}
               {...form.getInputProps(`stops`)}
               onChange={(value) => {
-                form.getInputProps('stops').onChange(value);
-                updateHoursAndPay(value, 'stops');
+                form.getInputProps("stops").onChange(value);
+                updateHoursAndPay(value, "stops");
               }}
             />
           </SimpleGrid>
@@ -412,8 +461,8 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
               // key={form.key(`miscAmount`)}
               {...form.getInputProps(`miscAmount`)}
               onChange={(value) => {
-                form.getInputProps('miscAmount').onChange(value);
-                updateHoursAndPay(value, 'miscAmount');
+                form.getInputProps("miscAmount").onChange(value);
+                updateHoursAndPay(value, "miscAmount");
               }}
             />
             <TextInput
@@ -439,7 +488,9 @@ export default function Timecard({ isCollapsed, toggleCollapsed, timecardVals, f
                 value={formValues.grandTotal}
                 decimalScale={2}
               />
-            ) : ("-")}
+            ) : (
+              "-"
+            )}
           </Title>
         </Center>
       </Collapse>

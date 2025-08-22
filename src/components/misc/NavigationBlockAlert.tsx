@@ -5,7 +5,7 @@ interface NavigationBlockAlertProps {
     status: "blocked" | "idle";
     proceed: (() => void) | undefined;
     reset: (() => void) | undefined;
-  }
+  };
   alertText: {
     title: string;
     message: string;
@@ -35,9 +35,11 @@ export default function NavigationBlockAlert({
             withCloseButton
             onClose={reset}
           >
-            <Text mb={'md'}>{message}</Text>
+            <Text mb={"md"}>{message}</Text>
             <Group justify="center">
-              <Button variant="outline" onClick={reset}>Go Back</Button>
+              <Button variant="outline" onClick={reset}>
+                Go Back
+              </Button>
               <Button onClick={proceed}>Proceed</Button>
             </Group>
           </Alert>

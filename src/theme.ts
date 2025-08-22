@@ -4,15 +4,15 @@ export const theme = createTheme({
   components: {
     Button: Button.extend({
       defaultProps: {
-        variant: 'default'
-      }
+        variant: "default",
+      },
     }),
     Modal: Modal.extend({
       defaultProps: {
         withCloseButton: false,
         padding: 0,
-        zIndex: 300
-      }
+        zIndex: 300,
+      },
     }),
     Paper: Paper.extend({
       defaultProps: {
@@ -20,8 +20,8 @@ export const theme = createTheme({
         radius: "md",
         withBorder: true,
         p: 30,
-        mt: 5
-      }
+        mt: 5,
+      },
     }),
-  }
+  },
 });

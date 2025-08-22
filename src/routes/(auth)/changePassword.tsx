@@ -18,7 +18,7 @@ export const Route = createFileRoute("/(auth)/changePassword")({
         title: "Authentication Required",
         message: "You must be logged in to access this page.",
       });
-      
+
       throw redirect({ to: "/", search: { redirect: "" } });
     }
   },

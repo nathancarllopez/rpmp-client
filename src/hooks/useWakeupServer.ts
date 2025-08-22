@@ -1,7 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { useEffect } from "react";
 
-const endpoint = '/health';
+const endpoint = "/health";
 
 export default function useWakeUpServer() {
   useEffect(() => {
@@ -15,14 +15,17 @@ export default function useWakeUpServer() {
         if (error instanceof Error) {
           console.warn("Error waking up server: ", error.message);
         } else {
-          console.warn("Unknown error waking up server: ", JSON.stringify(error));
+          console.warn(
+            "Unknown error waking up server: ",
+            JSON.stringify(error),
+          );
         }
 
         notifications.show({
           withCloseButton: true,
           color: "red",
           title: "Failed to wake up server",
-          message: "Wait a minute and then reload the page"
+          message: "Wait a minute and then reload the page",
         });
       }
     };

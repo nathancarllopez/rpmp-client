@@ -63,7 +63,7 @@ export default function BackstockTable({
         let compare = 0;
         if (key === "name" || key === "subName") {
           compare = String(getValue(rowA, key)).localeCompare(
-            String(getValue(rowB, key))
+            String(getValue(rowB, key)),
           );
         } else if (key === "createdAt") {
           compare = Number(getValue(rowA, key)) - Number(getValue(rowB, key));
@@ -73,7 +73,7 @@ export default function BackstockTable({
           compare = Number(getValue(rowB, key)) - Number(getValue(rowA, key));
         } else {
           compare = String(getValue(rowA, key)).localeCompare(
-            String(getValue(rowB, key))
+            String(getValue(rowB, key)),
           );
         }
 
@@ -139,9 +139,7 @@ export default function BackstockTable({
         {atSmallBp && (
           <>
             <Table.Td>{new Date(row.createdAt).toLocaleDateString()}</Table.Td>
-            <Table.Td>
-              {row.claimed ? <IconCheck size={15} /> : null}
-            </Table.Td>
+            <Table.Td>{row.claimed ? <IconCheck size={15} /> : null}</Table.Td>
           </>
         )}
       </Table.Tr>
@@ -149,9 +147,7 @@ export default function BackstockTable({
   });
 
   return (
-    <ScrollArea
-      onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-    >
+    <ScrollArea onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table highlightOnHover>
         <Table.Thead
           className={cx(classes.header, { [classes.scrolled]: scrolled })}

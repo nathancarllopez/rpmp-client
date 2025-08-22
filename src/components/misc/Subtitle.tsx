@@ -6,7 +6,10 @@ interface SubtitleProps {
   children: React.ReactNode;
 }
 
-export default function Subtitle({ textAlign = "center", children }: SubtitleProps) {
+export default function Subtitle({
+  textAlign = "center",
+  children,
+}: SubtitleProps) {
   return (
     <Text c="dimmed" size="sm" ta={textAlign}>
       {children}

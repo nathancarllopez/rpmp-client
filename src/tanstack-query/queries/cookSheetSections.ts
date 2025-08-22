@@ -25,7 +25,7 @@ async function getCookSheetSections(): Promise<CookSheetSectionRow[]> {
   }
 
   const cookSheetSections: CookSheetSectionRow[] = data.map((row) =>
-    snakeToCamel<CookSheetSectionRow>(row)
+    snakeToCamel<CookSheetSectionRow>(row),
   );
 
   return cookSheetSections;

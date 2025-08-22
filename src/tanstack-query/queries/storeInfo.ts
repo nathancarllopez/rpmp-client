@@ -25,7 +25,7 @@ async function getStoreInfo(): Promise<StoreInfoRow[]> {
   }
 
   const storeInfo: StoreInfoRow[] = data.map((row) =>
-    snakeToCamel<StoreInfoRow>(row)
+    snakeToCamel<StoreInfoRow>(row),
   );
 
   return storeInfo;
