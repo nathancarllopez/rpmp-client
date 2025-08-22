@@ -80,7 +80,7 @@ export default function ShopEditor({
         },
         {} as Record<string, number[]>
       ),
-    []  // How to do this without lint error?
+    [storeNames]
   );
 
   const errors = [storeError, pullRowsError].filter((error) => !!error);
