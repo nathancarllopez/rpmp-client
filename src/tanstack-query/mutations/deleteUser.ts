@@ -13,10 +13,6 @@ export function useDeleteUserMutation(invokerId: string) {
         queryKey: ["profilePic", deletedId],
         exact: true,
       });
-      queryClient.removeQueries({
-        queryKey: ["settings", deletedId],
-        exact: true,
-      });
     },
   });
 }
