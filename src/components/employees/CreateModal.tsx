@@ -95,7 +95,7 @@ export default function CreateModal({
     </Group>
   );
 
-  const modalSize = 800;
+  const modalSize = window.innerWidth / 2;
   if (error) {
     return (
       <Modal
@@ -190,19 +190,6 @@ export default function CreateModal({
               {...form.getInputProps("email")}
             />
           </Grid.Col>
-          <Grid.Col>
-            <Select
-              label="Dashboard Role"
-              name="role"
-              data={roleData}
-              key={form.key("role")}
-              mb={"xs"}
-              {...form.getInputProps("role")}
-            />
-            <Skeleton visible={!explanation}>
-              <Subtitle textAlign="start">{explanation}</Subtitle>
-            </Skeleton>
-          </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
             <NumberInput
               label="Kitchen Rate"
@@ -228,6 +215,20 @@ export default function CreateModal({
               key={form.key("drivingRate")}
               {...form.getInputProps("drivingRate")}
             />
+          </Grid.Col>
+          <Grid.Col></Grid.Col>
+          <Grid.Col>
+            <Select
+              label="Dashboard Role"
+              name="role"
+              data={roleData}
+              key={form.key("role")}
+              mb={"xs"}
+              {...form.getInputProps("role")}
+            />
+            <Skeleton visible={!explanation}>
+              <Subtitle textAlign="start">{explanation}</Subtitle>
+            </Skeleton>
           </Grid.Col>
         </Grid>
       </FormWithDisable>
