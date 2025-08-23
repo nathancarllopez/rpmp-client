@@ -1,9 +1,7 @@
 import { supabase } from "./client";
 
-const endpoint = "/changePassword";
-
 export default async function resetPassword(email: string): Promise<void> {
-  const redirectTo = import.meta.env.VITE_SUPABSE_REDIRECT_URL + endpoint;
+  const redirectTo = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo,
   });
