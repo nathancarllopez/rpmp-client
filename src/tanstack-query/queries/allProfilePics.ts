@@ -19,7 +19,7 @@ async function getProfilePics(): Promise<Record<string, string>> {
     console.warn(error.message);
 
     throw error;
-  } else if (!data) {
+  } else if (data.length === 0) {
     throw new Error(
       "Supabase didn't return any data from the profilePics file in avatars storage bucket",
     );
@@ -27,11 +27,12 @@ async function getProfilePics(): Promise<Record<string, string>> {
 
   const profilePics = data.reduce(
     (pics, file) => {
-      const userId = file.name.substring(0, file.name.indexOf("."));
-      const path = `profilePics/${file.name}`;
+      const userId = file.name;
       const {
         data: { publicUrl },
-      } = supabase.storage.from("avatars").getPublicUrl(path);
+      } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(`profilePics/${userId}`);
 
       pics[userId] = publicUrl;
 
