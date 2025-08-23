@@ -69,5 +69,7 @@ export type SupaShopTemplateRow =
   Database["public"]["Views"]["shop_sheet_template"]["Row"];
 export type SupaTimecardHistoryRow =
   Database["public"]["Tables"]["timecards_history"]["Row"];
+export type SupaUpdateProfileRow =
+  Database["public"]["Tables"]["profiles"]["Update"];
 export type SupaVeggieCarbInfoRow =
   Database["public"]["Tables"]["veggies_carbs"]["Row"];

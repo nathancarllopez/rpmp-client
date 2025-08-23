@@ -17,6 +17,7 @@ import type {
   SupaShopTemplateRow,
   SupaTimecardHistoryRow,
   SupaVeggieCarbInfoRow,
+  SupaUpdateProfileRow,
 } from "./supa-types";
 
 type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
@@ -237,8 +238,15 @@ export type OrderHistoryRow = ToCamelCase<
 export type InsertProfileRow =
   Database["public"]["Tables"]["profiles"]["Insert"];
 
+export type UpdateProfileRow = ToCamelCase<SupaUpdateProfileRow>;
 export type ProfileRow = ToCamelCase<SupaProfileRow>;
 export type RoleInfoRow = ToCamelCase<SupaRoleInfoRow>;
+
+export interface UpdateProfileInfo {
+  profileUpdates: UpdateProfileRow;
+  newPassword: string | null;
+  newEmail: string | null;
+}
 
 export interface NewUserInfo {
   email: string;
