@@ -3,7 +3,7 @@
  */
 
 import { supabase } from "@/supabase/client";
-import { queryClient } from "@/tanstack-query/QueryClientProvider";
+import { queryClient } from "@/tanstack-query/queryClient";
 
 export async function resetBackstock() {
   const { error } = await supabase
