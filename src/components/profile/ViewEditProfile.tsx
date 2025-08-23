@@ -18,30 +18,34 @@ import {
 } from "@mantine/core";
 import { IconEdit, IconX } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import { isEmail, useForm } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { Link } from "@tanstack/react-router";
 import { notifications } from "@mantine/notifications";
 import { useDeleteUserMutation } from "@/tanstack-query/mutations/deleteUser";
-import type { ProfileRow } from "@/types/rpmp-types";
+import type { ProfileRow, UpdateProfileInfo } from "@/types/rpmp-types";
 import ProfilePic from "./ProfilePic";
 import RoleSelect from "./RoleSelect";
+import { useUpdateUserMutation } from "@/tanstack-query/mutations/updateUser";
 
 interface ViewEditProfileProps {
   profileToDisplay: ProfileRow;
   profilePicToDisplay: string;
   showAdminControls: boolean;
-  userId: string;
+  viewersUserId: string;
 }
 
 export default function ViewEditProfile({
   profileToDisplay,
   profilePicToDisplay,
   showAdminControls,
-  userId,
+  viewersUserId,
 }: ViewEditProfileProps) {
-  const isViewingOwnProfile = profileToDisplay.userId === userId;
+  console.log("profile pic url", profilePicToDisplay);
 
-  const deleteUserMutation = useDeleteUserMutation(userId);
+  const isViewingOwnProfile = profileToDisplay.userId === viewersUserId;
+
+  const deleteUserMutation = useDeleteUserMutation(viewersUserId);
+  const updateUserMutation = useUpdateUserMutation();
 
   const [mobileFormVisible, { toggle: toggleMobileForm }] =
     useDisclosure(false);
@@ -53,14 +57,18 @@ export default function ViewEditProfile({
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: profileToDisplay.email,
+      newEmail: "",
       kitchenRate: profileToDisplay.kitchenRate,
       drivingRate: profileToDisplay.drivingRate,
       role: profileToDisplay.role,
       newPassword: "",
     },
     validate: {
-      email: isEmail("Invalid email format"),
+      newEmail: (value) => {
+        if (value === "") return null;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value) ? null : "Invalid email format";
+      },
       newPassword: (value) =>
         value.length > 0 && value.length < 6
           ? "Password must be at least 6 characters"
@@ -103,35 +111,58 @@ export default function ViewEditProfile({
     },
   ];
 
-  const handleSubmit = async () => {
-    notifications.show({
-      withCloseButton: true,
-      color: "blue",
-      title: "Under Construction",
-      message: "Stay tuned!",
+  console.log(form.getValues());
+
+  const handleUpdate = async (values: typeof form.values) => {
+    const newEmail = values.newEmail !== "" ? values.newEmail : null;
+    const updateInfo: UpdateProfileInfo = {
+      profileUpdates: {
+        kitchenRate:
+          Number(values.kitchenRate) === 0 ? null : Number(values.kitchenRate),
+        drivingRate:
+          Number(values.drivingRate) === 0 ? null : Number(values.drivingRate),
+        role: values.role,
+        userId: profileToDisplay.userId,
+      },
+      newEmail,
+      newPassword: values.newPassword !== "" ? values.newPassword : null,
+    };
+
+    if (newEmail !== null) {
+      updateInfo.profileUpdates.email = newEmail;
+    }
+
+    updateUserMutation.mutate(updateInfo, {
+      onSuccess: () => {
+        notifications.show({
+          withCloseButton: true,
+          color: "green",
+          title: "Profile Updated",
+          message: `The profile of ${profileToDisplay.fullName} has been updated`,
+        });
+      },
+      onError: (error) => {
+        console.warn("Failed to update profile:");
+        console.warn(error.message);
+
+        notifications.show({
+          withCloseButton: true,
+          color: "red",
+          title: "Profile update failed",
+          message: error.message,
+        });
+      },
     });
   };
 
   const handleDelete = async () => {
-    const idToDelete = profileToDisplay.userId;
-    const fullName = profileToDisplay.fullName;
-    if (!idToDelete) {
-      throw new Error(
-        `Cannot find user id for this profile: ${profileToDisplay}`,
-      );
-    } else if (!fullName) {
-      throw new Error(
-        `Cannot find full name for this profile: ${profileToDisplay}`,
-      );
-    }
-
-    deleteUserMutation.mutate(idToDelete, {
+    deleteUserMutation.mutate(profileToDisplay.userId, {
       onSuccess: () => {
         notifications.show({
           withCloseButton: true,
           color: "green",
           title: "Profile Deleted",
-          message: `The profile of ${fullName} has been deleted`,
+          message: `The profile of ${profileToDisplay.fullName} has been deleted`,
         });
       },
       onError: (error) => {
@@ -190,19 +221,20 @@ export default function ViewEditProfile({
           <Stack mt={"lg"}>
             <Divider />
 
-            <form onSubmit={form.onSubmit(handleSubmit)}>
+            <form onSubmit={form.onSubmit(handleUpdate)}>
               <Stack>
                 <TextInput
                   label="Email"
-                  name="email"
-                  autoComplete="email"
-                  key={form.key("email")}
-                  {...form.getInputProps("email")}
+                  name="newEmail"
+                  autoComplete="off"
+                  key={form.key("newEmail")}
+                  {...form.getInputProps("newEmail")}
                 />
                 {isViewingOwnProfile && (
                   <PasswordInput
                     label="New Password"
                     name="newPassword"
+                    autoComplete="new-password"
                     key={form.key("newPassword")}
                     {...form.getInputProps("newPassword")}
                   />
@@ -291,19 +323,20 @@ export default function ViewEditProfile({
           <Stack>
             <Divider />
 
-            <form onSubmit={form.onSubmit(handleSubmit)}>
+            <form onSubmit={form.onSubmit(handleUpdate)}>
               <Stack>
                 <TextInput
                   label="Email"
-                  name="email"
-                  autoComplete="email"
-                  key={form.key("email")}
-                  {...form.getInputProps("email")}
+                  name="newEmail"
+                  autoComplete="off"
+                  key={form.key("newEmail")}
+                  {...form.getInputProps("newEmail")}
                 />
                 {isViewingOwnProfile && (
                   <PasswordInput
                     label="New Password"
                     name="newPassword"
+                    autoComplete="new-password"
                     key={form.key("newPassword")}
                     {...form.getInputProps("newPassword")}
                   />
