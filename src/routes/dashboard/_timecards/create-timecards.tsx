@@ -12,10 +12,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/dashboard/_timecards/create-timecards")({
-  loader: ({ context: { queryClient } }) => {
-    queryClient.ensureQueryData(allProfilesOptions());
-    queryClient.ensureQueryData(timecardHistoryOptions());
-  },
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(timecardHistoryOptions()),
   pendingComponent: LoadingScreen,
   component: CreateTimecards,
 });

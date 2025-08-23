@@ -1,30 +1,33 @@
 import LoadingScreen from "@/components/misc/LoadingScreen";
 import ViewEditProfile from "@/components/profile/ViewEditProfile";
 import { allProfilePicsOptions } from "@/tanstack-query/queries/allProfilePics";
-import { profileByIdOptions } from "@/tanstack-query/queries/profileById";
+import { allProfilesOptions } from "@/tanstack-query/queries/allProfiles";
 import { Stack, Text, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/home")({
-  loader: ({ context: { userId, queryClient } }) =>
-    queryClient.ensureQueryData(profileByIdOptions(userId)),
   pendingComponent: LoadingScreen,
   component: Home,
 });
 
 function Home() {
   const { userId } = Route.useRouteContext();
-  const { data: profile, error: profileError } = useSuspenseQuery(
-    profileByIdOptions(userId),
-  );
+  const { data: profile, error: profileError } = useSuspenseQuery({
+    ...allProfilesOptions(),
+    select: (data) => {
+      const profileMatch = data.find((profile) => profile.userId === userId);
+      if (profileMatch === undefined)
+        throw new Error(`Could not find matching profile info`);
+      return profileMatch;
+    },
+  });
   const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery({
     ...allProfilePicsOptions(),
     select: (data) => {
+      console.log(data);
       const picUrl = data[userId];
-      if (!picUrl) {
-        throw new Error(`Could not find profile picture url`);
-      }
+      if (!picUrl) throw new Error(`Could not find profile pic url`);
       return picUrl;
     },
   });
@@ -51,7 +54,7 @@ function Home() {
         profileToDisplay={profile}
         profilePicToDisplay={profilePicUrl}
         showAdminControls={showAdminControls}
-        userId={userId}
+        viewersUserId={userId}
       />
     </Stack>
   );

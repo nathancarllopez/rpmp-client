@@ -8,7 +8,9 @@ import {
   Button,
   Center,
   Group,
+  Paper,
   Stack,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
@@ -26,8 +28,6 @@ import CreateModal from "@/components/employees/CreateModal";
 import ViewEditProfile from "@/components/profile/ViewEditProfile";
 
 export const Route = createFileRoute("/dashboard/employees")({
-  loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(allProfilesOptions()),
   pendingComponent: LoadingScreen,
   component: Employees,
 });
@@ -69,6 +69,10 @@ function Employees() {
             Add New
           </Button>
         </Group>
+        <Paper>
+          <Text>Error Fetching profile info:</Text>
+          {errors.map((error, index) => <Text key={index}>{error.message}</Text>)}
+        </Paper>
       </Stack>
     );
   }
@@ -128,7 +132,7 @@ function Employees() {
           profilePicToDisplay={allProfilePics[profile.userId]}
           profileToDisplay={profile}
           showAdminControls={true}
-          userId={userId}
+          viewersUserId={userId}
         />
       ))}
     </Stack>

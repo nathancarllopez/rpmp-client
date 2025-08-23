@@ -6,9 +6,9 @@ import NavLinkLabel from "./NavLinkLabel.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import ProfileNavLink from "./ProfileNavLink.tsx";
 import NavLinkWithSubLinks from "./NavLinkWithSubLinks.tsx";
-import { profileByIdOptions } from "@/tanstack-query/queries/profileById.ts";
 import { navbarInfo } from "./navbarInfo.tsx";
 import doLogout from "@/supabase/doLogout.ts";
+import { allProfilesOptions } from "@/tanstack-query/queries/allProfiles.ts";
 
 export default function Navbar({
   closeOnMobile,
@@ -18,9 +18,15 @@ export default function Navbar({
   const router = useRouter();
   const { userId } = getRouteApi("/dashboard").useRouteContext();
 
-  const { data: profile, error: profileError } = useSuspenseQuery(
-    profileByIdOptions(userId),
-  );
+  const { data: profile, error: profileError } = useSuspenseQuery({
+    ...allProfilesOptions(),
+    select: (data) => {
+      const profileMatch = data.find((profile) => profile.userId === userId);
+      if (profileMatch === undefined)
+        throw new Error(`Could not find matching profile info`);
+      return profileMatch;
+    },
+  });
 
   const navLinks = navbarInfo.filter((info) =>
     info.hasPermission.includes(profile.role),

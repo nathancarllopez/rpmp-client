@@ -3,6 +3,7 @@ import SkeletonDashboard from "@/components/misc/SkeletonDashboard";
 import Navbar from "@/components/navbar/Navbar";
 import { getSupaSession } from "@/supabase/getSupaSession";
 import { allProfilePicsOptions } from "@/tanstack-query/queries/allProfilePics";
+import { allProfilesOptions } from "@/tanstack-query/queries/allProfiles";
 import { rolesOptions } from "@/tanstack-query/queries/roles";
 import {
   AppShell,
@@ -52,6 +53,7 @@ export const Route = createFileRoute("/dashboard")({
     return { userId: session.user.id };
   },
   loader: ({ context: { queryClient } }) => {
+    queryClient.ensureQueryData(allProfilesOptions());
     queryClient.ensureQueryData(allProfilePicsOptions());
     queryClient.ensureQueryData(rolesOptions());
   },
