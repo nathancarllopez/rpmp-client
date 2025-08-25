@@ -15,6 +15,7 @@ async function getAllProfiles(): Promise<ProfileRow[]> {
   const { data, error } = await supabase
     .from("profiles")
     .select()
+    .eq("for_portfolio", true)
     .order("first_name", { ascending: true })
     .order("last_name", { ascending: true });
 
