@@ -40,11 +40,20 @@ export const Route = createFileRoute("/")({
 function LoginForm() {
   useWakeUpServer();
 
+  const intialEmail =
+    import.meta.env.MODE !== "production"
+      ? import.meta.env.VITE_DEFAULT_EMAIL
+      : "";
+  const initialPassword =
+    import.meta.env.MODE !== "production"
+      ? import.meta.env.VITE_DEFAULT_PASSWORD
+      : "";
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: import.meta.env.VITE_DEFAULT_EMAIL,
-      password: import.meta.env.VITE_DEFAULT_PASSWORD,
+      email: intialEmail,
+      password: initialPassword,
     },
     validate: {
       email: isEmail("Invalid email format"),
