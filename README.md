@@ -12,7 +12,7 @@ RPMP Client is a dashboard built with React, Tanstack Query + Router, Mantine, a
 
 ## Demo and Client Side Repo
 
-A demo of the dashboard hosted on Netlify can be accessed [here](). Use the following credentials to log in:
+A demo of the dashboard hosted on Netlify can be accessed [here](https://rpmp-client.netlify.app/). Use the following credentials to log in:
 
 - **email**: darkside@empire.com
 - **email**: ilovepadme
