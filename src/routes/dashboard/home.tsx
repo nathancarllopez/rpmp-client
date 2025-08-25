@@ -1,6 +1,5 @@
 import LoadingScreen from "@/components/misc/LoadingScreen";
 import ViewEditProfile from "@/components/profile/ViewEditProfile";
-import { allProfilePicsOptions } from "@/tanstack-query/queries/allProfilePics";
 import { allProfilesOptions } from "@/tanstack-query/queries/allProfiles";
 import { Stack, Text, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -22,17 +21,8 @@ function Home() {
       return profileMatch;
     },
   });
-  const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery({
-    ...allProfilePicsOptions(),
-    select: (data) => {
-      console.log(data);
-      const picUrl = data[userId];
-      if (!picUrl) throw new Error(`Could not find profile pic url`);
-      return picUrl;
-    },
-  });
 
-  const errors = [profileError, profilePicError].filter((error) => !!error);
+  const errors = [profileError].filter((error) => !!error);
   if (errors.length > 0) {
     return (
       <Stack>
@@ -52,7 +42,6 @@ function Home() {
 
       <ViewEditProfile
         profileToDisplay={profile}
-        profilePicToDisplay={profilePicUrl}
         showAdminControls={showAdminControls}
         viewersUserId={userId}
       />

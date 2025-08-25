@@ -1,4 +1,5 @@
 import { useUpdateProfilePicMutation } from "@/tanstack-query/mutations/updateProfilePic";
+import { profilePicOptions } from "@/tanstack-query/queries/profilePic";
 import { AspectRatio, Center, Image, Overlay, Title } from "@mantine/core";
 import {
   Dropzone,
@@ -6,19 +7,31 @@ import {
   type FileWithPath,
 } from "@mantine/dropzone";
 import { notifications } from "@mantine/notifications";
+import { useQuery } from "@tanstack/react-query";
 
 interface ProfilePicProps {
-  profilePicUrl: string;
   showUpload: boolean;
-  userId: string | undefined;
+  userId: string;
 }
 
-export default function ProfilePic({
-  profilePicUrl,
-  showUpload,
-  userId,
-}: ProfilePicProps) {
+export default function ProfilePic({ showUpload, userId }: ProfilePicProps) {
   const updateProfilePicMutation = useUpdateProfilePicMutation(userId);
+
+  const {
+    isPending,
+    data: profilePicUrl,
+    error,
+  } = useQuery(profilePicOptions(userId));
+
+  if (isPending) {
+    return (
+      <AspectRatio ratio={1} w={{ base: "100%", sm: "33%" }}>
+        <Image src="/image-missing.jpg" radius={"50%"} />
+      </AspectRatio>
+    );
+  }
+
+  if (error) throw error;
 
   if (!showUpload) {
     return (
