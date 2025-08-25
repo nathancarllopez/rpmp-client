@@ -310,7 +310,6 @@ export type Database = {
           id: number;
           kitchen_rate: number | null;
           last_name: string;
-          profile_pic_name: string | null;
           role: string;
           user_id: string;
         };
@@ -325,7 +324,6 @@ export type Database = {
           id?: number;
           kitchen_rate?: number | null;
           last_name: string;
-          profile_pic_name?: string | null;
           role?: string;
           user_id?: string;
         };
@@ -340,7 +338,6 @@ export type Database = {
           id?: number;
           kitchen_rate?: number | null;
           last_name?: string;
-          profile_pic_name?: string | null;
           role?: string;
           user_id?: string;
         };
