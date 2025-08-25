@@ -1,5 +1,5 @@
 import LoadingScreen from "@/components/misc/LoadingScreen";
-import ViewEditProfile from "@/components/profile/ViewEditProfile";
+import ProfileCard from "@/components/profile/ProfileCard";
 import { allProfilesOptions } from "@/tanstack-query/queries/allProfiles";
 import { Stack, Text, Title } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -40,10 +40,9 @@ function Home() {
     <Stack>
       <Title>Home</Title>
 
-      <ViewEditProfile
-        profileToDisplay={profile}
+      <ProfileCard
+        profile={profile}
         showAdminControls={showAdminControls}
-        viewersUserId={userId}
       />
     </Stack>
   );
