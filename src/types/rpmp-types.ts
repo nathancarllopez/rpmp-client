@@ -277,8 +277,6 @@ export interface TimecardValues extends ProfileRow {
   hasChanged: boolean;
   renderKey: number;
 
-  profilePicUrl: string;
-
   drivingRate: number;
   kitchenRate: number;
 

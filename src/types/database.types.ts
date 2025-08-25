@@ -305,10 +305,12 @@ export type Database = {
           driving_rate: number | null;
           email: string;
           first_name: string;
+          for_portfolio: boolean;
           full_name: string;
           id: number;
           kitchen_rate: number | null;
           last_name: string;
+          profile_pic_name: string | null;
           role: string;
           user_id: string;
         };
@@ -318,10 +320,12 @@ export type Database = {
           driving_rate?: number | null;
           email?: string;
           first_name: string;
+          for_portfolio?: boolean;
           full_name?: string;
           id?: number;
           kitchen_rate?: number | null;
           last_name: string;
+          profile_pic_name?: string | null;
           role?: string;
           user_id?: string;
         };
@@ -331,10 +335,12 @@ export type Database = {
           driving_rate?: number | null;
           email?: string;
           first_name?: string;
+          for_portfolio?: boolean;
           full_name?: string;
           id?: number;
           kitchen_rate?: number | null;
           last_name?: string;
+          profile_pic_name?: string | null;
           role?: string;
           user_id?: string;
         };
