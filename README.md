@@ -1,69 +1,18 @@
-# React + TypeScript + Vite
+# RPMP Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RPMP Client is a dashboard built with React, Tanstack Query + Router, Mantine, and Supabase that allows the meal service company [Real Prep Meal Prep](https://realprepmealprep.com/) to handle several internal processes. See below for the main features and links to demos and related repositories
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Authentication** is handled with Supabase. Users sign in with an email and password and are given one of four roles: admin, owner, manager, employee. Admins and owners can create and delete profiles under the Employees page, and any user can update their profile information on the Home page (by either clicking their avatar in the navbar or the title and logo at the top of the page).
 
-## Expanding the ESLint configuration
+- **Order Processing** involves uploading a csv file of meal orders (a sample can be downloaded by clicking [here](./public/sample-orders.csv)). The user can then review the uploaded data and verify an initial aggregate of the needed ingredients, edit a shopping list, and finally download a finalized order report pdf generated on the [backend](https://github.com/nathancarllopez/rpmp-server). Additionally, under the Backstock tab users can view and edit the amount of frozen leftovers used during the order processing calculations.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Timecard Generation** can be found on the Timecards tab: forms for each employee are shown on the first screen which generate a pdf of timecards upon submission.
 
-```js
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+## Demo and Client Side Repo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+A demo of the dashboard hosted on Netlify can be accessed [here](). You can test all of the features listed above; in particular, if you'd like to try the order processing you can download a csv file of samplle orders [here](./public/sample-orders.csv)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+The repository for the server side code can be found [here](https://github.com/nathancarllopez/rpmp-server).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
