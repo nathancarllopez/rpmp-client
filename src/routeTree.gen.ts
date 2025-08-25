@@ -8,278 +8,278 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as DashboardHomeRouteImport } from "./routes/dashboard/home";
-import { Route as DashboardEmployeesRouteImport } from "./routes/dashboard/employees";
-import { Route as DashboardBackstockRouteImport } from "./routes/dashboard/backstock";
-import { Route as authResetPasswordRouteImport } from "./routes/(auth)/resetPassword";
-import { Route as authLoggedOutRouteImport } from "./routes/(auth)/loggedOut";
-import { Route as authChangePasswordRouteImport } from "./routes/(auth)/changePassword";
-import { Route as DashboardTimecardsTimecardHistoryRouteImport } from "./routes/dashboard/_timecards/timecard-history";
-import { Route as DashboardTimecardsCreateTimecardsRouteImport } from "./routes/dashboard/_timecards/create-timecards";
-import { Route as DashboardOrdersProcessOrderRouteImport } from "./routes/dashboard/_orders/process-order";
-import { Route as DashboardOrdersOrderHistoryRouteImport } from "./routes/dashboard/_orders/order-history";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardHomeRouteImport } from './routes/dashboard/home'
+import { Route as DashboardEmployeesRouteImport } from './routes/dashboard/employees'
+import { Route as DashboardBackstockRouteImport } from './routes/dashboard/backstock'
+import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
+import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
+import { Route as authChangePasswordRouteImport } from './routes/(auth)/changePassword'
+import { Route as DashboardTimecardsTimecardHistoryRouteImport } from './routes/dashboard/_timecards/timecard-history'
+import { Route as DashboardTimecardsCreateTimecardsRouteImport } from './routes/dashboard/_timecards/create-timecards'
+import { Route as DashboardOrdersProcessOrderRouteImport } from './routes/dashboard/_orders/process-order'
+import { Route as DashboardOrdersOrderHistoryRouteImport } from './routes/dashboard/_orders/order-history'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const DashboardHomeRoute = DashboardHomeRouteImport.update({
-  id: "/home",
-  path: "/home",
+  id: '/home',
+  path: '/home',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const DashboardEmployeesRoute = DashboardEmployeesRouteImport.update({
-  id: "/employees",
-  path: "/employees",
+  id: '/employees',
+  path: '/employees',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const DashboardBackstockRoute = DashboardBackstockRouteImport.update({
-  id: "/backstock",
-  path: "/backstock",
+  id: '/backstock',
+  path: '/backstock',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const authResetPasswordRoute = authResetPasswordRouteImport.update({
-  id: "/(auth)/resetPassword",
-  path: "/resetPassword",
+  id: '/(auth)/resetPassword',
+  path: '/resetPassword',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authLoggedOutRoute = authLoggedOutRouteImport.update({
-  id: "/(auth)/loggedOut",
-  path: "/loggedOut",
+  id: '/(auth)/loggedOut',
+  path: '/loggedOut',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authChangePasswordRoute = authChangePasswordRouteImport.update({
-  id: "/(auth)/changePassword",
-  path: "/changePassword",
+  id: '/(auth)/changePassword',
+  path: '/changePassword',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const DashboardTimecardsTimecardHistoryRoute =
   DashboardTimecardsTimecardHistoryRouteImport.update({
-    id: "/_timecards/timecard-history",
-    path: "/timecard-history",
+    id: '/_timecards/timecard-history',
+    path: '/timecard-history',
     getParentRoute: () => DashboardRouteRoute,
-  } as any);
+  } as any)
 const DashboardTimecardsCreateTimecardsRoute =
   DashboardTimecardsCreateTimecardsRouteImport.update({
-    id: "/_timecards/create-timecards",
-    path: "/create-timecards",
+    id: '/_timecards/create-timecards',
+    path: '/create-timecards',
     getParentRoute: () => DashboardRouteRoute,
-  } as any);
+  } as any)
 const DashboardOrdersProcessOrderRoute =
   DashboardOrdersProcessOrderRouteImport.update({
-    id: "/_orders/process-order",
-    path: "/process-order",
+    id: '/_orders/process-order',
+    path: '/process-order',
     getParentRoute: () => DashboardRouteRoute,
-  } as any);
+  } as any)
 const DashboardOrdersOrderHistoryRoute =
   DashboardOrdersOrderHistoryRouteImport.update({
-    id: "/_orders/order-history",
-    path: "/order-history",
+    id: '/_orders/order-history',
+    path: '/order-history',
     getParentRoute: () => DashboardRouteRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/changePassword": typeof authChangePasswordRoute;
-  "/loggedOut": typeof authLoggedOutRoute;
-  "/resetPassword": typeof authResetPasswordRoute;
-  "/dashboard/backstock": typeof DashboardBackstockRoute;
-  "/dashboard/employees": typeof DashboardEmployeesRoute;
-  "/dashboard/home": typeof DashboardHomeRoute;
-  "/dashboard/order-history": typeof DashboardOrdersOrderHistoryRoute;
-  "/dashboard/process-order": typeof DashboardOrdersProcessOrderRoute;
-  "/dashboard/create-timecards": typeof DashboardTimecardsCreateTimecardsRoute;
-  "/dashboard/timecard-history": typeof DashboardTimecardsTimecardHistoryRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/changePassword': typeof authChangePasswordRoute
+  '/loggedOut': typeof authLoggedOutRoute
+  '/resetPassword': typeof authResetPasswordRoute
+  '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
+  '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
+  '/dashboard/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/changePassword": typeof authChangePasswordRoute;
-  "/loggedOut": typeof authLoggedOutRoute;
-  "/resetPassword": typeof authResetPasswordRoute;
-  "/dashboard/backstock": typeof DashboardBackstockRoute;
-  "/dashboard/employees": typeof DashboardEmployeesRoute;
-  "/dashboard/home": typeof DashboardHomeRoute;
-  "/dashboard/order-history": typeof DashboardOrdersOrderHistoryRoute;
-  "/dashboard/process-order": typeof DashboardOrdersProcessOrderRoute;
-  "/dashboard/create-timecards": typeof DashboardTimecardsCreateTimecardsRoute;
-  "/dashboard/timecard-history": typeof DashboardTimecardsTimecardHistoryRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/changePassword': typeof authChangePasswordRoute
+  '/loggedOut': typeof authLoggedOutRoute
+  '/resetPassword': typeof authResetPasswordRoute
+  '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
+  '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/process-order': typeof DashboardOrdersProcessOrderRoute
+  '/dashboard/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/(auth)/changePassword": typeof authChangePasswordRoute;
-  "/(auth)/loggedOut": typeof authLoggedOutRoute;
-  "/(auth)/resetPassword": typeof authResetPasswordRoute;
-  "/dashboard/backstock": typeof DashboardBackstockRoute;
-  "/dashboard/employees": typeof DashboardEmployeesRoute;
-  "/dashboard/home": typeof DashboardHomeRoute;
-  "/dashboard/_orders/order-history": typeof DashboardOrdersOrderHistoryRoute;
-  "/dashboard/_orders/process-order": typeof DashboardOrdersProcessOrderRoute;
-  "/dashboard/_timecards/create-timecards": typeof DashboardTimecardsCreateTimecardsRoute;
-  "/dashboard/_timecards/timecard-history": typeof DashboardTimecardsTimecardHistoryRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/(auth)/changePassword': typeof authChangePasswordRoute
+  '/(auth)/loggedOut': typeof authLoggedOutRoute
+  '/(auth)/resetPassword': typeof authResetPasswordRoute
+  '/dashboard/backstock': typeof DashboardBackstockRoute
+  '/dashboard/employees': typeof DashboardEmployeesRoute
+  '/dashboard/home': typeof DashboardHomeRoute
+  '/dashboard/_orders/order-history': typeof DashboardOrdersOrderHistoryRoute
+  '/dashboard/_orders/process-order': typeof DashboardOrdersProcessOrderRoute
+  '/dashboard/_timecards/create-timecards': typeof DashboardTimecardsCreateTimecardsRoute
+  '/dashboard/_timecards/timecard-history': typeof DashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/dashboard"
-    | "/changePassword"
-    | "/loggedOut"
-    | "/resetPassword"
-    | "/dashboard/backstock"
-    | "/dashboard/employees"
-    | "/dashboard/home"
-    | "/dashboard/order-history"
-    | "/dashboard/process-order"
-    | "/dashboard/create-timecards"
-    | "/dashboard/timecard-history";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/dashboard'
+    | '/changePassword'
+    | '/loggedOut'
+    | '/resetPassword'
+    | '/dashboard/backstock'
+    | '/dashboard/employees'
+    | '/dashboard/home'
+    | '/dashboard/order-history'
+    | '/dashboard/process-order'
+    | '/dashboard/create-timecards'
+    | '/dashboard/timecard-history'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/dashboard"
-    | "/changePassword"
-    | "/loggedOut"
-    | "/resetPassword"
-    | "/dashboard/backstock"
-    | "/dashboard/employees"
-    | "/dashboard/home"
-    | "/dashboard/order-history"
-    | "/dashboard/process-order"
-    | "/dashboard/create-timecards"
-    | "/dashboard/timecard-history";
+    | '/'
+    | '/dashboard'
+    | '/changePassword'
+    | '/loggedOut'
+    | '/resetPassword'
+    | '/dashboard/backstock'
+    | '/dashboard/employees'
+    | '/dashboard/home'
+    | '/dashboard/order-history'
+    | '/dashboard/process-order'
+    | '/dashboard/create-timecards'
+    | '/dashboard/timecard-history'
   id:
-    | "__root__"
-    | "/"
-    | "/dashboard"
-    | "/(auth)/changePassword"
-    | "/(auth)/loggedOut"
-    | "/(auth)/resetPassword"
-    | "/dashboard/backstock"
-    | "/dashboard/employees"
-    | "/dashboard/home"
-    | "/dashboard/_orders/order-history"
-    | "/dashboard/_orders/process-order"
-    | "/dashboard/_timecards/create-timecards"
-    | "/dashboard/_timecards/timecard-history";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/(auth)/changePassword'
+    | '/(auth)/loggedOut'
+    | '/(auth)/resetPassword'
+    | '/dashboard/backstock'
+    | '/dashboard/employees'
+    | '/dashboard/home'
+    | '/dashboard/_orders/order-history'
+    | '/dashboard/_orders/process-order'
+    | '/dashboard/_timecards/create-timecards'
+    | '/dashboard/_timecards/timecard-history'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
-  authChangePasswordRoute: typeof authChangePasswordRoute;
-  authLoggedOutRoute: typeof authLoggedOutRoute;
-  authResetPasswordRoute: typeof authResetPasswordRoute;
+  IndexRoute: typeof IndexRoute
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  authChangePasswordRoute: typeof authChangePasswordRoute
+  authLoggedOutRoute: typeof authLoggedOutRoute
+  authResetPasswordRoute: typeof authResetPasswordRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: typeof DashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/dashboard/home": {
-      id: "/dashboard/home";
-      path: "/home";
-      fullPath: "/dashboard/home";
-      preLoaderRoute: typeof DashboardHomeRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/employees": {
-      id: "/dashboard/employees";
-      path: "/employees";
-      fullPath: "/dashboard/employees";
-      preLoaderRoute: typeof DashboardEmployeesRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/backstock": {
-      id: "/dashboard/backstock";
-      path: "/backstock";
-      fullPath: "/dashboard/backstock";
-      preLoaderRoute: typeof DashboardBackstockRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/(auth)/resetPassword": {
-      id: "/(auth)/resetPassword";
-      path: "/resetPassword";
-      fullPath: "/resetPassword";
-      preLoaderRoute: typeof authResetPasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/loggedOut": {
-      id: "/(auth)/loggedOut";
-      path: "/loggedOut";
-      fullPath: "/loggedOut";
-      preLoaderRoute: typeof authLoggedOutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/changePassword": {
-      id: "/(auth)/changePassword";
-      path: "/changePassword";
-      fullPath: "/changePassword";
-      preLoaderRoute: typeof authChangePasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/dashboard/_timecards/timecard-history": {
-      id: "/dashboard/_timecards/timecard-history";
-      path: "/timecard-history";
-      fullPath: "/dashboard/timecard-history";
-      preLoaderRoute: typeof DashboardTimecardsTimecardHistoryRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/_timecards/create-timecards": {
-      id: "/dashboard/_timecards/create-timecards";
-      path: "/create-timecards";
-      fullPath: "/dashboard/create-timecards";
-      preLoaderRoute: typeof DashboardTimecardsCreateTimecardsRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/_orders/process-order": {
-      id: "/dashboard/_orders/process-order";
-      path: "/process-order";
-      fullPath: "/dashboard/process-order";
-      preLoaderRoute: typeof DashboardOrdersProcessOrderRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/_orders/order-history": {
-      id: "/dashboard/_orders/order-history";
-      path: "/order-history";
-      fullPath: "/dashboard/order-history";
-      preLoaderRoute: typeof DashboardOrdersOrderHistoryRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/home': {
+      id: '/dashboard/home'
+      path: '/home'
+      fullPath: '/dashboard/home'
+      preLoaderRoute: typeof DashboardHomeRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/employees': {
+      id: '/dashboard/employees'
+      path: '/employees'
+      fullPath: '/dashboard/employees'
+      preLoaderRoute: typeof DashboardEmployeesRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/backstock': {
+      id: '/dashboard/backstock'
+      path: '/backstock'
+      fullPath: '/dashboard/backstock'
+      preLoaderRoute: typeof DashboardBackstockRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/(auth)/resetPassword': {
+      id: '/(auth)/resetPassword'
+      path: '/resetPassword'
+      fullPath: '/resetPassword'
+      preLoaderRoute: typeof authResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/loggedOut': {
+      id: '/(auth)/loggedOut'
+      path: '/loggedOut'
+      fullPath: '/loggedOut'
+      preLoaderRoute: typeof authLoggedOutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/changePassword': {
+      id: '/(auth)/changePassword'
+      path: '/changePassword'
+      fullPath: '/changePassword'
+      preLoaderRoute: typeof authChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/_timecards/timecard-history': {
+      id: '/dashboard/_timecards/timecard-history'
+      path: '/timecard-history'
+      fullPath: '/dashboard/timecard-history'
+      preLoaderRoute: typeof DashboardTimecardsTimecardHistoryRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/_timecards/create-timecards': {
+      id: '/dashboard/_timecards/create-timecards'
+      path: '/create-timecards'
+      fullPath: '/dashboard/create-timecards'
+      preLoaderRoute: typeof DashboardTimecardsCreateTimecardsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/_orders/process-order': {
+      id: '/dashboard/_orders/process-order'
+      path: '/process-order'
+      fullPath: '/dashboard/process-order'
+      preLoaderRoute: typeof DashboardOrdersProcessOrderRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/_orders/order-history': {
+      id: '/dashboard/_orders/order-history'
+      path: '/order-history'
+      fullPath: '/dashboard/order-history'
+      preLoaderRoute: typeof DashboardOrdersOrderHistoryRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
 interface DashboardRouteRouteChildren {
-  DashboardBackstockRoute: typeof DashboardBackstockRoute;
-  DashboardEmployeesRoute: typeof DashboardEmployeesRoute;
-  DashboardHomeRoute: typeof DashboardHomeRoute;
-  DashboardOrdersOrderHistoryRoute: typeof DashboardOrdersOrderHistoryRoute;
-  DashboardOrdersProcessOrderRoute: typeof DashboardOrdersProcessOrderRoute;
-  DashboardTimecardsCreateTimecardsRoute: typeof DashboardTimecardsCreateTimecardsRoute;
-  DashboardTimecardsTimecardHistoryRoute: typeof DashboardTimecardsTimecardHistoryRoute;
+  DashboardBackstockRoute: typeof DashboardBackstockRoute
+  DashboardEmployeesRoute: typeof DashboardEmployeesRoute
+  DashboardHomeRoute: typeof DashboardHomeRoute
+  DashboardOrdersOrderHistoryRoute: typeof DashboardOrdersOrderHistoryRoute
+  DashboardOrdersProcessOrderRoute: typeof DashboardOrdersProcessOrderRoute
+  DashboardTimecardsCreateTimecardsRoute: typeof DashboardTimecardsCreateTimecardsRoute
+  DashboardTimecardsTimecardHistoryRoute: typeof DashboardTimecardsTimecardHistoryRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -292,11 +292,11 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardTimecardsCreateTimecardsRoute,
   DashboardTimecardsTimecardHistoryRoute:
     DashboardTimecardsTimecardHistoryRoute,
-};
+}
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
-);
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -304,7 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   authChangePasswordRoute: authChangePasswordRoute,
   authLoggedOutRoute: authLoggedOutRoute,
   authResetPasswordRoute: authResetPasswordRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
