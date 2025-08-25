@@ -40,10 +40,7 @@ function Home() {
     <Stack>
       <Title>Home</Title>
 
-      <ProfileCard
-        profile={profile}
-        showAdminControls={showAdminControls}
-      />
+      <ProfileCard profile={profile} showAdminControls={showAdminControls} />
     </Stack>
   );
 }

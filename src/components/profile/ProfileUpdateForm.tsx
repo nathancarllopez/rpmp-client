@@ -1,7 +1,16 @@
 import { useUpdateUserMutation } from "@/tanstack-query/mutations/updateUser";
 import { rolesOptions } from "@/tanstack-query/queries/roles";
 import type { ProfileRow, UpdateProfileInfo } from "@/types/rpmp-types";
-import { Button, Group, NumberInput, PasswordInput, Select, Stack, TextInput, Tooltip } from "@mantine/core";
+import {
+  Button,
+  Group,
+  NumberInput,
+  PasswordInput,
+  Select,
+  Stack,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -14,7 +23,11 @@ interface ProfileUpdateFormProps {
   showAdminControls: boolean;
 }
 
-export default function ProfileUpdateForm({ profile, isViewingOwnProfile, showAdminControls }: ProfileUpdateFormProps) {
+export default function ProfileUpdateForm({
+  profile,
+  isViewingOwnProfile,
+  showAdminControls,
+}: ProfileUpdateFormProps) {
   const { data: rolesInfo, error: rolesError } =
     useSuspenseQuery(rolesOptions());
   const roleExplanations = rolesInfo.reduce(
@@ -25,7 +38,9 @@ export default function ProfileUpdateForm({ profile, isViewingOwnProfile, showAd
     {} as { [role: string]: string },
   );
 
-  const [explanation, setExplanation] = useState(roleExplanations[profile.role]);
+  const [explanation, setExplanation] = useState(
+    roleExplanations[profile.role],
+  );
 
   const selectData = rolesInfo.map((row) => ({
     label: row.label,
@@ -126,7 +141,10 @@ export default function ProfileUpdateForm({ profile, isViewingOwnProfile, showAd
         )}
         {showAdminControls && (
           <Stack>
-            <Tooltip label={`Error fetching role explanations: ${rolesError?.message}`} disabled={rolesError === null}>
+            <Tooltip
+              label={`Error fetching role explanations: ${rolesError?.message}`}
+              disabled={rolesError === null}
+            >
               <Select
                 label="Dashboard Role"
                 name="role"

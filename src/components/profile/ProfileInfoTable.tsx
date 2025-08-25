@@ -2,13 +2,12 @@ import type { ProfileRow } from "@/types/rpmp-types";
 import { NumberFormatter, Table } from "@mantine/core";
 
 interface ProfileInfoTableProps {
-  profile: ProfileRow
+  profile: ProfileRow;
 }
 
 export default function ProfileInfoTable({ profile }: ProfileInfoTableProps) {
   const roleLabel =
-    profile.role.charAt(0).toUpperCase() +
-    profile.role.slice(1);
+    profile.role.charAt(0).toUpperCase() + profile.role.slice(1);
   const profileInfo = [
     { header: "Email", data: profile.email },
     { header: "Role", data: roleLabel },

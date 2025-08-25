@@ -15,4 +15,3 @@ RPMP Client is a dashboard built with React, Tanstack Query + Router, Mantine, a
 A demo of the dashboard hosted on Netlify can be accessed [here](). You can test all of the features listed above; in particular, if you'd like to try the order processing you can download a csv file of samplle orders [here](./public/sample-orders.csv)
 
 The repository for the server side code can be found [here](https://github.com/nathancarllopez/rpmp-server).
-
