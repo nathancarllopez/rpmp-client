@@ -1,3 +1,7 @@
+import { calculateTimecardHoursAndPay } from "@/business-logic/timecards/calculateTimecardHoursAndPay";
+import { startBeforeEnd } from "@/business-logic/timecards/timecardValidation";
+import { profilePicOptions } from "@/tanstack-query/queries/profilePic";
+import type { TimecardValues } from "@/types/rpmp-types";
 import {
   ActionIcon,
   Avatar,
@@ -23,9 +27,7 @@ import {
   IconChevronUp,
   IconRestore,
 } from "@tabler/icons-react";
-import type { TimecardValues } from "../../types/types";
-import { startBeforeEnd } from "../../business-logic/timecards/timecardValidation";
-import { calculateTimecardHoursAndPay } from "../../business-logic/timecards/calculateTimecardHoursAndPay";
+import { useQuery } from "@tanstack/react-query";
 
 interface TimecardProps {
   isCollapsed: boolean;
@@ -45,6 +47,13 @@ export default function Timecard({
   resetTimecard,
 }: TimecardProps) {
   const [variant, toggleVariant] = useToggle(["default", "filled"] as const);
+
+  const { userId } = timecardVals;
+  const { isPending, data, error } = useQuery(profilePicOptions(userId));
+
+  if (error) throw error;
+
+  const profilePicUrl = isPending ? "/image-missing.jpg" : data;
 
   const form = useForm({
     mode: "controlled",
@@ -101,10 +110,7 @@ export default function Timecard({
         }}
       >
         <Group me={"auto"}>
-          <Avatar
-            src={timecardVals.profilePicUrl}
-            alt={timecardVals.fullName}
-          />
+          <Avatar src={profilePicUrl} alt={timecardVals.fullName} />
           <Title>{timecardVals.fullName}</Title>
         </Group>
         <NumberInput
