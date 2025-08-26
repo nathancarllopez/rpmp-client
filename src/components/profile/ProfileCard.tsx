@@ -1,11 +1,11 @@
 import {
   ActionIcon,
+  Badge,
   Collapse,
   Divider,
   Group,
   Paper,
   Stack,
-  Title,
 } from "@mantine/core";
 import ProfilePic from "./ProfilePic";
 import { useDisclosure } from "@mantine/hooks";
@@ -40,7 +40,9 @@ export default function ProfileCard({
 
           <Stack justify="center" flex={1}>
             <Group justify="space-between">
-              <Title>{profile.fullName}</Title>
+                <Badge bg={profile.displayColor ?? "blue"} size="xl">
+                  {profile.fullName}
+                </Badge>
               <ActionIcon
                 onClick={toggle}
                 variant="default"
