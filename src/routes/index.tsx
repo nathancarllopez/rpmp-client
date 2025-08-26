@@ -19,19 +19,10 @@ import doLogin from "@/supabase/doLogin";
 import Subtitle from "@/components/misc/Subtitle";
 import FormWithDisable from "@/components/misc/FormWithDisable";
 
-type LoginRedirect = {
-  redirect: string;
-};
-
 export const Route = createFileRoute("/")({
-  validateSearch: (search: Record<string, unknown>): LoginRedirect => {
-    return {
-      redirect: (search.redirect as string) || "/dashboard/home",
-    };
-  },
-  beforeLoad: ({ context, search }) => {
+  beforeLoad: ({ context }) => {
     if (context.userId) {
-      throw redirect({ to: search.redirect });
+      throw redirect({ to: "/dashboard/home" });
     }
   },
   component: LoginForm,
@@ -64,7 +55,6 @@ function LoginForm() {
 
   const navigate = useNavigate();
   const router = useRouter();
-  const search = Route.useSearch();
 
   const handleSubmit = async (values: typeof form.values) => {
     try {
@@ -96,7 +86,7 @@ function LoginForm() {
       await router.invalidate();
       await new Promise((resolve) => setTimeout(resolve, 1));
 
-      await navigate({ to: search.redirect });
+      await navigate({ to: "/dashboard/home" });
     } catch (error) {
       if (error instanceof Error) {
         console.warn("Error logging in: ", error.message);
