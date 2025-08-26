@@ -56,7 +56,7 @@ export default function ProfileUpdateForm({
       drivingRate: profile.drivingRate,
       role: profile.role,
       newPassword: "",
-      color: profile.displayColor
+      color: profile.displayColor,
     },
     validate: {
       newEmail: (value) => {
@@ -90,7 +90,7 @@ export default function ProfileUpdateForm({
           Number(values.drivingRate) === 0 ? null : Number(values.drivingRate),
         role: values.role,
         userId: profile.userId,
-        displayColor: values.color
+        displayColor: values.color,
       },
       newEmail,
       newPassword: values.newPassword !== "" ? values.newPassword : null,
@@ -191,7 +191,12 @@ export default function ProfileUpdateForm({
           </Stack>
         )}
         <Tooltip disabled={form.isDirty()} label="No changes detected">
-          <Button type="submit" name="formId" value="updateProfile" disabled={!form.isDirty()}>
+          <Button
+            type="submit"
+            name="formId"
+            value="updateProfile"
+            disabled={!form.isDirty()}
+          >
             Update profile
           </Button>
         </Tooltip>

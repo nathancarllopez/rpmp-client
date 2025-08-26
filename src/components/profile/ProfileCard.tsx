@@ -40,9 +40,9 @@ export default function ProfileCard({
 
           <Stack justify="center" flex={1}>
             <Group justify="space-between">
-                <Badge bg={profile.displayColor ?? "blue"} size="xl">
-                  {profile.fullName}
-                </Badge>
+              <Badge bg={profile.displayColor ?? "blue"} size="xl">
+                {profile.fullName}
+              </Badge>
               <ActionIcon
                 onClick={toggle}
                 variant="default"
