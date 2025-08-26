@@ -24,8 +24,6 @@ async function updateUser(updateInfo: UpdateProfileInfo): Promise<ProfileRow> {
   const { profileUpdates, newPassword, newEmail } = updateInfo;
   const { userId } = profileUpdates;
 
-  console.log("updateInfo", updateInfo);
-
   if (newPassword !== null || newEmail !== null) {
     await changeEmailAndPassword(newPassword, newEmail);
   }
