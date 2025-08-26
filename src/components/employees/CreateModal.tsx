@@ -7,6 +7,7 @@ import { notifications } from "@mantine/notifications";
 import {
   ActionIcon,
   CloseButton,
+  ColorInput,
   Grid,
   Group,
   Modal,
@@ -68,7 +69,7 @@ export default function CreateModal({
       role: "employee",
       kitchenRate: null,
       drivingRate: null,
-      displayColor: "blue", // To do: Add a color picker input for this
+      displayColor: "blue",
     },
     validate: {
       email: isEmail("Invalid email format"),
@@ -190,6 +191,14 @@ export default function CreateModal({
               {...form.getInputProps("email")}
             />
           </Grid.Col>
+          <Grid.Col>
+            <ColorInput
+              label="Profile Color"
+              name="displayColor"
+              key={form.key("displayColor")}
+              {...form.getInputProps("displayColor")}
+            />
+          </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
             <NumberInput
               label="Kitchen Rate"
@@ -216,7 +225,6 @@ export default function CreateModal({
               {...form.getInputProps("drivingRate")}
             />
           </Grid.Col>
-          <Grid.Col></Grid.Col>
           <Grid.Col>
             <Select
               label="Dashboard Role"

@@ -3,6 +3,7 @@ import { rolesOptions } from "@/tanstack-query/queries/roles";
 import type { ProfileRow, UpdateProfileInfo } from "@/types/rpmp-types";
 import {
   Button,
+  ColorInput,
   Group,
   NumberInput,
   PasswordInput,
@@ -55,6 +56,7 @@ export default function ProfileUpdateForm({
       drivingRate: profile.drivingRate,
       role: profile.role,
       newPassword: "",
+      color: profile.displayColor
     },
     validate: {
       newEmail: (value) => {
@@ -88,6 +90,7 @@ export default function ProfileUpdateForm({
           Number(values.drivingRate) === 0 ? null : Number(values.drivingRate),
         role: values.role,
         userId: profile.userId,
+        displayColor: values.color
       },
       newEmail,
       newPassword: values.newPassword !== "" ? values.newPassword : null,
@@ -139,22 +142,14 @@ export default function ProfileUpdateForm({
             {...form.getInputProps("newPassword")}
           />
         )}
+        <ColorInput
+          label="Profile Color"
+          name="color"
+          key={form.key("color")}
+          {...form.getInputProps("color")}
+        />
         {showAdminControls && (
           <Stack>
-            <Tooltip
-              label={`Error fetching role explanations: ${rolesError?.message}`}
-              disabled={rolesError === null}
-            >
-              <Select
-                label="Dashboard Role"
-                name="role"
-                data={selectData}
-                disabled={rolesError !== null}
-                key={form.key("role")}
-                {...form.getInputProps("role")}
-              />
-            </Tooltip>
-            <Subtitle textAlign="start">{explanation}</Subtitle>
             <Group grow>
               <NumberInput
                 label="Kitchen Rate"
@@ -179,11 +174,27 @@ export default function ProfileUpdateForm({
                 {...form.getInputProps("drivingRate")}
               />
             </Group>
+            <Tooltip
+              label={`Error fetching role explanations: ${rolesError?.message}`}
+              disabled={rolesError === null}
+            >
+              <Select
+                label="Dashboard Role"
+                name="role"
+                data={selectData}
+                disabled={rolesError !== null}
+                key={form.key("role")}
+                {...form.getInputProps("role")}
+              />
+            </Tooltip>
+            <Subtitle textAlign="start">{explanation}</Subtitle>
           </Stack>
         )}
-        <Button type="submit" name="formId" value="updateProfile">
-          Update profile
-        </Button>
+        <Tooltip disabled={form.isDirty()} label="No changes detected">
+          <Button type="submit" name="formId" value="updateProfile" disabled={!form.isDirty()}>
+            Update profile
+          </Button>
+        </Tooltip>
       </Stack>
     </form>
   );
