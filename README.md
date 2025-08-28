@@ -17,6 +17,6 @@ A demo of the dashboard hosted on Netlify can be accessed [here](https://rpmp-cl
 - **email**: darkside@empire.com
 - **email**: ilovepadme
 
-You can test all of the features listed above; in particular, if you'd like to try the order processing you can download a csv file of samplle orders [here](./public/sample-orders.csv)
+You can test all of the features listed above; in particular, if you'd like to try the order processing you can download a csv file of sample orders [here](./public/sample-orders.csv)
 
 The repository for the server side code can be found [here](https://github.com/nathancarllopez/rpmp-server).
