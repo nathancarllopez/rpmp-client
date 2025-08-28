@@ -36,7 +36,7 @@ export default function FormWithDisable({
         {isSubmittingRef.current ? submittingLabel : label}
       </Button>
     </Center>
-  )
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,9 +62,9 @@ export default function FormWithDisable({
   return (
     <Paper {...margins} pos={"relative"}>
       <form onSubmit={handleSubmit}>
-        {submitButtonPlacement === "top" && <SubmitButton/>}
+        {submitButtonPlacement === "top" && <SubmitButton />}
         {children}
-        {submitButtonPlacement === "bottom" && <SubmitButton/>}
+        {submitButtonPlacement === "bottom" && <SubmitButton />}
       </form>
     </Paper>
   );
