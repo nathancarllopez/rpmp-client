@@ -84,7 +84,6 @@ function LoginForm() {
       });
 
       await router.invalidate();
-      await new Promise((resolve) => setTimeout(resolve, 1));
 
       await navigate({ to: "/dashboard/home" });
     } catch (error) {
@@ -116,8 +115,9 @@ function LoginForm() {
         margins={{ mt: 50 }}
         submitButtonLabels={{
           label: "Sign In",
-          disabledLabel: "Signing In...",
+          submittingLabel: "Signing In...",
         }}
+        formIsValid={form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <TextInput

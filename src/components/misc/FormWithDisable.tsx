@@ -4,10 +4,11 @@ import { useRef, type FormEvent } from "react";
 
 interface FormWithDisableProps {
   margins?: Record<string, number>;
-  submitButtonLabels: { label: string; disabledLabel: string };
+  submitButtonLabels: { label: string; submittingLabel: string };
   submitButtonStyle?: Record<string, string | boolean>;
   submitButtonPlacement?: "top" | "bottom";
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> | void;
+  formIsValid: boolean;
   children: React.ReactNode;
 }
 
@@ -20,13 +21,22 @@ export default function FormWithDisable({
   },
   submitButtonPlacement = "bottom",
   onSubmit,
+  formIsValid,
   children,
 }: FormWithDisableProps) {
   const isLoading = useRouterState({ select: (state) => state.isLoading });
   const isSubmittingRef = useRef(false);
-  const isDisabled = isSubmittingRef.current || isLoading;
+  const isDisabled = isSubmittingRef.current || isLoading || !formIsValid;
 
-  const { label, disabledLabel } = submitButtonLabels;
+  const { label, submittingLabel } = submitButtonLabels;
+
+  const SubmitButton = () => (
+    <Center>
+      <Button disabled={isDisabled} type="submit" {...submitButtonStyle}>
+        {isSubmittingRef.current ? submittingLabel : label}
+      </Button>
+    </Center>
+  )
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,26 +62,9 @@ export default function FormWithDisable({
   return (
     <Paper {...margins} pos={"relative"}>
       <form onSubmit={handleSubmit}>
-        <fieldset
-          disabled={isDisabled}
-          style={{ all: "unset", display: "contents" }}
-        >
-          {submitButtonPlacement === "top" && (
-            <Center>
-              <Button type="submit" {...submitButtonStyle}>
-                {isDisabled ? disabledLabel : label}
-              </Button>
-            </Center>
-          )}
-          {children}
-          {submitButtonPlacement === "bottom" && (
-            <Center>
-              <Button type="submit" {...submitButtonStyle}>
-                {isDisabled ? disabledLabel : label}
-              </Button>
-            </Center>
-          )}
-        </fieldset>
+        {submitButtonPlacement === "top" && <SubmitButton/>}
+        {children}
+        {submitButtonPlacement === "bottom" && <SubmitButton/>}
       </form>
     </Paper>
   );

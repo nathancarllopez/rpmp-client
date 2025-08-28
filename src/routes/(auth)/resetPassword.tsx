@@ -65,8 +65,9 @@ function ResetPassword() {
         margins={{ mt: 50 }}
         submitButtonLabels={{
           label: "Email reset link",
-          disabledLabel: "Emailing reset link...",
+          submittingLabel: "Emailing reset link...",
         }}
+        formIsValid={form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <TextInput

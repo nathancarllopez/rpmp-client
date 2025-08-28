@@ -80,8 +80,9 @@ function ChangePassword() {
         margins={{ mt: 50 }}
         submitButtonLabels={{
           label: "Change Password",
-          disabledLabel: "Changing Password...",
+          submittingLabel: "Changing Password...",
         }}
+        formIsValid={form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <PasswordInput

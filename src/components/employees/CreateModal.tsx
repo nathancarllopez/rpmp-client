@@ -157,9 +157,10 @@ export default function CreateModal({
       <FormWithDisable
         submitButtonLabels={{
           label: "Create",
-          disabledLabel: "Creating...",
+          submittingLabel: "Creating...",
         }}
         submitButtonStyle={{ mt: "md" }}
+        formIsValid={form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <Grid>

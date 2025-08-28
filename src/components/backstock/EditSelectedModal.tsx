@@ -165,9 +165,10 @@ export default function EditSelectedModal({
       <FormWithDisable
         submitButtonLabels={{
           label: "Update",
-          disabledLabel: "Updating...",
+          submittingLabel: "Updating...",
         }}
         submitButtonStyle={{ mt: "md" }}
+        formIsValid={form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <Table>

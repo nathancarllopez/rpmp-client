@@ -244,8 +244,9 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
         <FormWithDisable
           submitButtonLabels={{
             label: "Add",
-            disabledLabel: "Adding...",
+            submittingLabel: "Adding...",
           }}
+          formIsValid={form.isValid()}
           submitButtonStyle={{}}
           onSubmit={form.onSubmit(handleSubmit)}
         >
