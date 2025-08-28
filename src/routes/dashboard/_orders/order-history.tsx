@@ -1,7 +1,7 @@
 import fetchReportUrl from "@/api/fetchReportUrl";
 import LoadingScreen from "@/components/misc/LoadingScreen";
 import { orderHistoryOptions } from "@/tanstack-query/queries/orderHistory";
-import { Box, Button, Paper, Select, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Paper, Select, Stack, Text, Title, Tooltip } from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -73,14 +73,16 @@ function OrderHistory() {
     <Stack>
       <Title>Order History</Title>
 
-      <Select
-        allowDeselect={false}
-        checkIconPosition="right"
-        placeholder="Select Date"
-        data={selectData}
-        value={selected}
-        onChange={handleSelectChange}
-      />
+      <Tooltip disabled={selectData.length > 0} label="No previous orders found">
+        <Select
+          allowDeselect={false}
+          checkIconPosition="right"
+          placeholder="Select Date"
+          data={selectData}
+          value={selected}
+          onChange={handleSelectChange}
+        />
+      </Tooltip>
 
       <Button
         component="a"

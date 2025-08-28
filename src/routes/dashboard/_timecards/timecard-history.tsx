@@ -2,7 +2,16 @@ import fetchTimecardsUrl from "@/api/fetchTimecardsUrl";
 import { formatTimecardsData } from "@/business-logic/timecards/formatTimecardsData";
 import LoadingScreen from "@/components/misc/LoadingScreen";
 import { timecardHistoryOptions } from "@/tanstack-query/queries/timecardHistory";
-import { Box, Button, Paper, Select, Stack, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Paper,
+  Select,
+  Stack,
+  Text,
+  Title,
+  Tooltip,
+} from "@mantine/core";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -20,7 +29,7 @@ function TimecardHistory() {
   const [displayedUrl, setDisplayedUrl] = useState<string | null>(null);
 
   const { data: timecardHistoryRows, error: timecardError } = useSuspenseQuery(
-    timecardHistoryOptions(),
+    timecardHistoryOptions()
   );
   const selectData = useMemo(
     () =>
@@ -28,7 +37,7 @@ function TimecardHistory() {
         value: row.id.toString(),
         label: new Date(row.createdAt).toLocaleString(),
       })),
-    [timecardHistoryRows],
+    [timecardHistoryRows]
   );
 
   const errors = [timecardError].filter((error) => !!error);
@@ -55,7 +64,7 @@ function TimecardHistory() {
     }
 
     const timecardsMatch = timecardHistoryRows.find(
-      (row) => row.id === Number(value),
+      (row) => row.id === Number(value)
     );
     if (timecardsMatch === undefined) {
       console.warn("Could not find matching timecard for this row id:");
@@ -74,14 +83,19 @@ function TimecardHistory() {
     <Stack>
       <Title>Timecard History</Title>
 
-      <Select
-        allowDeselect={false}
-        checkIconPosition="right"
-        placeholder="Select Date"
-        data={selectData}
-        value={selected}
-        onChange={handleSelectChange}
-      />
+      <Tooltip
+        disabled={selectData.length > 0}
+        label="No timecard history found"
+      >
+        <Select
+          allowDeselect={false}
+          checkIconPosition="right"
+          placeholder="Select Date"
+          data={selectData}
+          value={selected}
+          onChange={handleSelectChange}
+        />
+      </Tooltip>
 
       <Button
         component="a"
