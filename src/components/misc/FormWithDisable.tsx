@@ -28,6 +28,10 @@ export default function FormWithDisable({
   const isSubmittingRef = useRef(false);
   const isDisabled = isSubmittingRef.current || isLoading || !formIsValid;
 
+  console.log('isLoading', isLoading);
+  console.log('isSubmittingRef.current', isSubmittingRef.current);
+  console.log('formIsValid', formIsValid);
+
   const { label, submittingLabel } = submitButtonLabels;
 
   const SubmitButton = () => (
