@@ -8,7 +8,8 @@ interface FormWithDisableProps {
   submitButtonStyle?: Record<string, string | boolean>;
   submitButtonPlacement?: "top" | "bottom";
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> | void;
-  formIsValid: boolean;
+  // formIsValid: boolean;
+  formIsValid: () => boolean;
   children: React.ReactNode;
 }
 
@@ -26,11 +27,11 @@ export default function FormWithDisable({
 }: FormWithDisableProps) {
   const isLoading = useRouterState({ select: (state) => state.isLoading });
   const isSubmittingRef = useRef(false);
-  const isDisabled = isSubmittingRef.current || isLoading || !formIsValid;
+  const isDisabled = isSubmittingRef.current || isLoading || !formIsValid();
 
   console.log('isLoading', isLoading);
   console.log('isSubmittingRef.current', isSubmittingRef.current);
-  console.log('formIsValid', formIsValid);
+  console.log('formIsValid', formIsValid());
 
   const { label, submittingLabel } = submitButtonLabels;
 

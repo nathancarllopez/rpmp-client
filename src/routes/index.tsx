@@ -117,7 +117,7 @@ function LoginForm() {
           label: "Sign In",
           submittingLabel: "Signing In...",
         }}
-        formIsValid={form.isValid()}
+        formIsValid={() => form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <TextInput
