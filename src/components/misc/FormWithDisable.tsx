@@ -27,7 +27,8 @@ export default function FormWithDisable({
 }: FormWithDisableProps) {
   const isLoading = useRouterState({ select: (state) => state.isLoading });
   const isSubmittingRef = useRef(false);
-  const isDisabled = isSubmittingRef.current || isLoading || !formIsValid();
+  // const isDisabled = isSubmittingRef.current || isLoading || !formIsValid();
+  const isDisabled = isSubmittingRef.current || isLoading;
 
   console.log('isLoading', isLoading);
   console.log('isSubmittingRef.current', isSubmittingRef.current);
