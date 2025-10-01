@@ -246,7 +246,7 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
             label: "Add",
             submittingLabel: "Adding...",
           }}
-          formIsValid={form.isValid()}
+          formIsValid={() => form.isValid()}
           submitButtonStyle={{}}
           onSubmit={form.onSubmit(handleSubmit)}
         >

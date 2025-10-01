@@ -67,7 +67,7 @@ function ResetPassword() {
           label: "Email reset link",
           submittingLabel: "Emailing reset link...",
         }}
-        formIsValid={form.isValid()}
+        formIsValid={() => form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <TextInput

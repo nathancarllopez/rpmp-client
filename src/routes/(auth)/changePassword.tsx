@@ -82,7 +82,7 @@ function ChangePassword() {
           label: "Change Password",
           submittingLabel: "Changing Password...",
         }}
-        formIsValid={form.isValid()}
+        formIsValid={() => form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <PasswordInput

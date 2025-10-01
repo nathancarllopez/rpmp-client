@@ -168,7 +168,7 @@ export default function EditSelectedModal({
           submittingLabel: "Updating...",
         }}
         submitButtonStyle={{ mt: "md" }}
-        formIsValid={form.isValid()}
+        formIsValid={() => form.isValid()}
         onSubmit={form.onSubmit(handleSubmit)}
       >
         <Table>
